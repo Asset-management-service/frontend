@@ -60,5 +60,8 @@
     "@testing-library/user-event": "^13.5.0",
     "json-server": "^0.17.0",
     "msw": "^0.39.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
