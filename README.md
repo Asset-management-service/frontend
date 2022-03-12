@@ -39,7 +39,7 @@
 
 **Dev Tools**
 
-- [@redux-devtools/extension](https://www.npmjs.com/package/@redux-devtools/extension)
+- [@redux-devtools/extension](https://github.com/reduxjs/redux-devtools)
 - [JSON-server](https://github.com/typicode/json-server)
 - [Mock Service Worker](https://mswjs.io/)
 
