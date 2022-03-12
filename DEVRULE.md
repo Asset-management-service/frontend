@@ -52,8 +52,8 @@ EX) git commit -m "Fix: Login Component 기능 추가"
 
 **branch 분기 및 작업**
 
-- 이슈 번호에 맞게 `feature-issueNumber` 브랜치 분기 ex) develop -> feature-8
-- fork한 저장소를 로컬로 clone하고 해당 브랜치에서 issue에 작성해놓은 개발 작업 진행
+- 이슈 번호에 맞게 `feature-issueNumber` 브랜치 생성 ex) feature-8
+- 해당 브랜치에서 issue에 작성해놓은 개발 작업 진행
 
 **Pull Request**
 
