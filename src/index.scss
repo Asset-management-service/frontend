@@ -49,7 +49,6 @@ select,
 table,
 textarea {
   font-size: 12px;
-  line-height: 16px;
   color: #202020;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -62,7 +61,6 @@ h4,
 h5,
 h6 {
   font-size: inherit;
-  line-height: inherit;
 }
 textarea {
   -webkit-backface-visibility: hidden;
@@ -80,6 +78,7 @@ input {
 }
 button {
   background-color: transparent;
+  cursor: pointer;
 }
 fieldset,
 img {
@@ -89,7 +88,8 @@ img {
   vertical-align: top;
 }
 ol,
-ul {
+ul,
+li {
   list-style: none;
 }
 address,
@@ -99,9 +99,6 @@ em {
 a {
   color: inherit;
   text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
 }
 iframe {
   overflow: hidden;
