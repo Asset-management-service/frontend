@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
-const StyledDropBox = styled.div`
+const StyledComboBox = styled.div`
   position: relative;
   width: 300px;
   height: 35px;
@@ -59,14 +59,14 @@ const OptionItem = styled.li`
   }
 `;
 
-export function DropBox({ categories, initialLabel, mainColor }) {
+export function ComboBox({ categories, initialLabel, mainColor }) {
   const [label, setLabel] = useState(initialLabel);
   const [active, setActive] = useState(false);
   const onSelect = (category) => {
     setLabel(category);
   };
   return (
-    <StyledDropBox onClick={() => setActive(!active)}>
+    <StyledComboBox onClick={() => setActive(!active)}>
       <Label>
         {label}
         <KeyboardArrowDownRoundedIcon></KeyboardArrowDownRoundedIcon>
@@ -82,6 +82,6 @@ export function DropBox({ categories, initialLabel, mainColor }) {
           </OptionItem>
         ))}
       </OptionsList>
-    </StyledDropBox>
+    </StyledComboBox>
   );
 }
