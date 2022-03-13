@@ -9,6 +9,9 @@ const StyledComboBox = styled.div`
   border-radius: 4px;
   border: 2px solid #000;
   cursor: pointer;
+  &.active {
+    border-color: #850dec;
+  }
 `;
 
 const Label = styled.div`
@@ -24,11 +27,11 @@ const OptionsList = styled.ul`
   top: 40px;
   left: 0;
   width: 100%;
-  background-color: lightgray;
   overflow-y: scroll;
   transition: all 0.3s ease-in;
   border-radius: 4px;
   max-height: 0;
+  box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.3);
   &.active {
     max-height: 300px;
   }
@@ -52,7 +55,7 @@ const OptionItem = styled.li`
   transition: 0.1s;
   &:hover,
   &.selected {
-    background-color: gray;
+    background-color: lightgray;
   }
   &:last-child {
     border-bottom: 0 none;
@@ -66,7 +69,10 @@ export function ComboBox({ categories, initialLabel, mainColor }) {
     setLabel(category);
   };
   return (
-    <StyledComboBox onClick={() => setActive(!active)}>
+    <StyledComboBox
+      onClick={() => setActive(!active)}
+      className={active ? 'active' : ''}
+    >
       <Label>
         {label}
         <KeyboardArrowDownRoundedIcon></KeyboardArrowDownRoundedIcon>
