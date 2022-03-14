@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useToggle } from '../../hooks';
 import styled from 'styled-components';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
@@ -66,15 +67,12 @@ const OptionItem = styled.li`
 
 export function ComboBox({ categories, initialLabel, mainColor }) {
   const [label, setLabel] = useState(initialLabel);
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useToggle(false);
   const onSelect = (category) => {
     setLabel(category);
   };
   return (
-    <StyledComboBox
-      onClick={() => setActive(!active)}
-      className={active ? 'active' : ''}
-    >
+    <StyledComboBox onClick={setActive} className={active ? 'active' : ''}>
       <Label>
         {label}
         <KeyboardArrowDownRoundedIcon />

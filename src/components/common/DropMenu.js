@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useToggle } from '../../hooks';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import styled from 'styled-components';
 
@@ -38,11 +38,10 @@ const Menu = styled.li`
   }
 `;
 export function DropMenu({ menus }) {
-  const [open, setOpen] = useState(false);
-  const onToggle = () => setOpen(!open);
+  const [open, setOpen] = useToggle(false);
   return (
     <DropMenuWrapper>
-      <DropMenuBtn onClick={onToggle}>
+      <DropMenuBtn onClick={setOpen}>
         <MoreVertIcon className="DropMenu-icon" />
       </DropMenuBtn>
 

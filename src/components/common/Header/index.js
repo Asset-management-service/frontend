@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import Logo from './Logo';
 import NavBtn from './NavBtn';
 import NavLinks from './NavLinks';
 import UserLinks from './UserLinks';
+import { useToggle } from '../../../hooks';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
@@ -47,15 +47,14 @@ const Spacer = styled.div`
 `;
 
 function Header() {
-  const [open, setOpen] = useState(false);
-  const onToggle = () => setOpen(!open);
+  const [open, setOpen] = useToggle(false);
   return (
     <>
       <StyledHeader>
         <StyledNavWrapper>
           <StyledNavCenter>
             <Logo />
-            <NavBtn onToggle={onToggle} open={open} />
+            <NavBtn onToggle={setOpen} open={open} />
           </StyledNavCenter>
           <NavLinks open={open} />
           <UserLinks user={false} />
