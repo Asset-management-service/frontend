@@ -86,10 +86,10 @@ const Spinner = styled.div`
   }
 `;
 
-function Loading() {
+function Loading({ mainColor }) {
   return (
     <SpinnerWrapper>
-      <Spinner color={Palette.grape[4]}>
+      <Spinner color={mainColor}>
         <div></div>
         <div></div>
         <div></div>

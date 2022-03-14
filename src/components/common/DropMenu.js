@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const DropMenuWrapper = styled.div`
   display: inline-block;
-  margin-left: 10rem;
   position: relative;
+  margin-left: 10rem; // 임시
 `;
 
 const DropMenuBtn = styled.button`

@@ -12,6 +12,7 @@ const StyledHeader = styled.header`
   right: 0;
   background-color: white;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  z-index: 5;
 `;
 
 const StyledNavWrapper = styled.div`
@@ -41,20 +42,27 @@ const StyledNavCenter = styled.div`
   }
 `;
 
+const Spacer = styled.div`
+  height: 8rem;
+`;
+
 function Header() {
   const [open, setOpen] = useState(false);
   const onToggle = () => setOpen(!open);
   return (
-    <StyledHeader>
-      <StyledNavWrapper>
-        <StyledNavCenter>
-          <Logo />
-          <NavBtn onToggle={onToggle} open={open} />
-        </StyledNavCenter>
-        <NavLinks open={open} />
-        <UserLinks user={false} />
-      </StyledNavWrapper>
-    </StyledHeader>
+    <>
+      <StyledHeader>
+        <StyledNavWrapper>
+          <StyledNavCenter>
+            <Logo />
+            <NavBtn onToggle={onToggle} open={open} />
+          </StyledNavCenter>
+          <NavLinks open={open} />
+          <UserLinks user={false} />
+        </StyledNavWrapper>
+      </StyledHeader>
+      <Spacer />
+    </>
   );
 }
 export default Header;

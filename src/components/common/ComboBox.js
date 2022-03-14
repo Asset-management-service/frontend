@@ -4,7 +4,7 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 
 const StyledComboBox = styled.div`
   position: relative;
-  width: 300px;
+  width: 200px;
   height: 35px;
   border-radius: 4px;
   border: 2px solid #000;
@@ -32,6 +32,8 @@ const OptionsList = styled.ul`
   border-radius: 4px;
   max-height: 0;
   box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  background-color: #fff;
   &.active {
     max-height: 300px;
   }
@@ -75,7 +77,7 @@ export function ComboBox({ categories, initialLabel, mainColor }) {
     >
       <Label>
         {label}
-        <KeyboardArrowDownRoundedIcon></KeyboardArrowDownRoundedIcon>
+        <KeyboardArrowDownRoundedIcon />
       </Label>
       <OptionsList mainColor={mainColor} className={active ? 'active' : ''}>
         {categories.map((category, index) => (
