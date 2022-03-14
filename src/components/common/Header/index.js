@@ -43,7 +43,7 @@ const StyledNavCenter = styled.div`
 `;
 
 const Spacer = styled.div`
-  height: 8rem;
+  height: 5.4rem;
 `;
 
 function Header() {
