@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import Logo from './Logo';
 import NavBtn from './NavBtn';
 import NavLinks from './NavLinks';
 import UserLinks from './UserLinks';
+import { useToggle } from '../../../hooks';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
@@ -12,6 +12,7 @@ const StyledHeader = styled.header`
   right: 0;
   background-color: white;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  z-index: 5;
 `;
 
 const StyledNavWrapper = styled.div`
@@ -41,20 +42,26 @@ const StyledNavCenter = styled.div`
   }
 `;
 
+const Spacer = styled.div`
+  height: 5.4rem;
+`;
+
 function Header() {
-  const [open, setOpen] = useState(false);
-  const onToggle = () => setOpen(!open);
+  const [open, setOpen] = useToggle(false);
   return (
-    <StyledHeader>
-      <StyledNavWrapper>
-        <StyledNavCenter>
-          <Logo />
-          <NavBtn onToggle={onToggle} open={open} />
-        </StyledNavCenter>
-        <NavLinks open={open} />
-        <UserLinks user={false} />
-      </StyledNavWrapper>
-    </StyledHeader>
+    <>
+      <StyledHeader>
+        <StyledNavWrapper>
+          <StyledNavCenter>
+            <Logo />
+            <NavBtn onToggle={setOpen} open={open} />
+          </StyledNavCenter>
+          <NavLinks open={open} />
+          <UserLinks user={false} />
+        </StyledNavWrapper>
+      </StyledHeader>
+      <Spacer />
+    </>
   );
 }
 export default Header;
