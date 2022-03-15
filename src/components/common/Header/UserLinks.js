@@ -43,10 +43,11 @@ const StyledUserLink = styled.li`
       margin-left: 0;
     }
     a {
-      padding: 1.5rem 0rem 1.5rem 2rem;
+      padding: 1rem 0rem 1rem 2rem;
       &:hover {
         color: inherit;
         background-color: #9dacca;
+        padding-left: 2.5rem;
       }
     }
   }

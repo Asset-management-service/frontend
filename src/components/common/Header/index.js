@@ -34,12 +34,12 @@ const StyledNavWrapper = styled.div`
     overflow: hidden;
     transition: all 0.2s ease-in-out;
     &.show {
-      height: 386px;
+      height: 322px;
     }
   }
   @media screen and (max-width: 600px) {
     &.show {
-      height: 536px;
+      height: 440px;
     }
   }
 `;

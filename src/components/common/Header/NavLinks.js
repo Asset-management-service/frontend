@@ -27,10 +27,11 @@ const StyledNavLink = styled.li`
     a {
       display: block;
       width: 100%;
-      padding: 1.5rem 0rem 1.5rem 2rem;
+      padding: 1rem 0rem 1rem 2rem;
       &:hover {
         color: inherit;
         background-color: ${({ hover }) => hover};
+        padding-left: 2.5rem;
       }
     }
   }
