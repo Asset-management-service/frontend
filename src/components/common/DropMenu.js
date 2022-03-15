@@ -32,7 +32,7 @@ const Menus = styled.ul`
 const Menu = styled.li`
   padding: 0.4rem 1rem;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   &:hover {
     background-color: lightgray;
   }

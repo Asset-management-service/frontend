@@ -29,7 +29,7 @@ const OptionsList = styled.ul`
   left: 0;
   width: 100%;
   overflow-y: scroll;
-  transition: all 0.3s ease-in;
+  transition: all 0.2s ease-in;
   border-radius: 4px;
   max-height: 0;
   box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.3);
@@ -55,7 +55,7 @@ const OptionsList = styled.ul`
 
 const OptionItem = styled.li`
   padding: 10px 15px;
-  transition: 0.1s;
+  transition: all 0.2s ease-in-out;
   &:hover,
   &.selected {
     background-color: lightgray;
