@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import Logo from './Logo';
 import NavBtn from './NavBtn';
 import NavLinks from './NavLinks';
@@ -10,25 +11,36 @@ const StyledHeader = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  background-color: white;
-  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  background-color: #3f4a75;
+  color: #fff;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.4);
   z-index: 5;
 `;
 
 const StyledNavWrapper = styled.div`
-  width: 85vw;
+  width: 90vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1300px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  @media screen and (max-width: 1300px) {
+  height: 5.4rem;
+  @media screen and (max-width: 1120px) {
     display: block;
-    height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+    &.show {
+      height: 386px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    &.show {
+      height: 536px;
+    }
   }
 `;
 
@@ -36,7 +48,7 @@ const StyledNavCenter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media screen and (max-width: 1300px) {
+  @media screen and (max-width: 1120px) {
     width: 100%;
     padding: 1rem 2rem;
   }
@@ -51,16 +63,17 @@ function Header() {
   return (
     <>
       <StyledHeader>
-        <StyledNavWrapper>
+        <StyledNavWrapper className={open ? 'show' : ''}>
           <StyledNavCenter>
             <Logo />
             <NavBtn onToggle={setOpen} open={open} />
           </StyledNavCenter>
           <NavLinks open={open} />
-          <UserLinks user={false} />
+          <UserLinks user={false} open={open} />
         </StyledNavWrapper>
       </StyledHeader>
       <Spacer />
+      <Outlet />
     </>
   );
 }

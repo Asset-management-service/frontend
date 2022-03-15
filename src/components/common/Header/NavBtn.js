@@ -3,9 +3,10 @@ import styled from 'styled-components';
 
 const StyledNavBtn = styled.button`
   display: none;
-  @media screen and (max-width: 1300px) {
+  color: #fff;
+  @media screen and (max-width: 1120px) {
     display: block;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
     &:hover {
       transform: rotateZ(90deg);
     }

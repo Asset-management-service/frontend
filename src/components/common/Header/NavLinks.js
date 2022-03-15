@@ -5,15 +5,10 @@ import styled from 'styled-components';
 
 const StyledNavLinks = styled.ul`
   display: flex;
-  @media screen and (max-width: 1300px) {
+  @media screen and (max-width: 1120px) {
     flex-direction: column;
-    height: 0px;
-    overflow: hidden;
-    transition: all 0.3s linear;
+    transition: all 0.2s linear;
     justify-content: flex-start;
-    &.show {
-      height: 300px;
-    }
   }
 `;
 
@@ -22,12 +17,12 @@ const StyledNavLink = styled.li`
   font-size: 20px;
   transition: all 0.3s ease-in-out;
   a {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
     &:hover {
-      color: ${({ hover }) => hover};
+      color: ${Palette.gray[1]};
     }
   }
-  @media screen and (max-width: 1300px) {
+  @media screen and (max-width: 1120px) {
     margin: 0;
     a {
       display: block;
@@ -48,7 +43,7 @@ function NavLinks({ open }) {
   return (
     <StyledNavLinks className={open ? 'show' : ''}>
       {nav.map((menu) => (
-        <StyledNavLink key={menu.id} hover={Palette.gray[4]}>
+        <StyledNavLink key={menu.id} hover="#9DACCA">
           <NavLink
             to={menu.to}
             style={({ isActive }) => (isActive ? activeStyle : {})}
