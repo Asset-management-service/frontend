@@ -46,7 +46,7 @@ function Header({ loading }) {
   }, []);
 
   if (loading) {
-    return <Loading mainColor={Palette.grape[5]} />;
+    return <Loading mainColor={Palette.blue[5]} />;
   }
 
   return (
