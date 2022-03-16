@@ -25,14 +25,7 @@ const StyledNavCenter = styled.div`
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease-in-out;
-  ${({ scroll }) =>
-    scroll
-      ? css`
-          padding: 0.5rem 0 0 0;
-        `
-      : css`
-          padding: 2rem 0 0 0;
-        `}
+  padding-top: ${({ scroll }) => (scroll ? '0.5rem' : '2rem')};
 `;
 
 const Spacer = styled.div`
