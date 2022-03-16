@@ -5,52 +5,40 @@ import styled from 'styled-components';
 
 const StyledNavLinks = styled.ul`
   display: flex;
-  @media screen and (max-width: 1120px) {
-    flex-direction: column;
-    transition: all 0.2s linear;
-    justify-content: flex-start;
-  }
+  justify-content: center;
+  position: relative;
+  top: 23px;
+  background-color: rgba(225, 225, 225, 0.3);
+  backdrop-filter: blur(50px);
+  box-shadow: 5px 5px 10px rgb(0 0 0 / 9%);
+  border-radius: 2rem;
+  padding: 0.5rem 0;
 `;
 
 const StyledNavLink = styled.li`
-  margin: 0 10px;
+  margin: 0 3rem;
   font-size: 20px;
   transition: all 0.3s ease-in-out;
   a {
     transition: all 0.2s ease-in-out;
     &:hover {
-      color: ${Palette.gray[1]};
+      color: ${Palette.gray[6]};
+    }
+    &.active {
+      font-weight: bold;
     }
   }
-  @media screen and (max-width: 1120px) {
-    margin: 0;
-    a {
-      display: block;
-      width: 100%;
-      padding: 1rem 0rem 1rem 2rem;
-      &:hover {
-        color: inherit;
-        background-color: ${({ hover }) => hover};
-        padding-left: 2.5rem;
-      }
-    }
+  @media screen and (max-width: 900px) {
+    margin: 0 2rem;
   }
 `;
 
-function NavLinks({ open }) {
-  const activeStyle = {
-    color: Palette.gray[6],
-  };
+function NavLinks() {
   return (
-    <StyledNavLinks className={open ? 'show' : ''}>
+    <StyledNavLinks>
       {nav.map((menu) => (
-        <StyledNavLink key={menu.id} hover="#9DACCA">
-          <NavLink
-            to={menu.to}
-            style={({ isActive }) => (isActive ? activeStyle : {})}
-          >
-            {menu.label}
-          </NavLink>
+        <StyledNavLink key={menu.id}>
+          <NavLink to={menu.to}>{menu.label}</NavLink>
         </StyledNavLink>
       ))}
     </StyledNavLinks>

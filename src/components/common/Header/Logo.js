@@ -1,18 +1,28 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const StyledLogo = styled.h1`
-  font-size: 40px;
-  a {
-    color: #fff;
+const StyledLogo = styled(Link)`
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  color: #fe676e;
+  ${({ scroll }) =>
+    scroll
+      ? css`
+          font-size: 38px;
+        `
+      : css`
+          font-size: 60px;
+        `}
+  h1 {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+      sans-serif;
   }
 `;
-function Logo() {
+function Logo({ scroll }) {
   return (
-    <StyledLogo>
-      <Link to="/">
-        모아모아<span>🐷</span>
-      </Link>
+    <StyledLogo to="/" scroll={scroll}>
+      <h1>Moa Moa</h1>
     </StyledLogo>
   );
 }
