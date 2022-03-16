@@ -1,69 +1,76 @@
-import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Loading from '../Loading';
 import Logo from './Logo';
+import NavBtn from './NavBtn';
 import NavLinks from './NavLinks';
 import UserLinks from './UserLinks';
-import Palette from '../../../lib/Palette';
-import styled, { css } from 'styled-components';
+import { useToggle } from '../../../hooks';
+import styled from 'styled-components';
 
 const StyledHeader = styled.header`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  background-color: #3f4a75;
+  color: #fff;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.4);
   z-index: 5;
+`;
+
+const StyledNavWrapper = styled.div`
+  width: 90vw;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  background-color: #dee3ed;
-  min-width: 700px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  height: 5.4rem;
+  @media screen and (max-width: 1120px) {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+    &.show {
+      height: 322px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    &.show {
+      height: 440px;
+    }
+  }
 `;
 
 const StyledNavCenter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.2s ease-in-out;
-  ${({ scroll }) =>
-    scroll
-      ? css`
-          padding: 0.5rem 0 0 0;
-        `
-      : css`
-          padding: 2rem 0 0 0;
-        `}
+  @media screen and (max-width: 1120px) {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
 `;
 
 const Spacer = styled.div`
-  height: 14.3rem;
+  height: 5.4rem;
 `;
 
-function Header({ loading }) {
-  const [scroll, setScroll] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY !== 0) {
-        setScroll(true);
-      } else {
-        setScroll(false);
-      }
-    });
-  }, []);
-
-  if (loading) {
-    return <Loading mainColor={Palette.grape[5]} />;
-  }
-
+function Header() {
+  const [open, setOpen] = useToggle(false);
   return (
     <>
       <StyledHeader>
-        <UserLinks />
-        <StyledNavCenter scroll={scroll}>
-          <Logo scroll={scroll} />
-        </StyledNavCenter>
-        <NavLinks />
+        <StyledNavWrapper className={open ? 'show' : ''}>
+          <StyledNavCenter>
+            <Logo />
+            <NavBtn onToggle={setOpen} open={open} />
+          </StyledNavCenter>
+          <NavLinks open={open} />
+          <UserLinks user={false} open={open} />
+        </StyledNavWrapper>
       </StyledHeader>
       <Spacer />
       <Outlet />
