@@ -1,8 +1,7 @@
-import Palette from '../../lib/Palette';
 import styled from 'styled-components';
 
 const SpinnerWrapper = styled.div`
-  height: 100vh;
+  height: 65vh;
   display: flex;
   justify-content: center;
   align-items: center;
