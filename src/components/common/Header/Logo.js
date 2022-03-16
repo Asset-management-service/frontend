@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-const StyledLogo = styled(Link)`
+const StyledLogo = styled.h1`
   text-align: center;
   transition: all 0.2s ease-in-out;
   color: #fe676e;
@@ -21,8 +21,8 @@ const StyledLogo = styled(Link)`
 `;
 function Logo({ scroll }) {
   return (
-    <StyledLogo to="/" scroll={scroll}>
-      <h1>Moa Moa</h1>
+    <StyledLogo scroll={scroll}>
+      <Link to="/">Moa Moa</Link>
     </StyledLogo>
   );
 }
