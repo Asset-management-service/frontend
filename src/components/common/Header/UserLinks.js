@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../../modules/login';
 import Palette from '../../../lib/Palette';
 import styled from 'styled-components';
 import PersonIcon from '@mui/icons-material/Person';
@@ -6,30 +8,21 @@ import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
 const StyledUserLinks = styled.ul`
+  position: absolute;
+  right: 0;
   display: flex;
-  @media screen and (max-width: 1120px) {
-    position: absolute;
-    top: 1rem;
-    right: 6rem;
-    transform: translateY(45%);
-  }
-  @media screen and (max-width: 600px) {
-    position: relative;
-    top: 0;
-    right: 0;
-    transform: none;
-    flex-direction: column;
-  }
+  padding: 1rem 2rem 0;
 `;
 
 const StyledUserLink = styled.li`
-  a {
+  a,
+  button {
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 15px;
     transition: all 0.2s ease-in-out;
     &:hover {
-      color: ${Palette.gray[1]};
+      color: ${Palette.gray[6]};
     }
   }
   & + & {
@@ -38,44 +31,33 @@ const StyledUserLink = styled.li`
   .UserLinks-icon {
     margin-right: 5px;
   }
-  @media screen and (max-width: 600px) {
-    & + & {
-      margin-left: 0;
-    }
-    a {
-      padding: 1rem 0rem 1rem 2rem;
-      &:hover {
-        color: inherit;
-        background-color: #9dacca;
-        padding-left: 2.5rem;
-      }
-    }
-  }
 `;
 
-function UserLinks({ user, open }) {
+function UserLinks() {
+  const { auth } = useSelector(({ login }) => login);
+  const dispatch = useDispatch();
+  const onLogout = () => dispatch(logout());
+
   return (
-    <StyledUserLinks className={open ? 'show' : ''}>
+    <StyledUserLinks>
       <StyledUserLink>
-        <Link to={user ? '/mypage' : '/register'}>
+        <Link to={auth ? '/mypage' : '/register'}>
           <PersonIcon className="UserLinks-icon" />
-          {user ? '마이페이지' : '회원가입'}
+          {auth ? '마이페이지' : '회원가입'}
         </Link>
       </StyledUserLink>
       <StyledUserLink>
-        <Link to={user ? '/logout' : '/login'}>
-          {user ? (
-            <>
-              <LogoutRoundedIcon className="UserLinks-icon" />
-              로그아웃
-            </>
-          ) : (
-            <>
-              <LoginRoundedIcon className="UserLinks-icon" />
-              로그인
-            </>
-          )}
-        </Link>
+        {auth ? (
+          <button onClick={onLogout}>
+            <LogoutRoundedIcon className="UserLinks-icon" />
+            로그아웃
+          </button>
+        ) : (
+          <Link to="/login">
+            <LoginRoundedIcon className="UserLinks-icon" />
+            로그인
+          </Link>
+        )}
       </StyledUserLink>
     </StyledUserLinks>
   );
