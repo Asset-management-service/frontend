@@ -8,7 +8,7 @@ const basicButtonStyle = css`
   border: none;
   background-color: transparent;
   border-radius: 4px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   letter-spacing: 2px;
   outline: none;
   cursor: pointer;
