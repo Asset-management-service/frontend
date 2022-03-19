@@ -21,7 +21,7 @@ const FormLabel = styled.label`
   }
 `;
 
-const InputWrapper = styled.div`
+export const InputWrapper = styled.div`
   position: relative;
   margin: 1rem 0 1.5rem;
   input {
@@ -37,7 +37,7 @@ const InputWrapper = styled.div`
   }
 `;
 
-const PasswordButton = styled.button`
+export const PasswordButton = styled.button`
   position: absolute;
   top: 50%;
   right: 10px;
@@ -70,7 +70,7 @@ function LoginForm({ id, password, onChange, loading, authError, onLogin }) {
         </FormLabel>
         <FormLabel>
           <p>비밀번호</p>
-          <InputWrapper className="inputWrapper">
+          <InputWrapper>
             <input
               type={show ? 'text' : 'password'}
               name="password"
@@ -82,7 +82,7 @@ function LoginForm({ id, password, onChange, loading, authError, onLogin }) {
             </PasswordButton>
           </InputWrapper>
         </FormLabel>
-        <StyledButton basiccolor="#282828" type="submit" loading={loading}>
+        <StyledButton basiccolor="#282828" type="submit">
           {loading ? '로그인 중...' : '로그인'}
         </StyledButton>
       </StyledLoginForm>
