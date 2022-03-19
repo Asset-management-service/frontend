@@ -5,7 +5,7 @@ import Logo from './Logo';
 import NavLinks from './NavLinks';
 import UserLinks from './UserLinks';
 import Palette from '../../../lib/Palette';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const StyledHeader = styled.header`
   position: fixed;
@@ -29,7 +29,13 @@ const StyledNavCenter = styled.div`
 `;
 
 const Spacer = styled.div`
-  height: 14.3rem;
+  height: ${({ scroll }) => (scroll ? '9rem' : '11.5rem')};
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 2;
 `;
 
 function Header({ loading }) {
@@ -58,7 +64,7 @@ function Header({ loading }) {
         </StyledNavCenter>
         <NavLinks />
       </StyledHeader>
-      <Spacer />
+      <Spacer scroll={scroll} />
       <Outlet />
     </>
   );

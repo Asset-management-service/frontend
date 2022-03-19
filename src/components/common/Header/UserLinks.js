@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../../modules/login';
 import Palette from '../../../lib/Palette';
@@ -36,7 +36,11 @@ const StyledUserLink = styled.li`
 function UserLinks() {
   const { auth } = useSelector(({ login }) => login);
   const dispatch = useDispatch();
-  const onLogout = () => dispatch(logout());
+  const navigate = useNavigate();
+  const onLogout = () => {
+    dispatch(logout());
+    navigate('/', { replace: true });
+  };
 
   return (
     <StyledUserLinks>
