@@ -11,7 +11,7 @@ import styled from 'styled-components';
 const ResetPwdWrapper = styled.main`
   width: 90vw;
   max-width: 500px;
-  margin: 25rem auto 0;
+  margin: 20rem auto 0;
   h1 {
     font-size: 25px;
     margin-bottom: 3rem;
