@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from '../hooks';
-import { userLogin, loginFailure } from '../modules/login';
+import { userLogin, loginFailure, initialize } from '../modules/login';
 import LoginForm from '../components/Login/LoginForm';
 
 function LoginFormContainer() {
@@ -29,6 +29,10 @@ function LoginFormContainer() {
       navigate('/', { replace: true });
     }
   }, [auth]);
+
+  useEffect(() => {
+    return () => dispatch(initialize());
+  }, []);
 
   return (
     <LoginForm

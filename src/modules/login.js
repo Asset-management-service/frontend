@@ -1,9 +1,14 @@
 import { loginAuth } from '../lib/api/auth';
 
+const INITIALIZE = 'login/INITIALIZE';
 const LOADING = 'login/LOADING';
 const LOGIN_SUCCESS = 'login/SUCCESS';
 const LOGIN_FAILURE = 'login/FAILURE';
 const LOGOUT = 'login/LOGOUT';
+
+export const initialize = () => ({
+  type: INITIALIZE,
+});
 
 export const loading = () => ({
   type: LOADING,
@@ -41,6 +46,12 @@ const initialState = {
 
 const login = (state = initialState, action) => {
   switch (action.type) {
+    case INITIALIZE:
+      return {
+        ...state,
+        loading: false,
+        authError: null,
+      };
     case LOADING:
       return {
         ...state,
