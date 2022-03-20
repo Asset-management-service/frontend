@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../common/Button';
 import { StyledModal, ModalWrapper, ButtonBox } from '../common/Modal';
-import FormInput from '../common/FormInput';
+import { FormInput } from '../common/FormInput';
 import { useForm } from '../../hooks';
 import Palette from '../../lib/Palette';
 

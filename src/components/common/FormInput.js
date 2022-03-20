@@ -46,7 +46,7 @@ const PasswordButton = styled.button`
   align-items: center;
 `;
 
-function FormInput({
+export function FormInput({
   label,
   labelIcon,
   type,
@@ -82,5 +82,3 @@ function FormInput({
     </FormLabel>
   );
 }
-
-export default FormInput;

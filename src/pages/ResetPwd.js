@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '../components/common/Button';
-import FormInput from '../components/common/FormInput';
+import { FormInput } from '../components/common/FormInput';
 import { useForm } from '../hooks';
 import Palette from '../lib/Palette';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';

@@ -1,47 +1,14 @@
 import { Button } from '../common/Button';
+import { FormInput } from '../common/FormInput';
 import LoginError from './LoginError';
 import Palette from '../../lib/Palette';
 import styled from 'styled-components';
-import FormInput from '../common/FormInput';
 
 const StyledLoginForm = styled.form`
   width: 100%;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-`;
-
-const FormLabel = styled.label`
-  width: 100%;
-  p {
-    font-size: 20px;
-  }
-`;
-
-export const InputWrapper = styled.div`
-  position: relative;
-  margin: 1rem 0 1.5rem;
-  input {
-    width: 100%;
-    font-size: 20px;
-    padding: 0.5rem;
-    border: 1px solid ${Palette.gray[1]};
-    border-radius: 4px;
-    &[type='text'],
-    &[type='password'] {
-      padding-right: 40px;
-    }
-  }
-`;
-
-export const PasswordButton = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  height: 20px;
-  display: flex;
   align-items: center;
 `;
 
