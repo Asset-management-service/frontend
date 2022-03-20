@@ -5,6 +5,7 @@ import Palette from '../../lib/Palette';
 import { useForm } from '../../hooks';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import styled from 'styled-components';
+import FormInput from '../common/FormInput';
 
 const Modal = styled(StyledModal)`
   width: 500px;
@@ -12,29 +13,8 @@ const Modal = styled(StyledModal)`
     text-align: left;
     display: flex;
     align-items: center;
-    .email-icon {
-      margin-right: 10px;
-    }
     &.text {
       text-align: center;
-    }
-    &.error-message {
-      color: ${Palette.red[6]};
-      font-size: 15px;
-    }
-  }
-  input {
-    width: 100%;
-    font-size: 20px;
-    padding: 0.5rem;
-    border: 1px solid ${Palette.gray[1]};
-    border-radius: 4px;
-    margin: 1rem 0;
-    &.error {
-      border-color: ${Palette.red[6]};
-    }
-    &::placeholder {
-      font-size: 17px;
     }
   }
 `;
@@ -71,21 +51,17 @@ function LoginFind({ modal, onClose }) {
             확인해주세요.
           </p>
         ) : (
-          <label>
-            <p>
-              <MailOutlineRoundedIcon color="primary" className="email-icon" />
-              이메일
-            </p>
-            <input
-              type="email"
-              value={form.email}
-              name="email"
-              onChange={onChange}
-              className={error ? 'error' : ''}
-              placeholder="회원가입 시 등록했던 이메일을 입력해주세요"
-            />
-            {error && <p className="error-message">이메일을 입력해주세요</p>}
-          </label>
+          <FormInput
+            label="이메일"
+            labelIcon={<MailOutlineRoundedIcon color="primary" />}
+            type="email"
+            value={form.email}
+            name="email"
+            onChange={onChange}
+            placeholder="회원가입 시 등록했던 이메일을 입력해주세요"
+            error={error}
+            errorMessage="이메일을 입력해주세요"
+          />
         )}
         <ButtonBox>
           <Button

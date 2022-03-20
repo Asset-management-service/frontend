@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../common/Button';
-import { PasswordButton, InputWrapper } from '../Login/LoginForm';
 import { StyledModal, ModalWrapper, ButtonBox } from '../common/Modal';
-import { useForm, useToggle } from '../../hooks';
+import FormInput from '../common/FormInput';
+import { useForm } from '../../hooks';
 import Palette from '../../lib/Palette';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 function Modal() {
   const navigate = useNavigate();
@@ -15,7 +13,6 @@ function Modal() {
   const { form, onChange } = useForm({
     password: '',
   });
-  const [show, setShow] = useToggle(false);
 
   const handleNotConsent = (e) => {
     e.preventDefault();
@@ -39,17 +36,12 @@ function Modal() {
       <StyledModal>
         <h1>{consent ? '비밀번호를 입력하세요' : '계속 진행하시겠습니까?'}</h1>
         {consent ? (
-          <InputWrapper>
-            <input
-              type={show ? 'text' : 'password'}
-              name="password"
-              value={form.password}
-              onChange={onChange}
-            />
-            <PasswordButton type="button" onClick={setShow}>
-              {show ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
-            </PasswordButton>
-          </InputWrapper>
+          <FormInput
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={onChange}
+          />
         ) : (
           <p>회원 탈퇴 시 모든 데이터가 삭제됩니다.</p>
         )}

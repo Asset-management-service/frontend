@@ -1,10 +1,8 @@
 import { Button } from '../common/Button';
 import LoginError from './LoginError';
-import { useToggle } from '../../hooks';
 import Palette from '../../lib/Palette';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import styled from 'styled-components';
+import FormInput from '../common/FormInput';
 
 const StyledLoginForm = styled.form`
   width: 100%;
@@ -56,32 +54,24 @@ const StyledButton = styled(Button)`
 `;
 
 function LoginForm({ id, password, onChange, loading, authError, onLogin }) {
-  const [show, setShow] = useToggle(false);
-
   return (
     <>
       {authError && <LoginError />}
       <StyledLoginForm onSubmit={onLogin}>
-        <FormLabel>
-          <p>아이디</p>
-          <InputWrapper>
-            <input type="text" name="id" value={id} onChange={onChange} />
-          </InputWrapper>
-        </FormLabel>
-        <FormLabel>
-          <p>비밀번호</p>
-          <InputWrapper>
-            <input
-              type={show ? 'text' : 'password'}
-              name="password"
-              value={password}
-              onChange={onChange}
-            />
-            <PasswordButton type="button" onClick={setShow}>
-              {show ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
-            </PasswordButton>
-          </InputWrapper>
-        </FormLabel>
+        <FormInput
+          label="아이디"
+          type="text"
+          name="id"
+          value={id}
+          onChange={onChange}
+        />
+        <FormInput
+          label="비밀번호"
+          type="password"
+          name="password"
+          value={password}
+          onChange={onChange}
+        />
         <StyledButton basiccolor="#282828" type="submit">
           {loading ? '로그인 중...' : '로그인'}
         </StyledButton>

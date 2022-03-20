@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { Button } from '../components/common/Button';
-import { InputWrapper, PasswordButton } from '../components/Login/LoginForm';
-import { useForm, useToggle } from '../hooks';
+import FormInput from '../components/common/FormInput';
+import { useForm } from '../hooks';
 import Palette from '../lib/Palette';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import styled from 'styled-components';
 
@@ -51,36 +49,36 @@ const ResetPwdForm = styled.form`
 function ResetPwd() {
   const { form, onChange } = useForm({
     password: '',
-    other: '',
+    check: '',
   });
-  const [show, setShow] = useToggle(false);
   const [error, setError] = useState({
     emptyPwd: false,
-    emptyOther: false,
+    emptyCheck: false,
     same: false,
   });
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (!form.password) {
-      setError((error) => ({
-        ...error,
+      setError({
         emptyPwd: true,
-      }));
+        emptyCheck: false,
+        same: false,
+      });
       return;
     }
-    if (!form.other) {
-      setError((error) => ({
-        ...error,
-        emptyPwd: false,
-        emptyOther: true,
-      }));
-      return;
-    }
-    if (form.password !== form.other) {
+    if (!form.check) {
       setError({
         emptyPwd: false,
-        emptyOther: false,
+        emptyCheck: true,
+        same: false,
+      });
+      return;
+    }
+    if (form.password !== form.check) {
+      setError({
+        emptyPwd: false,
+        emptyCheck: false,
         same: true,
       });
       return;
@@ -91,49 +89,30 @@ function ResetPwd() {
     <ResetPwdWrapper>
       <h1>비밀번호 재설정</h1>
       <ResetPwdForm onSubmit={onSubmit}>
-        <label>
-          <p>
-            <LockOutlinedIcon color="success" className="lock-icon" />
-            변경할 비밀번호
-          </p>
-          <InputWrapper>
-            <input
-              type={show ? 'text' : 'password'}
-              name="password"
-              value={form.password}
-              onChange={onChange}
-            />
-            <PasswordButton type="button" onClick={setShow}>
-              {show ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
-            </PasswordButton>
-          </InputWrapper>
-          {error.emptyPwd && (
-            <p className="error-msg">비밀번호를 입력해주세요.</p>
-          )}
-        </label>
-        <label>
-          <p>
-            <LockOutlinedIcon color="primary" className="lock-icon" />
-            비밀번호 확인
-          </p>
-          <InputWrapper>
-            <input
-              type={show ? 'text' : 'password'}
-              name="other"
-              value={form.other}
-              onChange={onChange}
-            />
-            <PasswordButton type="button" onClick={setShow}>
-              {show ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
-            </PasswordButton>
-          </InputWrapper>
-          {error.emptyOther && (
-            <p className="error-msg">비밀번호를 입력해주세요.</p>
-          )}
-          {error.same && (
-            <p className="error-msg">비밀번호가 일치하지 않습니다.</p>
-          )}
-        </label>
+        <FormInput
+          label="변경할 비밀번호"
+          labelIcon={<LockOutlinedIcon color="success" />}
+          type="password"
+          name="password"
+          value={form.password}
+          onChange={onChange}
+          error={error.emptyPwd}
+          errorMessage="비밀번호를 입력해주세요"
+        />
+        <FormInput
+          label="비밀번호 확인"
+          labelIcon={<LockOutlinedIcon color="primary" />}
+          type="password"
+          name="check"
+          value={form.check}
+          onChange={onChange}
+          error={error.emptyCheck || error.same}
+          errorMessage={
+            error.emptyCheck
+              ? '비밀번호를 입력해주세요'
+              : '비밀번호가 일치하지 않습니다'
+          }
+        />
         <Button outlined={false} basiccolor="black" type="submit">
           변경하기
         </Button>
