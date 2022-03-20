@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Button } from '../common/Button';
+import { FormInput } from '../common/FormInput';
 import { ModalWrapper, StyledModal, ButtonBox } from '../common/Modal';
 import Palette from '../../lib/Palette';
 import { useForm } from '../../hooks';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import styled from 'styled-components';
-import FormInput from '../common/FormInput';
 
 const Modal = styled(StyledModal)`
   width: 500px;
