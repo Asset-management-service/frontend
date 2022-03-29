@@ -18,8 +18,8 @@ const SocialLoginWrapper = styled.div`
     text-align: center;
   }
   img {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
   }
 `;
