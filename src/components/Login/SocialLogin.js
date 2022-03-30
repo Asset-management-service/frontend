@@ -7,10 +7,10 @@ import {
   NAVER_LOGIN_URL,
 } from '../../constants/loginUrl';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 
 const SocialLoginWrapper = styled.div`
   width: 100%;
-  margin-top: 2rem;
   h2 {
     font-size: 23px;
     margin: 2rem 0 1rem;
@@ -32,7 +32,7 @@ const SocialLoginHeading = styled.div`
   h2 {
     position: relative;
     top: -20px;
-    font-size: 27px;
+    font-size: 25px;
     font-weight: normal;
     background-color: #fff;
     margin: 0;
@@ -59,12 +59,15 @@ const SocialLoginLink = styled.li`
 `;
 
 function SocialLogin() {
+  useEffect(() => {
+    console.log(KAKAO_LOGIN_URL);
+  }, []);
   const onLogin = (href) => window.location.assign(href);
 
   return (
     <SocialLoginWrapper>
       <SocialLoginHeading>
-        <h2>Social Login</h2>
+        <h2>로그인하기</h2>
       </SocialLoginHeading>
       <SocialLoginLinks>
         <SocialLoginLink>
