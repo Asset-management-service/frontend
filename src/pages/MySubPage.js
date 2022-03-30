@@ -1,15 +1,56 @@
 import { useParams } from 'react-router-dom';
+import MyBadgeList from '../components/MyPage/MyBadgeList';
 import MyPostList from '../components/MyPage/MyPostList';
 import PrivateInfo from '../components/MyPage/PrivateInfo';
-import WithDraw from '../components/MyPage/WithDraw';
 
 function MySubPage() {
   const { category } = useParams();
+  console.log(category);
   if (category === 'edit') {
     return <PrivateInfo />;
   }
-  if (category === 'withdraw') {
-    return <WithDraw />;
+  if (category === 'badge') {
+    return (
+      <MyBadgeList
+        badges={[
+          {
+            img: null,
+            badge: '모아모아 시작뱃지',
+            date: '2021.08.14',
+          },
+          {
+            img: null,
+            badge: '모아모아 시작뱃지',
+            date: '2021.08.14',
+          },
+          {
+            img: null,
+            badge: '모아모아 시작뱃지',
+            date: '2021.08.14',
+          },
+          {
+            img: null,
+            badge: '모아모아 시작뱃지',
+            date: '2021.08.14',
+          },
+          {
+            img: null,
+            badge: '모아모아 시작뱃지',
+            date: '2021.08.14',
+          },
+          {
+            img: null,
+            badge: '모아모아 시작뱃지',
+            date: '2021.08.14',
+          },
+          {
+            img: null,
+            badge: '모아모아 시작뱃지',
+            date: '2021.08.14',
+          },
+        ]}
+      />
+    );
   }
   if (category === 'post') {
     return (
@@ -121,7 +162,69 @@ function MySubPage() {
     return <MyPostList category={category} posts={[]} />;
   }
   if (category === 'comment') {
-    return <MyPostList category={category} posts={[]} />;
+    return (
+      <MyPostList
+        category={category}
+        posts={[
+          {
+            id: 1,
+            comment: '감사합니다!',
+            date: '2021.08.14',
+            title: '제목제목제목',
+            commentNum: 6,
+            category: '자산관리 QnA',
+          },
+          {
+            id: 1,
+            comment: '감사합니다!',
+            date: '2021.08.14',
+            title: '제목제목제목',
+            commentNum: 6,
+            category: '자산관리 QnA',
+          },
+          {
+            id: 1,
+            comment: '감사합니다!',
+            date: '2021.08.14',
+            title: '제목제목제목',
+            commentNum: 6,
+            category: '자산관리 QnA',
+          },
+          {
+            id: 1,
+            comment: '감사합니다!',
+            date: '2021.08.14',
+            title: '제목제목제목',
+            commentNum: 6,
+            category: '자산관리 QnA',
+          },
+          {
+            id: 1,
+            comment: '감사합니다!',
+            date: '2021.08.14',
+            title: '제목제목제목',
+            commentNum: 6,
+            category: '자산관리 QnA',
+          },
+          {
+            id: 1,
+            comment: '감사합니다!',
+            date: '2021.08.14',
+            title: '제목제목제목',
+            commentNum: 6,
+            category: '자산관리 QnA',
+          },
+          {
+            id: 1,
+            comment: '감사합니다!',
+            date: '2021.08.14',
+            title: '제목제목제목',
+            commentNum: 6,
+            category: '자산관리 QnA',
+          },
+        ]}
+      />
+    );
   }
   return <h1>Sub</h1>;
 }

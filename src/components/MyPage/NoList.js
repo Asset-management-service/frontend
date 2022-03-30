@@ -7,7 +7,6 @@ const NoListText = styled.p`
   flex-direction: column;
   align-items: center;
   opacity: 0.6;
-  margin-bottom: 5rem;
   .NoList-icon {
     transform: scale(2);
     margin-bottom: 2rem;
