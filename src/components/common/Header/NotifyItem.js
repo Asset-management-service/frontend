@@ -15,6 +15,9 @@ const NotifyRow = styled.li`
   & + & {
     border-top: 1px solid lightgray;
   }
+  .close-icon {
+    cursor: pointer;
+  }
 `;
 
 const NotifyContent = styled(Link)`
@@ -23,6 +26,9 @@ const NotifyContent = styled(Link)`
   opacity: ${({ check }) => (check ? 0.5 : 1)};
   div {
     margin-left: 10px;
+    h3 {
+      font-size: 15px;
+    }
     p {
       margin-top: 5px;
       font-size: 13px;
