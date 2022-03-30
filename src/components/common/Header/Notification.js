@@ -1,32 +1,28 @@
 import { useEffect, useRef } from 'react';
-import { useToggle } from '../../hooks';
+import { useToggle } from '../../../hooks';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
 import styled from 'styled-components';
 import NotifyItem from './NotifyItem';
 
 const NotifyWrapper = styled.div`
-  display: block;
   position: relative;
   span {
-    font-size: 15px;
+    font-size: 12px;
     position: absolute;
-    top: 6px;
-    right: -3px;
+    top: 0px;
+    right: 0px;
     background-color: red;
     color: #fff;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .Notification-icon {
     cursor: pointer;
-    margin-top: 10px;
-  }
-  .close-icon {
-    cursor: pointer;
+    font-size: 30px;
   }
 `;
 
@@ -34,9 +30,8 @@ const NotifyList = styled.ul`
   width: 400px;
   position: absolute;
   border: 2px solid lightgray;
-  top: 0px;
-  right: 0;
-  transform: translateX(105%);
+  top: 50px;
+  right: -90px;
   background: #fff;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -48,14 +43,14 @@ const NotifyList = styled.ul`
     border-style: solid;
     border-width: 15px 10px 0px 14px;
     border-color: lightgray transparent;
-    left: -20px;
-    top: 13px;
+    right: 90px;
+    top: -15px;
     width: 0;
-    transform: rotateZ(90deg);
+    transform: rotateZ(180deg);
   }
   &:after {
     border-color: #ffffff transparent;
-    left: -17px;
+    top: -13px;
   }
 `;
 
@@ -76,7 +71,6 @@ function Notification({ count, notify }) {
   return (
     <NotifyWrapper ref={notifyRef}>
       <NotificationsNoneRoundedIcon
-        fontSize="large"
         onClick={onToggle}
         className="Notification-icon"
       />

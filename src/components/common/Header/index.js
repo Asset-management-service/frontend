@@ -7,17 +7,22 @@ import UserLinks from './UserLinks';
 import Palette from '../../../lib/Palette';
 import styled from 'styled-components';
 
-const StyledHeader = styled.header`
+const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 5;
-  display: flex;
-  flex-direction: column;
+  border-bottom: 1px solid lightgray;
+`;
+
+const StyledHeader = styled.header`
+  display: ${({ auth }) => (auth ? 'flex' : 'none')};
   align-items: center;
-  background-color: #dee3ed;
+  justify-content: space-between;
   min-width: 700px;
+  width: 90vw;
+  margin: 0 auto;
 `;
 
 const StyledNavCenter = styled.div`
@@ -25,20 +30,13 @@ const StyledNavCenter = styled.div`
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease-in-out;
-  padding-top: ${({ scroll }) => (scroll ? '0.5rem' : '2rem')};
 `;
 
 const Spacer = styled.div`
-  height: ${({ scroll }) => (scroll ? '9rem' : '11.5rem')};
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  background-color: #fff;
-  z-index: 2;
+  height: 5rem;
 `;
 
-function Header({ loading }) {
+function Header({ loading, auth }) {
   const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
@@ -57,13 +55,15 @@ function Header({ loading }) {
 
   return (
     <>
-      <StyledHeader>
-        <UserLinks />
-        <StyledNavCenter scroll={scroll}>
-          <Logo scroll={scroll} />
-        </StyledNavCenter>
-        <NavLinks />
-      </StyledHeader>
+      <HeaderWrapper>
+        <StyledHeader auth={auth}>
+          <StyledNavCenter scroll={scroll}>
+            <Logo scroll={scroll} />
+          </StyledNavCenter>
+          <NavLinks />
+          <UserLinks />
+        </StyledHeader>
+      </HeaderWrapper>
       <Spacer scroll={scroll} />
       <Outlet />
     </>
