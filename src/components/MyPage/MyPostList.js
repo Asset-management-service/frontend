@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import MyPostItem from './MyPostItem';
+import MyCommentItem from './MyCommetItem';
 import NoList from './NoList';
 
 const PostList = styled.div`
@@ -34,19 +35,23 @@ function MyPostList({ posts, category }) {
     <section>
       <h2>
         {category === 'scrap'
-          ? 'Scrap'
+          ? '스크랩 보기'
           : category === 'comment'
-          ? 'Comment'
-          : 'Post'}
+          ? '내가 쓴 댓글'
+          : '내가 쓴 글'}
       </h2>
       <PostList empty={posts.length}>
         {posts.length === 0 ? (
           <NoList category={category} />
         ) : (
           <ul>
-            {posts.map((post) => (
-              <MyPostItem key={post.id} post={post} />
-            ))}
+            {category == 'comment'
+              ? posts.map((post, index) => (
+                  <MyCommentItem key={index} comment={post} />
+                ))
+              : posts.map((post, index) => (
+                  <MyPostItem key={index} post={post} />
+                ))}
           </ul>
         )}
       </PostList>

@@ -9,9 +9,6 @@ const PostItem = styled.li`
   padding: 1.5rem 1rem;
   font-size: 17px;
   border-bottom: 1px solid lightgray;
-  &:first-child {
-    border-top: 1px solid lightgray;
-  }
   .post-column {
     display: flex;
     align-items: center;
