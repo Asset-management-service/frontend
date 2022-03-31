@@ -7,7 +7,9 @@ const LoginWrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 15rem auto 0;
+  margin: 0 auto;
+  height: 100vh;
+  justify-content: center;
   h1 {
     font-size: 5rem;
     margin-bottom: 2rem;
