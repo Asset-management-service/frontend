@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const MyPageWrapper = styled.main`
   width: 90vw;
   max-width: 1500px;
-  margin: 5rem auto 0;
+  margin: 10rem auto 0;
   .MyPage-content {
     display: flex;
     height: 60vh;
