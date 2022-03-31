@@ -30,7 +30,6 @@ function PersonalInfoChangeForm(){
     const [confirmPassword , setConfirmPassword] = useState(" ");
     const [phoneNo , setPhoneNo] = useState(" ");
     const [email , setEmail] = useState(" ");
-    const [gender] = useState(" ");
 
 const onNicknameHandler = (event) => { //닉네임 재설정
     setNickname(event.currentTarget.value)
@@ -48,18 +47,14 @@ const onPhoneNoHandler = (event) => { //핸드폰 번호 재설정
     setPhoneNo(event.currentTarget.value)
 }
 
-const onGenderlHandler = (event) => { //성별 재설정
-    setGender(event.currentTarget.value)
-}
-
-const OPTIONS = [ //드롭박스 내용
+const selectOptions = [ //드롭박스 내용
 	{ value: "naver.com", name: "네이버" },
 	{ value: "google.com", name: "구글" },
 	{ value: "daum.net", name: "다음" },
 ];
 
-const SelectBox = (props) => {
-    const onEmailHandler = (event) => {
+const selectBox = (props) => {
+    const onEmailHandler = (event) => { //이메일 핸들러 추가
         setEmail(event.currentTarget.value)
     };
      //드롭박스 옵션을 props로 받기
@@ -77,6 +72,32 @@ const SelectBox = (props) => {
 		</select>
 	);
 };
+
+class radioButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        man: true,
+        woman: false
+    };
+  }
+
+  onGenderhandler(event) {
+      const { name, value } = event.target;
+      this.setState({
+      [name]: value
+    });
+}
+
+  render() {
+    return (
+      <div className="radio-buttons">
+        Man: <input id="man" value="man" type="radio" onChange={this.onGenderlHandler} />
+        Woman: <input id="woman" value="woman"type="radio" onChange={this.onGenderlHandler} />
+      </div>
+    );
+  }
+}
 
 const onSubmit = (event) => { 
 
@@ -123,8 +144,8 @@ const onSubmit = (event) => {
                 <span id="pwCheck"></span></div>
                 <div>닉네임: <input type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler} /></div>
                 <div>핸드폰 번호: <input type="text" placeholder='핸드폰 번호' maxlength="13" value={phoneNo} onChange={onPhoneNoHandler} /></div>
-                <div>이메일: <SelectBox options={OPTIONS} defaultValue="naver.com"></SelectBox></div>
-                <div>성별: <input type="radio" placeholder='성별' value={gender} onChange={onGenderlHandler} /></div>
+                <div>이메일: <selectBox options={selectOptions} defaultValue="naver.com"></selectBox></div>
+                <div>성별: <radioButton></radioButton></div>
                 <div><button type="submit" onSubmit={onSubmit} class="personalinfochangeform_button">개인정보 변경하기</button></div>
             </form>
         </div>
