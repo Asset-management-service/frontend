@@ -5,7 +5,6 @@ import PrivateInfo from '../components/MyPage/PrivateInfo';
 
 function MySubPage() {
   const { category } = useParams();
-  console.log(category);
   if (category === 'edit') {
     return <PrivateInfo />;
   }

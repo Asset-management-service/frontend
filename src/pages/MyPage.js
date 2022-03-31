@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import NotLogin from '../components/common/NotLogin';
 import SideBar from '../components/MyPage/SideBar';
 import styled from 'styled-components';
@@ -31,6 +32,11 @@ const MyPageHeading = styled.div`
 `;
 
 function MyPage({ auth }) {
+  const navigate = useNavigate();
+  const { category } = useParams();
+  useEffect(() => {
+    if (!category) navigate('/mypage/edit');
+  }, [category]);
   if (!auth) {
     return <NotLogin />;
   }
