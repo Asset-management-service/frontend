@@ -33,6 +33,7 @@ const StyledNavCenter = styled.div`
 `;
 
 const Spacer = styled.div`
+  display: ${({ auth }) => (auth ? 'block' : 'none')};
   height: 5rem;
 `;
 
