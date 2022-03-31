@@ -30,6 +30,7 @@ function PersonalInfoChangeForm(){
     const [confirmPassword , setConfirmPassword] = useState(" ");
     const [phoneNo , setPhoneNo] = useState(" ");
     const [email , setEmail] = useState(" ");
+    const [date, setDate] = useState(" ");
 
 const onNicknameHandler = (event) => { //닉네임 재설정
     setNickname(event.currentTarget.value)
@@ -99,6 +100,10 @@ class radioButton extends React.Component {
   }
 }
 
+let message=document.lastModified;
+let the_date=message.length-8;
+document.getElementById('updateDate').innerHTML="최종 업데이트일: "+message.substring(the_date, 0);
+
 const onSubmit = (event) => { 
 
     event.preventDefault()
@@ -128,6 +133,8 @@ const onSubmit = (event) => {
       document.getElementById('pwCheck').innerHTML='비밀번호가 일치하지 않습니다.';
       document.getElementById('pwCheck').style.color='red';
     }
+
+
 }
 
 //주소는 저번 회의 때 이야기 했던 대로, 제외
@@ -146,10 +153,10 @@ const onSubmit = (event) => {
                 <div>핸드폰 번호: <input type="text" placeholder='핸드폰 번호' maxlength="13" value={phoneNo} onChange={onPhoneNoHandler} /></div>
                 <div>이메일: <selectBox options={selectOptions} defaultValue="naver.com"></selectBox></div>
                 <div>성별: <radioButton></radioButton></div>
+                <div>최종 업데이트일: <span id="updateDate"></span></div>
                 <div><button type="submit" onSubmit={onSubmit} class="personalinfochangeform_button">개인정보 변경하기</button></div>
             </form>
         </div>
     );
-}
 
 export default PersonalInfoChangeForm;
