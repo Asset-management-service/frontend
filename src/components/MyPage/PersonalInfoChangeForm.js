@@ -52,10 +52,6 @@ const SelectBox = (props) => {
 	);
 };
 
-let message=document.lastModified;
-let the_date=message.length-8;
-// document.getElementById('updateDate').innerHTML="최종 업데이트일: "+message.substring(the_date, 0);
-
 const onSubmit = (event) => { 
 
     event.preventDefault()
@@ -118,14 +114,17 @@ class RadioButton extends React.Component {
     return(
         /*비밀번호 변경, 닉네임 변경, 핸드폰 번호 변경, 이메일 변경, 성별 변경 가능*/
         <div class="personalinfochangeform">
-            <form>
-                <div>닉네임: <input type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler} /></div>
-                <div>핸드폰 번호: <input type="text" placeholder='핸드폰 번호' maxlength="13" value={phoneNo} onChange={onPhoneNoHandler} /></div>
-                <div>이메일: <SelectBox options={selectOptions} defaultValue="naver.com"></SelectBox></div>
-                <div>성별: <RadioButton></RadioButton></div>
-                <div>최종 업데이트일: <span id="updateDate"></span></div>
-                <div><button type="submit" onSubmit={onSubmit} class="personalinfochangeform_button">개인정보 변경하기</button></div>
-            </form>
+            <section>
+                <h2>개인 정보 변경</h2>
+                <form>
+                    <div>닉네임: <input type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler} /></div>
+                    <div>핸드폰 번호: <input type="text" placeholder='핸드폰 번호' maxlength="13" value={phoneNo} onChange={onPhoneNoHandler} /></div>
+                    <div>이메일: <SelectBox options={selectOptions} defaultValue="naver.com"></SelectBox></div>
+                    <div>성별: <RadioButton></RadioButton></div>
+                    <div>최종 업데이트일: <span id="updateDate"></span></div>
+                    <div><button type="submit" onSubmit={onSubmit} class="personalinfochangeform_button">개인정보 변경하기</button></div>
+                </form>
+            </section>
         </div>
     );
     }
