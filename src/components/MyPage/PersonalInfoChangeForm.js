@@ -119,12 +119,6 @@ class RadioButton extends React.Component {
         /*비밀번호 변경, 닉네임 변경, 핸드폰 번호 변경, 이메일 변경, 성별 변경 가능*/
         <div class="personalinfochangeform">
             <form>
-                <div>비밀번호: <input type="password" placeholder='비밀번호' value={password} onChange={onPasswordHandler} />
-                &nbsp;
-                <span id="pwCondition"></span></div>
-                <div>비밀번호 재확인: <input type="password" placeholder='비밀번호 재확인' value={confirmPassword} onChange={onConfirmPasswordHandler} />
-                &nbsp;
-                <span id="pwCheck"></span></div>
                 <div>닉네임: <input type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler} /></div>
                 <div>핸드폰 번호: <input type="text" placeholder='핸드폰 번호' maxlength="13" value={phoneNo} onChange={onPhoneNoHandler} /></div>
                 <div>이메일: <SelectBox options={selectOptions} defaultValue="naver.com"></SelectBox></div>

@@ -6,6 +6,7 @@ import { DropMenu } from './components/common/DropMenu';
 import { securityCategory } from './constants';
 import Palette from './lib/Palette';
 import Loading from './components/common/Loading';
+import PersonalInfoChangeForm from './components/MyPage/PersonalInfoChangeForm';
 import styled from 'styled-components';
 import './App.scss';
 
@@ -34,28 +35,7 @@ const StyledButton = styled(Button)`
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Header />
-      <StyledButton
-        outlined={false}
-        basicColor={Palette.cyan[5]}
-        hover={Palette.cyan[7]}
-      >
-        {/*색깔 얼마든지 변경 가능*/}
-        Contained
-      </StyledButton>
-      <StyledButton outlined={true} basicColor={Palette.cyan[6]}>
-        {/*색깔 얼마든지 변경 가능*/}
-        Outlined
-      </StyledButton>
-      <ComboBox
-        categories={securityCategory}
-        initialLabel="증권회사 선택"
-        mainColor={Palette.blue[4]}
-      />
-      {/*색깔 얼마든지 변경 가능*/}
-      <DropMenu menus={menus} />
-      <Loading mainColor={Palette.grape[4]} />
-      {/*색깔 얼마든지 변경 가능*/}
+      <PersonalInfoChangeForm></PersonalInfoChangeForm>
     </QueryClientProvider>
   );
 }
