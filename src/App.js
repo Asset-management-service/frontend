@@ -6,7 +6,6 @@ import { DropMenu } from './components/common/DropMenu';
 import { securityCategory } from './constants';
 import Palette from './lib/Palette';
 import Loading from './components/common/Loading';
-import PersonalInfoChangeForm from './components/MyPage/PersonalInfoChangeForm';
 import styled from 'styled-components';
 import './App.scss';
 
@@ -35,7 +34,7 @@ const StyledButton = styled(Button)`
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-       <Header />
+      <Header />
       <StyledButton
         outlined={false}
         basicColor={Palette.cyan[5]}
