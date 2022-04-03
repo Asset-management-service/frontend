@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
-
 const Button = styled.button`
   display: inline-block;
   color: palevioletred;
@@ -29,38 +28,12 @@ const onNicknameHandler = (event) => { //닉네임 재설정
 }
 
 const onPhoneNoHandler = (event) => { //핸드폰 번호 재설정
-    const regex = /^[0-9\b -]{0,13}$/;
-    if (regex.test(event.currenttarget.value)) {
       setPhoneNo(event.currentTarget.value);
-    }
 }
 
-const selectOptions = [ //드롭박스 내용
-	{ value: "naver.com", name: "네이버" },
-	{ value: "google.com", name: "구글" },
-	{ value: "daum.net", name: "다음" },
-    //직접 입력, 아이디 입력 부분 추가
-];
-
-const SelectBox = (props) => {
-    const onEmailHandler = (event) => { //이메일 핸들러 추가
-        setEmail(event.currentTarget.value)
-    };
-     //드롭박스 옵션을 props로 받기
-	return (
-		<select onChange={onEmailHandler}>
-			{props.options.map((option) => (
-				<option
-                    key={option.value}
-					value={option.value}
-					defaultValue={props.defaultValue === option.value}
-				>
-					{option.name}
-				</option>
-			))}
-		</select>
-	);
-};
+const onEmailHandler = (event) => { //이메일 재설정
+    setEmail(event.currentTarget.value)
+}
 
 const onSubmit = (event) => { 
 
@@ -112,10 +85,10 @@ class RadioButton extends React.Component {
 
   render() {
     return (
-      <div className="radio-buttons">
-        Man: <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderlHandler} />
-        Woman: <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderlHandler} />
-      </div>
+        <span>
+        Man: <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
+        Woman: <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
+        </span>
     );
   }
 }
@@ -127,8 +100,8 @@ class RadioButton extends React.Component {
                 <h2>개인 정보 변경</h2>
                 <form>
                     <Nickname>닉네임: <input type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler} /></Nickname>
-                    <div>핸드폰 번호: <input type="text" placeholder='핸드폰 번호' maxlength="13" value={phoneNo} onChange={onPhoneNoHandler} /></div>
-                    <div>이메일: <SelectBox options={selectOptions} defaultValue="naver.com"></SelectBox></div>
+                    <div>핸드폰 번호: <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></input></div>
+                    <div>이메일: <input type="email" id="email" name="email" value={email} onChange={onEmailHandler}></input></div>
                     <div>성별: <RadioButton></RadioButton></div>
                     <Button>개인정보 변경하기</Button>
                 </form>
