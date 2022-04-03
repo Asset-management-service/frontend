@@ -103,8 +103,8 @@ class RadioButton extends React.Component {
   render() {
     return (
       <div className="radio-buttons">
-        Man: <input id="man" value="man" type="radio" onChange={this.onGenderlHandler} />
-        Woman: <input id="woman" value="woman"type="radio" onChange={this.onGenderlHandler} />
+        Man: <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderlHandler} />
+        Woman: <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderlHandler} />
       </div>
     );
   }
