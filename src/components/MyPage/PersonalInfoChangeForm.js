@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 
-const BadgeList = styled.ul`
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 4rem;
-  justify-content: center;
-`;
-
 const Button = styled.button`
   display: inline-block;
   color: palevioletred;
@@ -36,16 +28,11 @@ const onNicknameHandler = (event) => { //닉네임 재설정
     setNickname(event.currentTarget.value)
 }
 
-const onPasswordHandler = (event) => { //비밀번호 재설정
-    setPassword(event.currentTarget.value)
-}
-
-const onConfirmPasswordHandler = (event) => { //비밀번호 재설정 확인
-    setConfirmPassword(event.currentTarget.value)
-}
-
 const onPhoneNoHandler = (event) => { //핸드폰 번호 재설정
-    setPhoneNo(event.currentTarget.value)
+    const regex = /^[0-9\b -]{0,13}$/;
+    if (regex.test(event.currenttarget.value)) {
+      setPhoneNo(event.currentTarget.value);
+    }
 }
 
 const selectOptions = [ //드롭박스 내용
