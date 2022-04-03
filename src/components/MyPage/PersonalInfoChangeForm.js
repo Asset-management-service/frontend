@@ -113,7 +113,6 @@ class RadioButton extends React.Component {
 //주소는 저번 회의 때 이야기 했던 대로, 제외
     return(
         /*비밀번호 변경, 닉네임 변경, 핸드폰 번호 변경, 이메일 변경, 성별 변경 가능*/
-        <div class="personalinfochangeform">
             <section>
                 <h2>개인 정보 변경</h2>
                 <form>
@@ -121,11 +120,9 @@ class RadioButton extends React.Component {
                     <div>핸드폰 번호: <input type="text" placeholder='핸드폰 번호' maxlength="13" value={phoneNo} onChange={onPhoneNoHandler} /></div>
                     <div>이메일: <SelectBox options={selectOptions} defaultValue="naver.com"></SelectBox></div>
                     <div>성별: <RadioButton></RadioButton></div>
-                    <div>최종 업데이트일: <span id="updateDate"></span></div>
                     <div><button type="submit" onSubmit={onSubmit} class="personalinfochangeform_button">개인정보 변경하기</button></div>
                 </form>
             </section>
-        </div>
     );
     }
 
