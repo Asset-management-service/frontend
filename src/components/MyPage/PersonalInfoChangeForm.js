@@ -1,6 +1,29 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 
+const BadgeList = styled.ul`
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 4rem;
+  justify-content: center;
+`;
+
+const Button = styled.button`
+  display: inline-block;
+  color: palevioletred;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+  display: block;
+`;
+
+const Nickname = styled.div`
+  
+`;
+
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
     const [password , setPassword] = useState(" ");
@@ -116,11 +139,11 @@ class RadioButton extends React.Component {
             <section>
                 <h2>개인 정보 변경</h2>
                 <form>
-                    <div>닉네임: <input type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler} /></div>
+                    <Nickname>닉네임: <input type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler} /></Nickname>
                     <div>핸드폰 번호: <input type="text" placeholder='핸드폰 번호' maxlength="13" value={phoneNo} onChange={onPhoneNoHandler} /></div>
                     <div>이메일: <SelectBox options={selectOptions} defaultValue="naver.com"></SelectBox></div>
                     <div>성별: <RadioButton></RadioButton></div>
-                    <div><button type="submit" onSubmit={onSubmit} class="personalinfochangeform_button">개인정보 변경하기</button></div>
+                    <Button>개인정보 변경하기</Button>
                 </form>
             </section>
     );
