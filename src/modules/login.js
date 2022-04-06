@@ -1,4 +1,4 @@
-import { loginAuth } from '../lib/api/auth';
+import { loginOauth } from '../lib/api/auth';
 
 const INITIALIZE = 'login/INITIALIZE';
 const LOADING = 'login/LOADING';
@@ -28,11 +28,10 @@ export const logout = () => ({
   type: LOGOUT,
 });
 
-export const userLogin = (url, data) => async (dispatch) => {
+export const socialLogin = (url) => async (dispatch) => {
   dispatch(loading(true));
   try {
-    const response = await loginAuth(url, data);
-    dispatch(loginSuccess(response.data));
+    await loginOauth(url);
   } catch (e) {
     dispatch(loginFailure(e));
   }

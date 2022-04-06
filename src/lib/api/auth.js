@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export const loginAuth = (url, data) => axios.post(url, data);
+export const loginOauth = (url) => axios.get(url);
 export const registerAuth = ({}) => axios.post('/api/register', {});
 export const logoutAuth = () => axios.post('/api/logout');
