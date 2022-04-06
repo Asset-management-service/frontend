@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
+import { Input } from '@mui/material';
 const Button = styled.button`
     display: inline-block;
     color: palevioletred;
@@ -39,6 +40,7 @@ const onEmailHandler = (event) => { //이메일 재설정
 
 const onSubmit = (event) => { 
     event.preventDefault()
+    alert("개인 정보가 변경되었습니다.");
 }
 
 class RadioButton extends React.Component {
@@ -74,10 +76,10 @@ class RadioButton extends React.Component {
             <section>
                 <h2>개인 정보 변경</h2>
                 <form>
-                    닉네임: <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>
-                    <div>핸드폰 번호: <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></input></div>
-                    <div>이메일: <input type="email" id="email" name="email" value={email} onChange={onEmailHandler}></input></div>
-                    <div>성별: <RadioButton></RadioButton></div>
+                    <div><b>닉네임: </b> <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox></div>
+                    <div><b>핸드폰 번호: </b> <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox></div>
+                    <div><b>이메일: </b> <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox></div>
+                    <div><b>성별: </b> <RadioButton></RadioButton></div>
                     <Button onClick={onSubmit}>개인정보 변경하기</Button>
                 </form>
             </section>
