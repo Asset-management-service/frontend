@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
-import { Input } from '@mui/material';
 const Button = styled.button`
     display: inline-block;
     color: palevioletred;
@@ -22,7 +21,7 @@ const InputBox = styled.input`
 
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
-//비밀번호 재설정 로직 삭ㅔ
+//비밀번호 재설정 로직 삭제
     const [phoneNo , setPhoneNo] = useState(" ");
     const [email , setEmail] = useState(" ");
 
@@ -36,11 +35,27 @@ const onPhoneNoHandler = (event) => { //핸드폰 번호 재설정
 
 const onEmailHandler = (event) => { //이메일 재설정
     setEmail(event.currentTarget.value)
+    checkEmail(email);
+}
+
+//이메일 유효성 검사 로직 변경
+const checkEmail = (email) => {
+	var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	return reg.test(email);
 }
 
 const onSubmit = (event) => { 
     event.preventDefault()
-    alert("개인 정보가 변경되었습니다.");
+
+    if(email==" "){
+        document.getElementById('checkEmail').innerHTML='이메일을 입력해주세요.';
+        document.getElementById('checkEmail').style.color='red';
+    }else{
+        if(!checkEmail(email)){
+        document.getElementById('checkEmail').innerHTML='이메일 형식이 올바르지 않습니다.';
+        document.getElementById('checkEmail').style.color='red';
+        }
+}
 }
 
 class RadioButton extends React.Component {
@@ -64,6 +79,7 @@ class RadioButton extends React.Component {
     return (
         <span>
         Man: <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
+        &nbsp;
         Woman: <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
         </span>
     );
@@ -78,7 +94,8 @@ class RadioButton extends React.Component {
                 <form>
                     <div><b>닉네임: </b> <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox></div>
                     <div><b>핸드폰 번호: </b> <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox></div>
-                    <div><b>이메일: </b> <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox></div>
+                    <div><b>이메일: </b> <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>
+                    &nbsp; <span id="checkEmail"></span></div>
                     <div><b>성별: </b> <RadioButton></RadioButton></div>
                     <Button onClick={onSubmit}>개인정보 변경하기</Button>
                 </form>
