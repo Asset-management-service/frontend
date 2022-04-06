@@ -1,21 +1,37 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
-const Button = styled.button`
-    display: inline-block;
+const ConfirmButton = styled.button`
     color: black;
     font-size: 1em;
+    font-style: bold;
     margin: 1em;
     padding: 0.25em 1em;
-    border: 2px solid gray;
-    border-radius: 10px;
+    border: 2px solid #F98BAE;
+    border-radius: 4px;
+    font-weight: bold;
+    background-color: #F98BAE;
     display: block;
     &:hover{
-        background-color: gray;
+        background-color: palevioletred;
+        border: 2px solid palevioletred;
     }
 `;
 
+const CancelButton = styled.button`
+        color: black;
+        font-size: 1em;
+        margin: 1em;
+        padding: 0.25em 1em;
+        border: 2px solid lightgray;
+        border-radius: 4px;
+        display: block;
+        &:hover{
+            background-color: lightgray;
+        }
+`;
+
 const InputBox = styled.input`
-    border: 2px solid gray;
+    border: 2px solid lightgray;
     border-radius: 3px;
     font-size: 1em;
     margin: 1em;
@@ -83,6 +99,11 @@ const onSubmit = (event) => {
 
 }
 
+const goCancel = (event) => {
+    event.preventDefault()
+    //취소 버튼 누르면 이전 페이지로 이동
+}
+
 
 class RadioButton extends React.Component {
   constructor(props) {
@@ -104,9 +125,9 @@ class RadioButton extends React.Component {
   render() {
     return (
         <span className='radioSpan'>
-        Man <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
+        남성 <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
         &nbsp;
-        Woman <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
+        여성 <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
         </span>
     );
   }
@@ -120,14 +141,16 @@ class RadioButton extends React.Component {
             <section>
                 <h2>개인 정보 변경</h2>
                 <form>
-                    <div>닉네임: <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>
+                    <div><b>닉네임: </b> <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>
                     &nbsp; <span id="checkNickname"></span></div>
-                    <div>핸드폰 번호: <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>
+                    <div><b>핸드폰 번호: </b> <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>
                     &nbsp; <span id="checkPhoneNo"></span></div>
-                    <div>이메일: <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>
+                    <div><b>이메일: </b> <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>
                     &nbsp; <span id="checkEmail"></span></div>
-                    <div>성별: <RadioButton></RadioButton></div>
-                    <Button onClick={onSubmit}>개인정보 변경하기</Button>
+                    <div><b>성별:</b><RadioButton></RadioButton></div>
+
+                    <ConfirmButton onClick={onSubmit}>개인정보 변경하기</ConfirmButton>
+                    <CancelButton onClick={goCancel}>취소</CancelButton>
                 </form>
             </section>
     );
