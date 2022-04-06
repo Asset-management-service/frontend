@@ -30,7 +30,8 @@ const onNicknameHandler = (event) => { //닉네임 재설정
 }
 
 const onPhoneNoHandler = (event) => { //핸드폰 번호 재설정
-      setPhoneNo(event.currentTarget.value);
+    setPhoneNo(event.currentTarget.value);
+    checkPhoneNo(phoneNo);
 }
 
 const onEmailHandler = (event) => { //이메일 재설정
@@ -40,11 +41,17 @@ const onEmailHandler = (event) => { //이메일 재설정
 
 //이메일 유효성 검사 로직 변경
 const checkEmail = (email) => {
-	var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-	return reg.test(email);
+	var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	return regEmail.test(email);
 }
 
-const onSubmit = (event) => { 
+const checkPhoneNo = (phoneNo) => {
+    var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    return regPhone.test(phoneNo);
+    }
+
+//이메일 검사, 닉네임, 핸드폰 번호 검사 로직 추가
+const onSubmit = (event) => {
     event.preventDefault()
 
     if(email==" "){
@@ -61,6 +68,16 @@ const onSubmit = (event) => {
         document.getElementById('checkNickname').innerHTML='닉네임을 입력해주세요.';
         document.getElementById('checkNickname').style.color='red';
     }
+
+    if(phoneNo == " "){
+        document.getElementById('checkPhoneNo').innerHTML='핸드폰 번호를 입력해주세요.';
+        document.getElementById('checkPhoneNo').style.color='red';
+    }else{
+        if(!checkPhoneNo(phoneNo)){
+        document.getElementById('checkPhoneNo').innerHTML='핸드폰 형식이 올바르지 않습니다.';
+        document.getElementById('checkPhoneNo').style.color='red';
+        }
+}
 }
 
 class RadioButton extends React.Component {
