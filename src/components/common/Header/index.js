@@ -14,15 +14,15 @@ const HeaderWrapper = styled.div`
   right: 0;
   z-index: 5;
   border-bottom: 1px solid lightgray;
+  background-color: #fff;
 `;
 
 const StyledHeader = styled.header`
-  display: ${({ auth }) => (auth ? 'flex' : 'none')};
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 700px;
-  width: 90vw;
-  margin: 0 auto;
+  margin: 0 1.3rem;
 `;
 
 const StyledNavCenter = styled.div`
@@ -30,42 +30,25 @@ const StyledNavCenter = styled.div`
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease-in-out;
+  z-index: 15;
 `;
 
-const Spacer = styled.div`
-  display: ${({ auth }) => (auth ? 'block' : 'none')};
-  height: 5rem;
-`;
-
-function Header({ loading, auth }) {
-  const [scroll, setScroll] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY !== 0) {
-        setScroll(true);
-      } else {
-        setScroll(false);
-      }
-    });
-  }, []);
-
+function Header({ loading }) {
   if (loading) {
-    return <Loading mainColor={Palette.blue[5]} />;
+    return <Loading mainColor={Palette.gray[8]} text="로그인 중..." />;
   }
 
   return (
     <>
       <HeaderWrapper>
-        <StyledHeader auth={auth}>
-          <StyledNavCenter scroll={scroll}>
-            <Logo scroll={scroll} />
+        <StyledHeader>
+          <StyledNavCenter>
+            <Logo />
           </StyledNavCenter>
           <NavLinks />
           <UserLinks />
         </StyledHeader>
       </HeaderWrapper>
-      <Spacer scroll={scroll} />
       <Outlet />
     </>
   );

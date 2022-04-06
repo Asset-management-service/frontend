@@ -8,8 +8,14 @@ const SpinnerWrapper = styled.div`
   bottom: 0;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  p {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
 `;
 
 const Spinner = styled.div`
@@ -90,7 +96,7 @@ const Spinner = styled.div`
   }
 `;
 
-function Loading({ mainColor }) {
+function Loading({ mainColor, text }) {
   return (
     <SpinnerWrapper>
       <Spinner color={mainColor}>
@@ -107,6 +113,7 @@ function Loading({ mainColor }) {
         <div></div>
         <div></div>
       </Spinner>
+      {text && <p>{text}</p>}
     </SpinnerWrapper>
   );
 }

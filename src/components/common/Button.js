@@ -9,7 +9,7 @@ const basicButtonStyle = css`
   background-color: transparent;
   border-radius: 4px;
   font-size: 1.3rem;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   outline: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;

@@ -21,7 +21,6 @@ const FormLabel = styled.label`
 
 const InputWrapper = styled.div`
   position: relative;
-  margin: 1rem 0 1.5rem;
   input {
     width: 100%;
     font-size: 20px;

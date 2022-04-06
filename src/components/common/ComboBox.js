@@ -7,12 +7,9 @@ const StyledComboBox = styled.div`
   position: relative;
   width: 200px;
   height: 35px;
-  border-radius: 4px;
+  border-radius: 15px;
   border: 2px solid #000;
   cursor: pointer;
-  &.active {
-    border-color: #850dec;
-  }
 `;
 
 const Label = styled.div`
@@ -30,7 +27,7 @@ const OptionsList = styled.ul`
   width: 100%;
   overflow-y: scroll;
   transition: all 0.2s ease-in;
-  border-radius: 4px;
+  border-radius: 15px;
   max-height: 0;
   box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
@@ -56,9 +53,10 @@ const OptionsList = styled.ul`
 const OptionItem = styled.li`
   padding: 10px 15px;
   transition: all 0.2s ease-in-out;
+  width: 100%;
   &:hover,
   &.selected {
-    background-color: lightgray;
+    font-weight: bold;
   }
   &:last-child {
     border-bottom: 0 none;
