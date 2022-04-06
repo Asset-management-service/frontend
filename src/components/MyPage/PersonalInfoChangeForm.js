@@ -2,17 +2,19 @@ import styled from 'styled-components';
 import React, {useState} from 'react';
 const Button = styled.button`
     display: inline-block;
-    color: palevioletred;
+    color: black;
     font-size: 1em;
     margin: 1em;
     padding: 0.25em 1em;
     border: 2px solid palevioletred;
-    border-radius: 3px;
+    border-radius: 10px;
     display: block;
+    background-color: palevioletred;
 `;
 
 const InputBox = styled.input`
-    border: 2px solid black;
+    border: 2px solid gray;
+    border-radius: 3px;
     font-size: 1em;
     margin: 1em;
 `;
@@ -116,13 +118,13 @@ class RadioButton extends React.Component {
             <section>
                 <h2>개인 정보 변경</h2>
                 <form>
-                    <div><b>닉네임: </b> <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>
+                    <div>닉네임: <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>
                     &nbsp; <span id="checkNickname"></span></div>
-                    <div><b>핸드폰 번호: </b> <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>
+                    <div>핸드폰 번호: <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>
                     &nbsp; <span id="checkPhoneNo"></span></div>
-                    <div><b>이메일: </b> <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>
+                    <div>이메일: <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>
                     &nbsp; <span id="checkEmail"></span></div>
-                    <div><b>성별: </b> <RadioButton></RadioButton></div>
+                    <div>성별: <RadioButton></RadioButton></div>
                     <Button onClick={onSubmit}>개인정보 변경하기</Button>
                 </form>
             </section>
