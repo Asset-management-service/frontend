@@ -13,12 +13,13 @@ export const ModalWrapper = styled.div`
   justify-content: center;
 `;
 
-export const StyledModal = styled.form`
+export const StyledModal = styled.div`
   padding: 3rem;
   border-radius: 1rem;
   background-color: #fff;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
+  position: relative;
   h1 {
     font-size: 30px;
     border-bottom: 1px solid lightgray;
@@ -28,6 +29,14 @@ export const StyledModal = styled.form`
   }
   p {
     font-size: 20px;
+  }
+  .Modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    svg {
+      font-size: 30px;
+    }
   }
 `;
 
