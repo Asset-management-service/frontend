@@ -6,6 +6,7 @@ const ButtonPosition = styled.span`
     flex-direction: row;
     margin: auto;
 
+
 `;
 
 const ConfirmButton = styled.button`
@@ -139,7 +140,7 @@ class RadioButton extends React.Component {
   render() {
     return (
         <span className='radioSpan'>
-        남성 <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
+        &nbsp; 남성 <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
         &nbsp;
         여성 <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
         </span>
@@ -157,7 +158,7 @@ class RadioButton extends React.Component {
                 <FormWrapper>
                     <div><b>닉네임:</b><InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></div>
                     <div><b>핸드폰 번호:</b><InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></div>
-                    <div><b>이메일:</b><InputBox type="email" id="email" placeholder='이메일' name="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></div>
+                    <div><b>이메일:</b><InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></div>
                     <div><b>성별:</b><RadioButton></RadioButton></div>
                     <ButtonPosition>
                         <ConfirmButton onClick={onSubmit}>개인정보 변경하기</ConfirmButton>
