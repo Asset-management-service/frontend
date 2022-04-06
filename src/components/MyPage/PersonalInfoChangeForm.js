@@ -56,6 +56,11 @@ const onSubmit = (event) => {
         document.getElementById('checkEmail').style.color='red';
         }
 }
+
+    if(nickname == " "){
+        document.getElementById('checkNickname').innerHTML='닉네임을 입력해주세요.';
+        document.getElementById('checkNickname').style.color='red';
+    }
 }
 
 class RadioButton extends React.Component {
@@ -92,8 +97,10 @@ class RadioButton extends React.Component {
             <section>
                 <h2>개인 정보 변경</h2>
                 <form>
-                    <div><b>닉네임: </b> <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox></div>
-                    <div><b>핸드폰 번호: </b> <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox></div>
+                    <div><b>닉네임: </b> <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>
+                    &nbsp; <span id="checkNickname"></span></div>
+                    <div><b>핸드폰 번호: </b> <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>
+                    &nbsp; <span id="checkPhoneNo"></span></div>
                     <div><b>이메일: </b> <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>
                     &nbsp; <span id="checkEmail"></span></div>
                     <div><b>성별: </b> <RadioButton></RadioButton></div>
