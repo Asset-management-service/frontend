@@ -1,27 +1,29 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 const Button = styled.button`
-  display: inline-block;
-  color: palevioletred;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
-  display: block;
+    display: inline-block;
+    color: palevioletred;
+    font-size: 1em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid palevioletred;
+    border-radius: 3px;
+    display: block;
 `;
 
-const Nickname = styled.div`
-  
+const InputBox = styled.input`
+    border: 2px solid black;
+    font-size: 1em;
+    margin: 1em;
 `;
+
+
 
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
-    const [password , setPassword] = useState(" ");
-    const [confirmPassword , setConfirmPassword] = useState(" ");
+//비밀번호 재설정 로직 삭ㅔ
     const [phoneNo , setPhoneNo] = useState(" ");
     const [email , setEmail] = useState(" ");
-    const [date, setDate] = useState(" ");
 
 const onNicknameHandler = (event) => { //닉네임 재설정
     setNickname(event.currentTarget.value)
@@ -36,34 +38,7 @@ const onEmailHandler = (event) => { //이메일 재설정
 }
 
 const onSubmit = (event) => { 
-
     event.preventDefault()
-    
-    //비밀번호 조건에 부합하는지 확인
-    if(password.length<8 || password.length>17){ //1. 비밀번호는 8자 이상, 16자 이하
-        document.getElementById('pwConditon').innerHTML='비밀번호는 영어, 숫자, 특수문자를 모두 포함해 작성해주세요';
-        document.getElementById('pwCondition').style.color='red';
-    }
-
-    let pwArray = ["!","@","#","$","%","^","&","*","(",")","_","-","=","+"]; //2. 비밀번호는 무조건 특수 문자를 포함해야 함
-    let pwArrayCheck = 0;
-    for(let i=0;i<pwArray.length;i++){
-        if(password.indexOf(pwArray[i]) !== -1){
-            pwArrayCheck = 1;
-        }
-    }
-
-    if(pwArrayCheck === 0){
-        document.getElementById('pwConditon').innerHTML='비밀번호는 영어, 숫자, 특수문자를 모두 포함해 작성해주세요';
-        document.getElementById('pwCondition').style.color='red';
-    }
-
-    //비밀번호 재설정값과 재설정 확인 값이 같은지 확인
-
-    if(password !== confirmPassword) {
-      document.getElementById('pwCheck').innerHTML='비밀번호가 일치하지 않습니다.';
-      document.getElementById('pwCheck').style.color='red';
-    }
 }
 
 class RadioButton extends React.Component {
@@ -76,7 +51,7 @@ class RadioButton extends React.Component {
   }
 
   onGenderhandler(event) {
-      const { name, value } = event.target;
+      const { name, value } = event.currenttarget.value;
       this.setState({
       [name]: value
       //하나가 트루이면 하나가 false로 바뀌게 수정
@@ -99,11 +74,11 @@ class RadioButton extends React.Component {
             <section>
                 <h2>개인 정보 변경</h2>
                 <form>
-                    <Nickname>닉네임: <input type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler} /></Nickname>
+                    닉네임: <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>
                     <div>핸드폰 번호: <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></input></div>
                     <div>이메일: <input type="email" id="email" name="email" value={email} onChange={onEmailHandler}></input></div>
                     <div>성별: <RadioButton></RadioButton></div>
-                    <Button>개인정보 변경하기</Button>
+                    <Button onClick={onSubmit}>개인정보 변경하기</Button>
                 </form>
             </section>
     );
