@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
+
+const ButtonPosition = styled.span`
+    display: flex;
+    flex-direction: row;
+`;
+
 const ConfirmButton = styled.button`
     color: black;
     font-size: 1em;
@@ -148,9 +154,10 @@ class RadioButton extends React.Component {
                     <div><b>이메일: </b> <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>
                     &nbsp; <span id="checkEmail"></span></div>
                     <div><b>성별:</b><RadioButton></RadioButton></div>
-
-                    <ConfirmButton onClick={onSubmit}>개인정보 변경하기</ConfirmButton>
-                    <CancelButton onClick={goCancel}>취소</CancelButton>
+                    <ButtonPosition>
+                        <ConfirmButton onClick={onSubmit}>개인정보 변경하기</ConfirmButton>
+                        <CancelButton onClick={goCancel}>취소</CancelButton>
+                    </ButtonPosition>
                 </form>
             </section>
     );
