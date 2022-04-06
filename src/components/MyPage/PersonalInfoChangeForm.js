@@ -17,8 +17,6 @@ const InputBox = styled.input`
     margin: 1em;
 `;
 
-
-
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
 //비밀번호 재설정 로직 삭제
@@ -78,7 +76,9 @@ const onSubmit = (event) => {
         document.getElementById('checkPhoneNo').style.color='red';
         }
 }
+
 }
+
 
 class RadioButton extends React.Component {
   constructor(props) {
@@ -99,14 +99,16 @@ class RadioButton extends React.Component {
 
   render() {
     return (
-        <span>
-        Man: <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
+        <span className='radioSpan'>
+        Man <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
         &nbsp;
-        Woman: <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
+        Woman <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
         </span>
     );
   }
+
 }
+
 //이메일, 핸드폰 입력 타입 변경
 //주소는 저번 회의 때 이야기 했던 대로, 제외
     return(
