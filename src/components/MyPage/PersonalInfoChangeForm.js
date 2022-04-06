@@ -4,6 +4,8 @@ import React, {useState} from 'react';
 const ButtonPosition = styled.span`
     display: flex;
     flex-direction: row;
+    margin: auto;
+
 `;
 
 const ConfirmButton = styled.button`
@@ -31,6 +33,7 @@ const CancelButton = styled.button`
         border: 2px solid lightgray;
         border-radius: 4px;
         display: block;
+        font-weight: bold;
         &:hover{
             background-color: lightgray;
         }
@@ -42,6 +45,11 @@ const InputBox = styled.input`
     font-size: 1em;
     margin: 1em;
 `;
+
+const FormWrapper = styled.form`
+    width: 100%;
+`;
+
 
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
@@ -77,28 +85,28 @@ const checkPhoneNo = (phoneNo) => {
 //이메일 검사, 닉네임, 핸드폰 번호 검사 로직 추가
 const onSubmit = (event) => {
     event.preventDefault()
-
     if(email==" "){
-        document.getElementById('checkEmail').innerHTML='이메일을 입력해주세요.';
+        document.getElementById('checkEmail').innerHTML='<b>이메일을 입력해주세요 <b>';
         document.getElementById('checkEmail').style.color='red';
+
     }else{
         if(!checkEmail(email)){
-        document.getElementById('checkEmail').innerHTML='이메일 형식이 올바르지 않습니다.';
+        document.getElementById('checkEmail').innerHTML='<b>이메일 형식이 올바르지 않습니다.<b>';
         document.getElementById('checkEmail').style.color='red';
         }
 }
 
     if(nickname == " "){
-        document.getElementById('checkNickname').innerHTML='닉네임을 입력해주세요.';
+        document.getElementById('checkNickname').innerHTML='<b>닉네임을 입력해주세요.<b>';
         document.getElementById('checkNickname').style.color='red';
     }
 
     if(phoneNo == " "){
-        document.getElementById('checkPhoneNo').innerHTML='핸드폰 번호를 입력해주세요.';
+        document.getElementById('checkPhoneNo').innerHTML='<b>핸드폰 번호를 입력해주세요.<b>';
         document.getElementById('checkPhoneNo').style.color='red';
     }else{
         if(!checkPhoneNo(phoneNo)){
-        document.getElementById('checkPhoneNo').innerHTML='핸드폰 형식이 올바르지 않습니다.';
+        document.getElementById('checkPhoneNo').innerHTML='<b>핸드폰 형식이 올바르지 않습니다.<b>';
         document.getElementById('checkPhoneNo').style.color='red';
         }
 }
@@ -146,19 +154,16 @@ class RadioButton extends React.Component {
         /*비밀번호 변경, 닉네임 변경, 핸드폰 번호 변경, 이메일 변경, 성별 변경 가능*/
             <section>
                 <h2>개인 정보 변경</h2>
-                <form>
-                    <div><b>닉네임: </b> <InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>
-                    &nbsp; <span id="checkNickname"></span></div>
-                    <div><b>핸드폰 번호: </b> <InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>
-                    &nbsp; <span id="checkPhoneNo"></span></div>
-                    <div><b>이메일: </b> <InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>
-                    &nbsp; <span id="checkEmail"></span></div>
+                <FormWrapper>
+                    <div><b>닉네임:</b><InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></div>
+                    <div><b>핸드폰 번호:</b><InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></div>
+                    <div><b>이메일:</b><InputBox type="email" id="email" placeholder='이메일' name="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></div>
                     <div><b>성별:</b><RadioButton></RadioButton></div>
                     <ButtonPosition>
                         <ConfirmButton onClick={onSubmit}>개인정보 변경하기</ConfirmButton>
                         <CancelButton onClick={goCancel}>취소</CancelButton>
                     </ButtonPosition>
-                </form>
+                </FormWrapper>
             </section>
     );
     }
