@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { socialLogin } from '../../modules/login';
 import kakaoIcon from '../../images/kakao-icon.png';
 import naverIcon from '../../images/naver-icon.png';
 import googleIcon from '../../images/google-icon.png';
@@ -7,7 +9,6 @@ import {
   NAVER_LOGIN_URL,
 } from '../../constants/loginUrl';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 
 const SocialLoginWrapper = styled.div`
   width: 100%;
@@ -59,10 +60,14 @@ const SocialLoginLink = styled.li`
 `;
 
 function SocialLogin() {
-  useEffect(() => {
-    console.log(KAKAO_LOGIN_URL);
-  }, []);
-  const onLogin = (href) => window.location.assign(href);
+  const dispatch = useDispatch();
+  const onLogin = (type) => {
+    dispatch(
+      socialLogin(
+        `/oauth2/authorization/${type}?redirect_uri=http://localhost:3000/oauth/redirect`,
+      ),
+    );
+  };
 
   return (
     <SocialLoginWrapper>
@@ -71,17 +76,17 @@ function SocialLogin() {
       </SocialLoginHeading>
       <SocialLoginLinks>
         <SocialLoginLink>
-          <button onClick={() => onLogin(KAKAO_LOGIN_URL)}>
+          <button onClick={() => onLogin('kakao')}>
             <img src={kakaoIcon} alt="kakao icon" />
           </button>
         </SocialLoginLink>
         <SocialLoginLink>
-          <button onClick={() => onLogin(NAVER_LOGIN_URL)}>
+          <button onClick={() => onLogin('naver')}>
             <img src={naverIcon} alt="naver icon" />
           </button>
         </SocialLoginLink>
         <SocialLoginLink>
-          <button onClick={() => onLogin(GOOGLE_LOGIN_URL)}>
+          <button onClick={() => onLogin('google')}>
             <img src={googleIcon} alt="google icon" />
           </button>
         </SocialLoginLink>
