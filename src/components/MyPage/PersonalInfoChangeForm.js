@@ -116,7 +116,16 @@ const onSubmit = (event) => {
 
 const goCancel = (event) => {
     event.preventDefault()
-    //취소 버튼 누르면 이전 페이지로 이동
+    //닉네임 값  초기화
+    var nicknameValue = document.getElementById('nickname'); 
+    nicknameValue.value = null; 
+     //핸드폰 번호 초기화
+    var phoneNoValue = document.getElementById('phoneNo'); 
+    phoneNoValue.value = null; 
+     //이메일  초기화
+    var emailValue = document.getElementById('email'); 
+    emailValue.value = null; 
+
 }
 
 
@@ -156,9 +165,9 @@ class RadioButton extends React.Component {
             <section>
                 <h2>개인 정보 변경</h2>
                 <FormWrapper>
-                    <div><b>닉네임:</b><InputBox type="text" placeholder='닉네임' value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></div>
-                    <div><b>핸드폰 번호:</b><InputBox type="tel" id="phone" name="phone" placeholder="010-0000-0000" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></div>
-                    <div><b>이메일:</b><InputBox type="email" id="email" name="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></div>
+                    <div><b>닉네임:</b><InputBox type="text" id="nickname" value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></div>
+                    <div><b>핸드폰 번호:</b><InputBox type="tel" id="phoneNo"  pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></div>
+                    <div><b>이메일:</b><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></div>
                     <div><b>성별:</b><RadioButton></RadioButton></div>
                     <ButtonPosition>
                         <ConfirmButton onClick={onSubmit}>개인정보 변경하기</ConfirmButton>
