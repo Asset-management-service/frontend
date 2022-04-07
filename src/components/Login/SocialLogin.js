@@ -1,13 +1,8 @@
 import { useDispatch } from 'react-redux';
-import { socialLogin } from '../../modules/login';
+import { loading } from '../../modules/login';
 import kakaoIcon from '../../images/kakao-icon.png';
 import naverIcon from '../../images/naver-icon.png';
 import googleIcon from '../../images/google-icon.png';
-import {
-  GOOGLE_LOGIN_URL,
-  KAKAO_LOGIN_URL,
-  NAVER_LOGIN_URL,
-} from '../../constants/loginUrl';
 import styled from 'styled-components';
 
 const SocialLoginWrapper = styled.div`
@@ -62,10 +57,9 @@ const SocialLoginLink = styled.li`
 function SocialLogin() {
   const dispatch = useDispatch();
   const onLogin = (type) => {
-    dispatch(
-      socialLogin(
-        `/oauth2/authorization/${type}?redirect_uri=http://localhost:3000/oauth/redirect`,
-      ),
+    dispatch(loading());
+    window.location.assign(
+      `http://52.79.233.212:8080/oauth2/authorization/${type}?redirect_uri=http://localhost:3000/oauth/redirect`,
     );
   };
 
