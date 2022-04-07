@@ -125,7 +125,12 @@ const goCancel = (event) => {
      //이메일  초기화
     var emailValue = document.getElementById('email'); 
     emailValue.value = null; 
-
+    //닉네임 에러 메세지 초기화
+    document.getElementById('checkNickname').innerHTML=' ';
+     //핸드폰 에러 메세지 초기화
+    document.getElementById('checkEmail').innerHTML=' ';
+     //닉네임 에러 메세지 초기화
+    document.getElementById('checkPhoneNo').innerHTML=' ';
 }
 
 
@@ -142,7 +147,6 @@ class RadioButton extends React.Component {
       const { name, value } = event.currenttarget.value;
       this.setState({
       [name]: value
-      //하나가 트루이면 하나가 false로 바뀌게 수정
     });
 }
 
