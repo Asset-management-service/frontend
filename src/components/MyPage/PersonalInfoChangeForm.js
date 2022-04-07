@@ -1,23 +1,23 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 
-const ButtonPosition = styled.span`
+const ButtonPosition = styled.div`
     display: flex;
     flex-direction: row;
     margin: auto;
-
-
+    width: 500px;
 `;
 
 const ConfirmButton = styled.button`
     color: black;
-    font-size: 1em;
     font-style: bold;
     margin: 1em;
     padding: 0.25em 1em;
     border: 2px solid #F98BAE;
     border-radius: 4px;
     font-weight: bold;
+    font-size: 15px;
+    text-align: center;
     background-color: #F98BAE;
     display: block;
     &:hover{
@@ -28,13 +28,14 @@ const ConfirmButton = styled.button`
 
 const CancelButton = styled.button`
         color: black;
-        font-size: 1em;
         margin: 1em;
         padding: 0.25em 1em;
         border: 2px solid lightgray;
         border-radius: 4px;
         display: block;
+        font-size: 15px;
         font-weight: bold;
+        text-align: center;
         &:hover{
             background-color: lightgray;
         }
@@ -43,7 +44,7 @@ const CancelButton = styled.button`
 const InputBox = styled.input`
     border: 2px solid lightgray;
     border-radius: 3px;
-    font-size: 1em;
+    font-size: 15px;
     margin: 1em;
 `;
 
@@ -51,6 +52,20 @@ const FormWrapper = styled.form`
     width: 100%;
 `;
 
+const TitleWrapper = styled.span`
+    font-size: 20px;
+    font-weight: bold;
+`;
+
+const RadioItem = styled.span`
+    font-size: 15px;
+`;
+
+const ItemWrapper = styled.div`
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+`;
 
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
@@ -150,12 +165,13 @@ class RadioButton extends React.Component {
     });
 }
 
+
   render() {
     return (
         <span className='radioSpan'>
-        &nbsp; 남성 <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
-        &nbsp;
-        여성 <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
+        &nbsp; <RadioItem>남성</RadioItem> <input id="man" value="man" name="gender" type="radio" onChange={this.onGenderHandler} />
+        &nbsp; &nbsp; &nbsp; &nbsp; 
+        <RadioItem>여성</RadioItem> <input id="woman" value="woman" name="gender" type="radio" onChange={this.onGenderHandler} />
         </span>
     );
   }
@@ -169,14 +185,16 @@ class RadioButton extends React.Component {
             <section>
                 <h2>개인 정보 변경</h2>
                 <FormWrapper>
-                    <div><b>닉네임:</b><InputBox type="text" id="nickname" value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></div>
-                    <div><b>핸드폰 번호:</b><InputBox type="tel" id="phoneNo"  pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></div>
-                    <div><b>이메일:</b><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></div>
-                    <div><b>성별:</b><RadioButton></RadioButton></div>
-                    <ButtonPosition>
-                        <ConfirmButton onClick={onSubmit}>개인정보 변경하기</ConfirmButton>
-                        <CancelButton onClick={goCancel}>취소</CancelButton>
-                    </ButtonPosition>
+                    <ItemWrapper><TitleWrapper>닉네임: </TitleWrapper><InputBox type="text" id="nickname" value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></ItemWrapper>
+                    <ItemWrapper><TitleWrapper>핸드폰 번호: </TitleWrapper><InputBox type="tel" id="phoneNo"  pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></ItemWrapper>
+                    <ItemWrapper><TitleWrapper>이메일: </TitleWrapper><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></ItemWrapper>
+                    <ItemWrapper><TitleWrapper>성별: </TitleWrapper><RadioButton></RadioButton></ItemWrapper>
+                    <ItemWrapper>
+                        <ButtonPosition>
+                            <ConfirmButton onClick={onSubmit}>개인정보 변경하기</ConfirmButton>
+                            <CancelButton onClick={goCancel}>입력 취소</CancelButton>
+                        </ButtonPosition>
+                    </ItemWrapper>
                 </FormWrapper>
             </section>
     );
