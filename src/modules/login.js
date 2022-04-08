@@ -28,15 +28,6 @@ export const logout = () => ({
   type: LOGOUT,
 });
 
-export const socialLogin = (url) => async (dispatch) => {
-  dispatch(loading(true));
-  try {
-    await loginOauth(url);
-  } catch (e) {
-    dispatch(loginFailure(e));
-  }
-};
-
 const initialState = {
   loading: false,
   auth: null,
