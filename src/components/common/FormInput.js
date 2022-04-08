@@ -25,10 +25,13 @@ const InputWrapper = styled.div`
     width: 100%;
     font-size: 20px;
     padding: 0.5rem;
-    border: 1px solid ${Palette.gray[1]};
-    border-radius: 4px;
+    border-bottom: 1px solid lightgray;
     border-color: ${({ error }) => error && Palette.red[6]};
     padding-right: ${({ pwdBtn }) => (pwdBtn ? '40px' : 0)};
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid #000;
+    }
     &::placeholder {
       font-size: 17px;
     }
