@@ -4,8 +4,7 @@ import React, {useState} from 'react';
 const ButtonPosition = styled.div`
     display: flex;
     flex-direction: row;
-    margin: auto;
-    width: 500px;
+    justify-content: center;
 `;
 
 const ConfirmButton = styled.button`
@@ -50,6 +49,7 @@ const InputBox = styled.input`
 
 const FormWrapper = styled.form`
     width: 100%;
+    font-size: 15px;
 `;
 
 const TitleWrapper = styled.span`
@@ -62,9 +62,7 @@ const RadioItem = styled.span`
 `;
 
 const ItemWrapper = styled.div`
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
+    padding: 2rem;
 `;
 
 function PersonalInfoChangeForm(){
