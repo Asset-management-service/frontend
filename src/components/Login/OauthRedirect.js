@@ -16,7 +16,7 @@ function OauthRedirect() {
     }
     navigate('/moneybook', { replace: true });
   }, []);
-  return <Loading mainColor={Palette.gray[8]} text="로그인 중..." />;
+  return <Loading mainColor={'black'} text="로그인 중..." />;
 }
 
 export default OauthRedirect;

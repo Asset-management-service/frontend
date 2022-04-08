@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Loading from '../Loading';
 import Logo from './Logo';
 import NavLinks from './NavLinks';
 import UserLinks from './UserLinks';
-import Palette from '../../../lib/Palette';
 import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
@@ -35,7 +33,7 @@ const StyledNavCenter = styled.div`
 
 function Header({ loading }) {
   if (loading) {
-    return <Loading mainColor={Palette.gray[8]} text="로그인 중..." />;
+    return <Loading mainColor={'black'} />;
   }
 
   return (
