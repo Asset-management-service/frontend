@@ -1,6 +1,7 @@
 import { rest } from 'msw';
 
 export const handlers = [
+  /*
   rest.get('/oauth2/authorization/google', (req, res, ctx) => {
     const redirect_uri = req.url.searchParams.get('redirect_uri');
     const jwt =
@@ -40,5 +41,17 @@ export const handlers = [
   rest.get('/oauth/redirect', (req, res, ctx) => {
     return res(ctx.status(400));
   }),
+  */
   rest.get('/user', null),
+  rest.post('/upload', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        success: 1,
+        file: {
+          url: 'https://codex.so/public/app/img/external/codex2x.png',
+        },
+      }),
+    );
+  }),
 ];
