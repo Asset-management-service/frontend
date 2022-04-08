@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
 import MyBadgeList from '../../components/MyPage/MyBadgeList';
 import MyPostList from '../../components/MyPage/MyPostList';
-// 추가
+import PersonalInfoChangeForm from '../../components/MyPage/PersonalInfoChangeForm';
 
 function MySubPage() {
   const { category } = useParams();
   if (category === 'edit') {
-    return <></>;
+    return <PersonalInfoChangeForm />;
   }
   if (category === 'badge') {
     return (
