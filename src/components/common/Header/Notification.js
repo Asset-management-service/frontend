@@ -31,7 +31,7 @@ const NotifyList = styled.ul`
   position: absolute;
   border: 2px solid lightgray;
   top: 50px;
-  right: -90px;
+  right: -20px;
   background: #fff;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -43,14 +43,14 @@ const NotifyList = styled.ul`
     border-style: solid;
     border-width: 15px 10px 0px 14px;
     border-color: lightgray transparent;
-    right: 90px;
+    right: 20px;
     top: -15px;
     width: 0;
     transform: rotateZ(180deg);
   }
   &:after {
     border-color: #ffffff transparent;
-    top: -13px;
+    top: -12px;
   }
 `;
 
