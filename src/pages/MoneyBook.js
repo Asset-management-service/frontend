@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import NotLogin from '../components/common/NotLogin';
+import { NotLogin } from '../components/common/NotLogin';
 import SideBar from '../components/common/SideBar';
 import styled from 'styled-components';
 
