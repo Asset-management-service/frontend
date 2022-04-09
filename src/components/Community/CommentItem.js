@@ -70,7 +70,7 @@ function CommentItem({ type, children }) {
             <p className="Comment-date">2022-03-23 15:00</p>
           </div>
           <p className="Comment-comment">00000000000000000000</p>
-          {type === '댓글' && (
+          {type === '댓글' && auth && (
             <button className="recomment-btn" onClick={setRecomment}>
               {recomment ? `취소` : `대댓글 달기`}
             </button>

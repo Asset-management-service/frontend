@@ -1,10 +1,13 @@
+import { useSelector } from 'react-redux';
 import { Button } from '../../components/common/Button';
+import { NotLoginModal } from '../../components/common/NotLogin';
 import BoardList from '../../components/Community/BoardList';
+import { useNotLogin } from '../../hooks/useNotLogin';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import styled from 'styled-components';
 
 const StyledButton = styled(Button)`
-  font-size: 15px;
+  font-size: 14px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -17,10 +20,17 @@ const StyledButton = styled(Button)`
 
 function CommunityListPage({ category }) {
   // category에 따라 게시물 가져오기 (api 요청)
-
+  const { auth } = useSelector(({ login }) => login);
+  const { show, handleNotLogin, onClose } = useNotLogin(false);
+  const to = `/community/write?category=${category}`;
   return (
     <section>
-      <StyledButton outlined={true} basiccolor="black" to="/community/write">
+      <StyledButton
+        outlined
+        basiccolor="black"
+        to={to}
+        onClick={(e) => handleNotLogin(auth, e)}
+      >
         <CreateOutlinedIcon /> 글쓰기
       </StyledButton>
       <BoardList
@@ -81,6 +91,7 @@ function CommunityListPage({ category }) {
           },
         ]}
       />
+      <NotLoginModal show={show} onClose={onClose} />
     </section>
   );
 }

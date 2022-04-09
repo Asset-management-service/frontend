@@ -27,9 +27,6 @@ export const StyledModal = styled.div`
     font-weight: normal;
     margin-bottom: 3rem;
   }
-  p {
-    font-size: 20px;
-  }
   .Modal-close-btn {
     position: absolute;
     top: 10px;
