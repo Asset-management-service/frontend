@@ -7,7 +7,7 @@ const StyledNav = styled.nav`
   border-right: 1px solid lightgray;
   position: fixed;
   background-color: #fff;
-  top: 5rem;
+  top: 4.5rem;
   bottom: 0;
   left: 0;
   h2 {
