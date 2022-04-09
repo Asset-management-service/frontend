@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { NotLogin } from '../components/common/NotLogin';
 import SideBar from '../components/common/SideBar';
+import { MONEYBOOK_PAGE_NAV } from '../constants/nav';
 import styled from 'styled-components';
 
 const MainWrapper = styled.main`
@@ -14,31 +15,13 @@ const MainWrapper = styled.main`
   }
 `;
 
-const MoneyBookNav = [
-  {
-    label: '수익 지출 관리',
-    to: '/moneybook',
-  },
-  {
-    label: '머니로그',
-    to: '/moneybook/moneylog',
-  },
-  {
-    label: '통계',
-    to: '/moneybook/statistic',
-  },
-  {
-    label: '설정',
-    to: '/moneybook/setting',
-  },
-];
 function MoneyBook({ auth }) {
   if (!auth) {
     return <NotLogin />;
   }
   return (
     <MainWrapper>
-      <SideBar menu={'가계부'} navs={MoneyBookNav} />
+      <SideBar menu={'가계부'} navs={MONEYBOOK_PAGE_NAV} />
       <Outlet />
     </MainWrapper>
   );

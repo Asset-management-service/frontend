@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { DropMenu } from '../common/DropMenu';
 import CommentList from './CommentList';
 import { useToggle } from '../../hooks';
+import { BOARD_DETAIL_DROP_MENU } from '../../constants/nav';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
@@ -73,23 +73,7 @@ const DetailHeading = styled.div`
   }
 `;
 
-const onScrap = () => {};
-
 // 자신이 쓴 글이라면 수정 및 삭제 기능 추가되어야 함.
-const boardDropMenus = [
-  {
-    id: 1,
-    menu: <Link to="chat">채팅 보내기</Link>,
-  },
-  {
-    id: 2,
-    menu: <button onClick={onScrap}>스크랩하기</button>, // 스크랩 기능 추가 api)
-  },
-  {
-    id: 3,
-    menu: <button>신고하기</button>,
-  },
-];
 
 function BoardDetail() {
   const { auth } = useSelector(({ login }) => login);
@@ -132,7 +116,7 @@ function BoardDetail() {
             <button onClick={onLike} className="like-btn">
               {like ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
             </button>
-            <DropMenu menus={boardDropMenus} height={99} />
+            <DropMenu menus={BOARD_DETAIL_DROP_MENU} height={99} />
           </div>
         )}
       </DetailHeading>
