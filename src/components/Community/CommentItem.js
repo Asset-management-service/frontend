@@ -1,22 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { DropMenu } from '../common/DropMenu';
+import { COMMENT_DROP_MENU } from '../../constants/nav'; // 자신이 쓴 댓글이라면 수정 및 삭제 기능 추가되어야 함.
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styled, { css } from 'styled-components';
 import { useToggle } from '../../hooks';
 import CommentForm from './CommentForm';
-
-// 자신이 쓴 댓글이라면 수정 및 삭제 기능 추가되어야 함.
-const commentDropMenus = [
-  {
-    id: 1,
-    menu: <Link to="/chat">채팅보내기</Link>,
-  },
-  {
-    id: 2,
-    menu: <button>신고하기</button>,
-  },
-];
 
 const StyledItem = styled.div`
   margin: 1rem 0;
@@ -76,7 +65,7 @@ function CommentItem({ type, children }) {
             </button>
           )}
         </div>
-        {auth && <DropMenu menus={commentDropMenus} height={67} />}
+        {auth && <DropMenu menus={COMMENT_DROP_MENU} height={67} />}
       </ItemRow>
       {children}
       {recomment && <CommentForm type="대댓글" />}

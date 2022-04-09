@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import SideBar from '../../components/common/SideBar';
+import { COMMUNITY_PAGE_NAV } from '../../constants/nav';
 import styled from 'styled-components';
 
 const MainWrapper = styled.main`
@@ -13,20 +14,6 @@ const MainWrapper = styled.main`
   }
 `;
 
-const CommunityNav = [
-  {
-    label: '자산관리 QnA',
-    to: '/community/qna',
-  },
-  {
-    label: '머니로그 & 통계 공유',
-    to: '/community/share',
-  },
-  {
-    label: '자유게시판',
-    to: '/community/free',
-  },
-];
 function CommunityPage() {
   const navigate = useNavigate();
   const { category } = useParams();
@@ -35,7 +22,7 @@ function CommunityPage() {
   }, [category]);
   return (
     <MainWrapper>
-      <SideBar menu={'커뮤니티'} navs={CommunityNav} />
+      <SideBar menu={'커뮤니티'} navs={COMMUNITY_PAGE_NAV} />
       <Outlet />
     </MainWrapper>
   );

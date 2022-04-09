@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { NotLogin } from '../../components/common/NotLogin';
 import SideBar from '../../components/common/SideBar';
+import { MY_PAGE_NAV } from '../../constants/nav';
 import styled from 'styled-components';
 
 const MyPageWrapper = styled.main`
@@ -18,28 +19,6 @@ const MyPageWrapper = styled.main`
   }
 `;
 
-const MY_PAGE_NAV = [
-  {
-    to: '/mypage/edit',
-    label: '개인정보 변경',
-  },
-  {
-    to: '/mypage/badge',
-    label: '내 뱃지',
-  },
-  {
-    to: '/mypage/post',
-    label: '내가 쓴 글',
-  },
-  {
-    to: '/mypage/comment',
-    label: '내가 쓴 댓글',
-  },
-  {
-    to: '/mypage/scrap',
-    label: '스크랩 보기',
-  },
-];
 function MyPage({ auth }) {
   const navigate = useNavigate();
   const { category } = useParams();
