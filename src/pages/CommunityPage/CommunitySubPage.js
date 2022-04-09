@@ -7,7 +7,7 @@ function CommunitySubPage() {
   if (id) {
     return <CommunityDetailPage id={id} />;
   }
-  return <CommunityListPage categoy={category} />;
+  return <CommunityListPage category={category} />;
 }
 
 export default CommunitySubPage;
