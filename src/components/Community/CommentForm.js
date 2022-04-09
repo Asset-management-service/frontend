@@ -1,5 +1,6 @@
+import { useEffect, useRef, useCallback } from 'react';
 import { Button } from '../common/Button';
-import { FormInput } from '../common/FormInput';
+import { TextArea } from '../common/TextArea';
 import { useForm } from '../../hooks';
 import styled from 'styled-components';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
@@ -7,22 +8,20 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 const StyledForm = styled.form`
   display: flex;
   align-items: center;
-  margin: 1rem 0 0;
-
+  margin: 1.5rem 0 0;
   margin-left: ${({ type }) => (type === '대댓글' ? `3rem` : `0rem`)};
   button {
     font-size: 15px;
     margin-left: 10px;
     display: flex;
   }
-  input {
-    font-size: 15px;
+  textarea {
+    flex-grow: 1;
   }
 `;
 
-const Input = styled(FormInput)`
-  width: auto;
-  flex-grow: 1;
+const ShowText = styled.div`
+  white-space: pre-line;
 `;
 
 function CommentForm({ type }) {
@@ -33,19 +32,25 @@ function CommentForm({ type }) {
   const onSubmit = (e) => {
     e.preventDefault(); // 댓글 및 대댓글 추가 기능 (api)
   };
+  useEffect(() => {
+    console.log(form.comment);
+  }, [form.comment]);
   return (
-    <StyledForm onSubmit={onSubmit} type={type}>
-      <Input
-        type="text"
-        name="comment"
-        value={form.comment}
-        onChange={onChange}
-        placeholder={msg}
-      />
-      <Button outlined={true} basiccolor="#40B2B7">
-        <CreateOutlinedIcon />
-      </Button>
-    </StyledForm>
+    <>
+      <StyledForm onSubmit={onSubmit} type={type}>
+        <TextArea
+          name="comment"
+          value={form.comment}
+          onChange={onChange}
+          placeholder={msg}
+          noscroll
+        />
+        <Button outlined basiccolor="#40B2B7">
+          <CreateOutlinedIcon />
+        </Button>
+      </StyledForm>
+      <ShowText>{form.comment}</ShowText>
+    </>
   );
 }
 
