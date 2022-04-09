@@ -20,10 +20,6 @@ const StyledForm = styled.form`
   }
 `;
 
-const ShowText = styled.div`
-  white-space: pre-line;
-`;
-
 function CommentForm({ type }) {
   const { form, onChange } = useForm({
     comment: '',
@@ -49,7 +45,6 @@ function CommentForm({ type }) {
           <CreateOutlinedIcon />
         </Button>
       </StyledForm>
-      <ShowText>{form.comment}</ShowText>
     </>
   );
 }
