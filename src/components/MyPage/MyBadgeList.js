@@ -2,10 +2,12 @@ import MyBadgeItem from './MyBadgeItem';
 import styled from 'styled-components';
 
 const BadgeList = styled.ul`
+  width: 75vw;
+  margin: 0 auto;
   margin-top: 3rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 4rem;
+  gap: 5rem;
   justify-content: center;
 `;
 
