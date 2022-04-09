@@ -59,7 +59,7 @@ function SocialLogin() {
   const onLogin = (type) => {
     dispatch(loading());
     window.location.assign(
-      `http://52.79.233.212:8080/oauth2/authorization/${type}?redirect_uri=http://localhost:3000/oauth/redirect`,
+      `https://moamoadev.shop/oauth2/authorization/${type}?redirect_uri=http://localhost:3000/oauth/redirect`,
     );
   };
 
