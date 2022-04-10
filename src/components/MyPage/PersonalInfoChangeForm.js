@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
+import { Button } from '../common/Button';
 
 const ButtonPosition = styled.div`
     display: flex;
@@ -92,7 +93,7 @@ const checkEmail = (email) => {
 }
 
 const checkPhoneNo = (phoneNo) => {
-    var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    var regPhone = /^01([0])?([0-9]{4})?([0-9]{4})$/;
     return regPhone.test(phoneNo);
     }
 
@@ -184,7 +185,7 @@ class RadioButton extends React.Component {
                 <h2>개인 정보 변경</h2>
                 <FormWrapper>
                     <ItemWrapper><TitleWrapper>닉네임: </TitleWrapper><InputBox type="text" id="nickname" value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></ItemWrapper>
-                    <ItemWrapper><TitleWrapper>핸드폰 번호: </TitleWrapper><InputBox type="tel" id="phoneNo"  pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></ItemWrapper>
+                    <ItemWrapper><TitleWrapper>핸드폰 번호: </TitleWrapper><InputBox type="tel" id="phoneNo" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></ItemWrapper>
                     <ItemWrapper><TitleWrapper>이메일: </TitleWrapper><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></ItemWrapper>
                     <ItemWrapper><TitleWrapper>성별: </TitleWrapper><RadioButton></RadioButton></ItemWrapper>
                     <ItemWrapper>
