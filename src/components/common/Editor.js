@@ -1,19 +1,26 @@
 import React from 'react';
-import ImagePreview from '../Community/ImagePreview';
+import { FormInput } from '../../components/common/FormInput';
+import ImagePreview from './ImagePreview';
 import Palette from '../../lib/Palette';
 import styled from 'styled-components';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 
 const StyledEditor = styled.div`
-  position: relative;
-  border-radius: 20px;
-  box-shadow: rgba(149, 157, 165, 0.2) 5px 8px 24px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   input[type='file'] {
     display: none;
   }
+`;
+
+const EditorBox = styled.div`
+  position: relative;
+  border-radius: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 5px 8px 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const EditorTextArea = styled.textarea`
@@ -64,28 +71,33 @@ const ImageButton = styled.span`
   }
 `;
 
-export function Editor({
-  content,
-  onChange,
-  uploadImage,
-  images,
-  removeImage,
-}) {
+export function Editor({ value, onChange, onUploadImage, onRemoveImage }) {
   return (
     <StyledEditor>
-      <EditorTextArea
-        name="content"
-        value={content}
-        onChange={onChange}
-        placeholder="내용을 작성해주세요"
-      />
-      <ButtonWrapper>
-        <ImageButton>
-          <AddPhotoAlternateOutlinedIcon color="#fff" />
-        </ImageButton>
-        <input accept="image/*" type="file" onChange={uploadImage} />
-      </ButtonWrapper>
-      <ImagePreview images={images} removeImage={removeImage} />
+      {value.title !== undefined && (
+        <FormInput
+          type="text"
+          name="title"
+          value={value.title}
+          onChange={onChange}
+          placeholder="제목을 입력하세요"
+        />
+      )}
+      <EditorBox>
+        <EditorTextArea
+          name="content"
+          value={value.content}
+          onChange={onChange}
+          placeholder="내용을 작성해주세요"
+        />
+        <ButtonWrapper>
+          <ImageButton>
+            <AddPhotoAlternateOutlinedIcon color="#fff" />
+          </ImageButton>
+          <input accept="image/*" type="file" onChange={onUploadImage} />
+        </ButtonWrapper>
+        <ImagePreview images={value.images} removeImage={onRemoveImage} />
+      </EditorBox>
     </StyledEditor>
   );
 }
