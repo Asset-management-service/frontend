@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import { ModalWrapper, StyledModal } from '../common/Modal';
-import { Modal } from '@mui/material';
 
 const SettingListWrapper = styled.div`
     margin: auto;
@@ -37,13 +35,30 @@ function Setting(){
         width: 49%;
     `;
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const onModalHandler = () => {
+    setIsOpen(!isOpen)
+    };
+
+
     return(
         <SettingListContent>
             {props.content}
-                <ChevronRightRoundedIcon></ChevronRightRoundedIcon>
+                <ChevronRightRoundedIcon onClick={onModalHandler} >
+                {isOpen === false ? "Open Modal" : "Opened"}
+                </ChevronRightRoundedIcon>
+            
+            {isOpen ===false ? null : 
+            <div onClick={onModalHandler}>
+                <div className="close-btn" onClick={onModalHandler}>&times;</div>
+                <div className="desc">HELLO WORLD!</div>
+            </div>
+    }
         </SettingListContent>
     );
 }
+
 //체브론 아이콘을 누르면 모달창 열림
 //모달창이 열리면 값을 입력 받아야함
 //모달창 안에는 취소버튼과 확인 버튼이 있음.
@@ -52,7 +67,9 @@ function Setting(){
     return(
         <SettingListWrapper>
             <SettingList>
-                <SettingListTitle title='예산 설정'></SettingListTitle>
+                <SettingListTitle title='예산 설정'>
+                    
+                </SettingListTitle>
                 <hr align='left' width='50%'></hr>
                 <SettingListContent content='한달 예산 금액'></SettingListContent>
             </SettingList>
