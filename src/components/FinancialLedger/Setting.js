@@ -3,10 +3,6 @@ import React, {useState} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import { Button } from '../common/Button';
 
-const SettingListWrapper = styled.div`
-    margin: auto;
-`;
-
 const SettingList = styled.div`
     margin: 3em;
 `;
@@ -134,11 +130,9 @@ function Setting(){
     
 
     return(
-        <SettingListWrapper>
+        <div>
             <SettingList>
-                <SettingListTitle title='예산 설정'>
-                    
-                </SettingListTitle>
+                <SettingListTitle title='예산 설정'></SettingListTitle>
                 <hr align='left' width='50%'></hr>
                 <SettingListContent content='한달 예산 금액'></SettingListContent>
             </SettingList>
@@ -156,7 +150,7 @@ function Setting(){
                 <SettingListContent content='고정비'></SettingListContent>
                 <SettingListContent content='변동비'></SettingListContent>
             </SettingList>
-        </SettingListWrapper>
+        </div>
     );
 }
 
