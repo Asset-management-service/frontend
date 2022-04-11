@@ -34,7 +34,6 @@ function Setting(){
         display: flex;
     `;
 
-    
 
     return(
         <SettingListContent>
@@ -49,12 +48,12 @@ function Setting(){
         <SettingListWrapper>
             <SettingList>
                 <SettingListTitle title='예산 설정'></SettingListTitle>
-                <hr width='70%'></hr>
+                <hr align='left' width='50%'></hr>
                 <SettingListContent content='한달 예산 금액'></SettingListContent>
             </SettingList>
             <SettingList>
                 <SettingListTitle title='카테고리 설정'></SettingListTitle>
-                <hr width='70%'></hr>
+                <hr align='left' width='50%'></hr>
                 <SettingListContent content='고정비 카테고리'></SettingListContent>
                 <SettingListContent content='변동비 카테고리'></SettingListContent>
                 <SettingListContent content='수익 카테고리'></SettingListContent>
@@ -62,7 +61,7 @@ function Setting(){
             </SettingList>
             <SettingList>
                 <SettingListTitle title='지출 비율 설정'></SettingListTitle>
-                <hr width='70%'></hr>
+                <hr align='left' width='50%'></hr>
                 <SettingListContent content='고정비'></SettingListContent>
                 <SettingListContent content='변동비'></SettingListContent>
             </SettingList>
