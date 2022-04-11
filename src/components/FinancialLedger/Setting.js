@@ -32,6 +32,7 @@ function Setting(){
         font-weight: normal;
         margin: 1em;
         display: flex;
+        justify-content: space-between;
     `;
 
 
