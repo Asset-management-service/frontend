@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
-import { render } from '@testing-library/react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import { ModalWrapper, StyledModal } from '../common/Modal';
+import { Modal } from '@mui/material';
 
 const SettingListWrapper = styled.div`
     margin: auto;
@@ -33,15 +34,19 @@ function Setting(){
         margin: 1em;
         display: flex;
         justify-content: space-between;
+        width: 49%;
     `;
 
     return(
         <SettingListContent>
             {props.content}
-            <ChevronRightRoundedIcon />
+                <ChevronRightRoundedIcon></ChevronRightRoundedIcon>
         </SettingListContent>
     );
 }
+//체브론 아이콘을 누르면 모달창 열림
+//모달창이 열리면 값을 입력 받아야함
+//모달창 안에는 취소버튼과 확인 버튼이 있음.
 
 
     return(
