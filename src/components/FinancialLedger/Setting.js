@@ -13,6 +13,9 @@ const SettingList = styled.div`
 const SettingListTitleWrapper = styled.div`
         font-size: 20px;
         font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        width: 49%;
 `;
 
 //설정 항목 내용 컴포넌트 스타일링
@@ -58,7 +61,7 @@ const StyledModal = styled.div`
         top: 10px;
         right: 10px;
         svg {
-        font-size: 30px;
+        font-size: 50px;
         }
     }
 `;
@@ -166,6 +169,7 @@ const SetExpenseRatio = (props) => {
         //모달창 사라짐
         //확인버튼을 누르면 화면에 해당 금액이 보이도록 설정
     }
+    //버튼 스타일링 다시
 
     return(
         <SettingListContentWrapper>
@@ -187,6 +191,45 @@ const SetExpenseRatio = (props) => {
     );
 }
 
+//카테고리 설정 컴포넌트
+const SetCategory = (props) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openCategoryModalHandler = () => {
+    setIsOpen(true)
+    };
+
+    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
+    const closeCategoryModalHandler = () => {
+        setIsOpen(false)
+    }
+
+    const [category,SetCategory] = useState(" ");
+
+    const onCategoryModalHandler = (event) => { 
+    SetCategory(event.currentTarget.value)
+    }
+
+    // + 아이콘, X 버튼, 삭제 아이콘 추가
+    // + 아이콘을 누르면 입력창이 뜨도록
+
+    return(
+        <SettingListContentWrapper>
+            {props.content}
+            <ChevronRightRoundedIcon onClick={openCategoryModalHandler}></ChevronRightRoundedIcon>
+            {isOpen ===false ? null : 
+            <ModalWrapper>
+                <StyledModal>
+                <h1>{props.content}</h1>
+                <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
+                <InputBox type="text" id="category" value={category} onChange={onCategoryModalHandler}></InputBox>
+                </StyledModal>
+            </ModalWrapper>
+            }
+        </SettingListContentWrapper>
+    );
+}
+
 function Setting(){
 
 
@@ -198,7 +241,16 @@ function Setting(){
                 <SetMonthlyBudget content='한달 예산 금액'></SetMonthlyBudget>
             </SettingList>
             <SettingList>
+                <SettingListTitle title='카테고리 설정'></SettingListTitle>
+                <hr align='left' width='50%'></hr>
+                <SetCategory content='고정비 카테고리'></SetCategory>
+                <SetCategory content='변동비 카테고리'></SetCategory>
+                <SetCategory content='수익'></SetCategory>
+                <SetCategory content='결제 카고'></SetCategory>
+            </SettingList>
+            <SettingList>
                 <SettingListTitle title='지출 비율 설정'></SettingListTitle>
+                <span id='ratio'></span>
                 <hr align='left' width='50%'></hr>
                 <SetExpenseRatio content='고정비'></SetExpenseRatio>
                 <SetExpenseRatio content='변동비'></SetExpenseRatio>
