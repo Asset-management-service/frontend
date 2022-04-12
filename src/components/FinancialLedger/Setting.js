@@ -124,17 +124,18 @@ const SetMonthlyBudget = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const openBudgetModalHandler = () => {
-        setIsOpen(true)
+        setIsOpen(true);
     };
-
+    //취소버튼 클릭 시  값 초화
     const closeBudgetModalHandler = () => {
-        setIsOpen(false)
+        setBudget(" ");
+        setIsOpen(false);
     }
 
     const [budget,setBudget] = useState(" ");
 
     const onBudgetHandler = (event) => { 
-    setBudget(event.currentTarget.value)
+    setBudget(event.currentTarget.value);
 
     }
 
@@ -157,7 +158,7 @@ const SetMonthlyBudget = (props) => {
             <ModalWrapper>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
-                <InputBox type="text" id="budget" value={budget} onChange={onBudgetHandler}></InputBox>
+                <InputBox type="text" className="budget" value={budget} onChange={onBudgetHandler}></InputBox>
                 <ErrorMessageBox>
                     <span id='setBudget'></span>
                 </ErrorMessageBox>
@@ -217,23 +218,24 @@ const SetExpenseRatio = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const openRatioModalHandler = () => {
-    setIsOpen(true)
+        setIsOpen(true);
     };
 
     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
     const closeRatioModalHandler = () => {
-        setIsOpen(false)
+        setExpenseRatio(" ");
+        setIsOpen(false);
     }
 
     const [expenseRatio,setExpenseRatio] = useState(" ");
 
     const onRatioModalHandler = (event) => { 
-    setExpenseRatio(event.currentTarget.value)
+        setExpenseRatio(event.currentTarget.value);
     }
 
     const onRatioSubmit = (event) => {
         event.preventDefault();
-        if(budget == " "){
+        if(expenseRatio == " "){
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
         }
@@ -247,7 +249,7 @@ const SetExpenseRatio = (props) => {
             <ModalWrapper>
                 <StyledModal>
                 <h1>{props.content} 비율 설정</h1>
-                <InputBox type="text" id="expenseRatio" value={expenseRatio} onChange={onRatioModalHandler}></InputBox><b>%</b>
+                <InputBox type="text" value={expenseRatio} onChange={onRatioModalHandler}></InputBox><b>%</b>
                 <ErrorMessageBox>
                     <span id='setRatio'></span>
                 </ErrorMessageBox>
@@ -278,7 +280,7 @@ function Setting(){
                 <SetCategory content='고정비 카테고리'></SetCategory>
                 <SetCategory content='변동비 카테고리'></SetCategory>
                 <SetCategory content='수익'></SetCategory>
-                <SetCategory content='결제 카고'></SetCategory>
+                <SetCategory content='결제 카테고리'></SetCategory>
             </SettingList>
             <SettingList>
                 <SettingListTitle title='지출 비율 설정'></SettingListTitle>
