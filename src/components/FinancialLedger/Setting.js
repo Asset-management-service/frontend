@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { Button } from '../common/Button';
-import { letterSpacing } from '@mui/system';
+import { flexbox, letterSpacing } from '@mui/system';
 
 //리스트 컴포넌트 스타일링
 const SettingList = styled.div`
@@ -111,6 +112,13 @@ const ErrorMessageBox = styled.div`
     font-size: 15px;
 `;
 
+//인풋 박스
+const InputBoxWrapper = styled.div`
+    justify-content: center;
+    font-size: 15px;
+    display: ${({ isClicked }) => (isClicked ? 'flex' : 'none')};
+`;
+
 //설정 항목 제목 설정 컴포넌트
 const SettingListTitle = (props) =>{
     return(
@@ -177,8 +185,17 @@ const SetMonthlyBudget = (props) => {
 const SetCategory = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
+    const [isClicked, setIsClicked] = useState(false);
+
+    //모달창 하단의 아이콘을 클릭하면 입력창이 열리도록 함
+    const openInputBoxHandler = () => {
+        setIsClicked(true)
+
+    };
+
+
     const openCategoryModalHandler = () => {
-    setIsOpen(true)
+        setIsOpen(true)
     };
 
     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
@@ -192,6 +209,13 @@ const SetCategory = (props) => {
     SetCategory(event.currentTarget.value)
     }
 
+    const StyledAddCircleOutlinedIcon = {
+        position: 'absolute',
+        bottom: '10px;',
+        right: '20px',
+        display: 'flex'
+    };
+
     // + 아이콘, X 버튼, 삭제 아이콘 추가
     // + 아이콘을 누르면 입력창이 뜨도록
 
@@ -199,12 +223,18 @@ const SetCategory = (props) => {
         <SettingListContentWrapper>
             {props.content}
             <ChevronRightRoundedIcon onClick={openCategoryModalHandler}></ChevronRightRoundedIcon>
-            {isOpen ===false ? null : 
+            {isOpen === false ? null : 
             <ModalWrapper>
                 <StyledModal>
                 <h1>{props.content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
-                <InputBox type="text" id="category" value={category} onChange={onCategoryModalHandler}></InputBox>
+                <AddCircleOutlinedIcon onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon}></AddCircleOutlinedIcon>
+                    {isClicked === true?
+                        <InputBoxWrapper>
+                            <InputBox type="text" id="category" value={category} onChange={onCategoryModalHandler}></InputBox>
+                        </InputBoxWrapper>
+                        : null
+                    }
                 </StyledModal>
             </ModalWrapper>
             }
@@ -235,6 +265,7 @@ const SetExpenseRatio = (props) => {
 
     const onRatioSubmit = (event) => {
         event.preventDefault();
+
         if(expenseRatio == " "){
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
