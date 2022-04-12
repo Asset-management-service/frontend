@@ -105,6 +105,12 @@ const InputBox = styled.input`
     margin: 1em;
 `;
 
+//에러 메시지 박스
+const ErrorMessageBox = styled.div`
+    justify-content: center;
+    font-size: 15px;
+`;
+
 //설정 항목 제목 설정 컴포넌트
 const SettingListTitle = (props) =>{
     return(
@@ -119,17 +125,10 @@ const SetMonthlyBudget = (props) => {
 
     const openBudgetModalHandler = () => {
         setIsOpen(true)
-        var budgetValue = document.getElementById('budget'); 
-        budgetValue.value = null; 
     };
 
     const closeBudgetModalHandler = () => {
         setIsOpen(false)
-    }
-
-    const invalidateBudget = () => {
-        var budgetValue = document.getElementById('budget'); 
-        budgetValue.value = " "; 
     }
 
     const [budget,setBudget] = useState(" ");
@@ -141,7 +140,7 @@ const SetMonthlyBudget = (props) => {
 
     const onBudgetSubmit = (event) => {
         event.preventDefault();
-        if(budget === " "){
+        if(budget == " "){
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
         }
@@ -159,6 +158,9 @@ const SetMonthlyBudget = (props) => {
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
                 <InputBox type="text" id="budget" value={budget} onChange={onBudgetHandler}></InputBox>
+                <ErrorMessageBox>
+                    <span id='setBudget'></span>
+                </ErrorMessageBox>
                 <ButtonBox>
                     <button onClick={closeBudgetModalHandler} className="cancelButton">취소</button>
                     <button onClick={onBudgetSubmit} className="checkButton">확인</button>
@@ -269,7 +271,7 @@ function Setting(){
     return(
         <div>
             <SettingList>
-                <SettingListTitle title='예산 설정'><span id='setBudget'></span></SettingListTitle>
+                <SettingListTitle title='예산 설정'></SettingListTitle>
                 <hr align='left' width='50%'></hr>
                 <SetMonthlyBudget content='한달 예산 금액'></SetMonthlyBudget>
             </SettingList>
