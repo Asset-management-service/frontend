@@ -118,22 +118,33 @@ const SetMonthlyBudget = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const openBudgetModalHandler = () => {
-    setIsOpen(true)
+        setIsOpen(true)
+        var budgetValue = document.getElementById('budget'); 
+        budgetValue.value = null; 
     };
 
-    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
     const closeBudgetModalHandler = () => {
         setIsOpen(false)
+    }
+
+    const invalidateBudget = () => {
+        var budgetValue = document.getElementById('budget'); 
+        budgetValue.value = " "; 
     }
 
     const [budget,setBudget] = useState(" ");
 
     const onBudgetHandler = (event) => { 
     setBudget(event.currentTarget.value)
+
     }
 
-    const onBudgetSubmit = () => {
-        alert("입력되었습니다.")
+    const onBudgetSubmit = (event) => {
+        event.preventDefault();
+        if(budget === " "){
+            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
+            document.getElementById('setBudget').style.color='red';
+        }
         //입력 값이 모두 숫자인지, 비어있지 않은지 확인
         //모달창 사라짐
         //확인버튼을 누르면 화면에 해당 금액이 보이도록 설정
@@ -179,8 +190,14 @@ const SetExpenseRatio = (props) => {
     setExpenseRatio(event.currentTarget.value)
     }
 
-    const onRatioSubmit = () => {
-        alert("입력되었습니다.")
+    const onRatioSubmit = (event) => {
+        event.preventDefault();
+
+        if(expenseRatio == " "){
+        document.getElementById('setRatio').innerHTML='<b>총합이 100%가 아닙니다! 다시 입력해주세요.<b>';
+        document.getElementById('setRatio').style.color='red';
+
+        }
         //입력 값이 모두 숫자인지, 비어있지 않은지 확인
         //모달창 사라짐
         //확인버튼을 누르면 화면에 해당 금액이 보이도록 설정
@@ -252,7 +269,7 @@ function Setting(){
     return(
         <div>
             <SettingList>
-                <SettingListTitle title='예산 설정'></SettingListTitle>
+                <SettingListTitle title='예산 설정'><span id='setBudget'></span></SettingListTitle>
                 <hr align='left' width='50%'></hr>
                 <SetMonthlyBudget content='한달 예산 금액'></SetMonthlyBudget>
             </SettingList>
@@ -265,8 +282,7 @@ function Setting(){
                 <SetCategory content='결제 카고'></SetCategory>
             </SettingList>
             <SettingList>
-                <SettingListTitle title='지출 비율 설정'></SettingListTitle>
-                <span id='ratio'></span>
+                <SettingListTitle title='지출 비율 설정'><span id='setRatio'></span></SettingListTitle>
                 <hr align='left' width='50%'></hr>
                 <SetExpenseRatio content='고정비'></SetExpenseRatio>
                 <SetExpenseRatio content='변동비'></SetExpenseRatio>
