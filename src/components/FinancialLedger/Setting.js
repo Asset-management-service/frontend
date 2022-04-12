@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React, {useState} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import { Button } from '../common/Button';
+import { letterSpacing } from '@mui/system';
 
 //리스트 컴포넌트 스타일링
 const SettingList = styled.div`
@@ -35,6 +36,7 @@ const ModalWrapper = styled.div`
     background-color: rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: center;
+    display: flex;
 `;
 
 const StyledModal = styled.div`
@@ -65,12 +67,23 @@ const ButtonBox = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 3rem;
+
     button {
         margin: 0 1rem;
         font-size: 20px;
         width: 100px;
         color: black;
+        background-color: lightblue;
     }
+`;
+
+//예산 설정 입력 박스
+const InputBox = styled.input`
+    border: 2px solid lightgray;
+    border-radius: 3px;
+    justify-content: center;
+    font-size: 20px;
+    margin: 1em;
 `;
 
 //설정 항목 제목 설정 컴포넌트
@@ -87,12 +100,26 @@ const SetMonthlyBudget = (props) => {
 
     const openModalHandler = () => {
     setIsOpen(true)
+    let budgetValue = document.getElementById('budget'); 
+    budgetValue.value = null;
     };
+
+    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
+    const closeModalHandler = () => {
+        setIsOpen(false)
+    }
 
     const [budget,setBudget] = useState(" ");
 
-    const onMoneyHandler = (event) => { //이메일 재설정
+    const onBudgetHandler = (event) => { 
     setBudget(event.currentTarget.value)
+    }
+
+    const onBudgetSubmit = () => {
+        alert("입력되었습니다.")
+        //입력 값이 모두 숫자인지, 비어있지 않은지 확인
+        //모달창 사라짐
+        //확인버튼을 누르면 화면에 해당 금액이 보이도록 설정
     }
 
 
@@ -104,9 +131,10 @@ const SetMonthlyBudget = (props) => {
             <ModalWrapper>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
-                <input type="text" id="money" value={budget} onChange={onMoneyHandler}></input>
+                <InputBox type="text" id="budget" value={budget} onChange={onBudgetHandler}></InputBox>
                 <ButtonBox>
-                    <button>버튼</button>
+                    <button onClick={closeModalHandler}>취소</button>
+                    <button onClick={onBudgetSubmit}>확인</button>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
@@ -118,9 +146,6 @@ const SetMonthlyBudget = (props) => {
 
 function Setting(){
 
-
-
-    
 
     return(
         <div>
