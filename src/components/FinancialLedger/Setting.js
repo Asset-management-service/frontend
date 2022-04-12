@@ -98,14 +98,12 @@ const SetMonthlyBudget = (props) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const openModalHandler = () => {
+    const openBudgetModalHandler = () => {
     setIsOpen(true)
-    let budgetValue = document.getElementById('budget'); 
-    budgetValue.value = null;
     };
 
     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
-    const closeModalHandler = () => {
+    const closeBudgetModalHandler = () => {
         setIsOpen(false)
     }
 
@@ -122,18 +120,17 @@ const SetMonthlyBudget = (props) => {
         //확인버튼을 누르면 화면에 해당 금액이 보이도록 설정
     }
 
-
     return(
         <SettingListContentWrapper>
             {props.content}
-            <ChevronRightRoundedIcon onClick={openModalHandler}></ChevronRightRoundedIcon>
+            <ChevronRightRoundedIcon onClick={openBudgetModalHandler}></ChevronRightRoundedIcon>
             {isOpen ===false ? null : 
             <ModalWrapper>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
                 <InputBox type="text" id="budget" value={budget} onChange={onBudgetHandler}></InputBox>
                 <ButtonBox>
-                    <button onClick={closeModalHandler}>취소</button>
+                    <button onClick={closeBudgetModalHandler}>취소</button>
                     <button onClick={onBudgetSubmit}>확인</button>
                 </ButtonBox>
                 </StyledModal>
@@ -143,6 +140,52 @@ const SetMonthlyBudget = (props) => {
     );
 }
 
+//지출 비율 설정 로직
+const SetExpenseRatio = (props) => {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openRatioModalHandler = () => {
+    setIsOpen(true)
+    };
+
+    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
+    const closeRatioModalHandler = () => {
+        setIsOpen(false)
+    }
+
+    const [expenseRatio,setExpenseRatio] = useState(" ");
+
+    const onRatioModalHandler = (event) => { 
+    setExpenseRatio(event.currentTarget.value)
+    }
+
+    const onRatioSubmit = () => {
+        alert("입력되었습니다.")
+        //입력 값이 모두 숫자인지, 비어있지 않은지 확인
+        //모달창 사라짐
+        //확인버튼을 누르면 화면에 해당 금액이 보이도록 설정
+    }
+
+    return(
+        <SettingListContentWrapper>
+            {props.content}
+            <ChevronRightRoundedIcon onClick={openRatioModalHandler}></ChevronRightRoundedIcon>
+            {isOpen ===false ? null : 
+            <ModalWrapper>
+                <StyledModal>
+                <h1>{props.content} 비율 설정</h1>
+                <InputBox type="text" id="expenseRatio" value={expenseRatio} onChange={onRatioModalHandler}></InputBox>
+                <ButtonBox>
+                    <button onClick={closeRatioModalHandler}>취소</button>
+                    <button onClick={onRatioSubmit}>확인</button>
+                </ButtonBox>
+                </StyledModal>
+            </ModalWrapper>
+            }
+        </SettingListContentWrapper>
+    );
+}
 
 function Setting(){
 
@@ -153,6 +196,13 @@ function Setting(){
                 <SettingListTitle title='예산 설정'></SettingListTitle>
                 <hr align='left' width='50%'></hr>
                 <SetMonthlyBudget content='한달 예산 금액'></SetMonthlyBudget>
+            </SettingList>
+            <SettingList>
+                <SettingListTitle title='지출 비율 설정'></SettingListTitle>
+                <hr align='left' width='50%'></hr>
+                <SetExpenseRatio content='고정비'></SetExpenseRatio>
+                <SetExpenseRatio content='변동비'></SetExpenseRatio>
+                <SetExpenseRatio content='투자비'></SetExpenseRatio>
             </SettingList>
         </div>
     );
