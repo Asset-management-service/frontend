@@ -71,12 +71,28 @@ const ButtonBox = styled.div`
     justify-content: center;
     margin-top: 3rem;
 
-    button {
+    .checkButton {
         margin: 0 1rem;
-        font-size: 20px;
         width: 100px;
-        color: black;
-        background-color: lightblue;
+        padding: 8px;
+        color: #1E88E5;
+        background-color: rgb(30,136,229, 0.2);
+        border: none;
+        font-size: 17px;
+        font-weight: bold;
+        border-radius: 8px;
+    }
+
+    .cancelButton {
+        margin: 0 1rem;
+        font-size: 17px;
+        width: 100px;
+        padding: 8px;
+        color: #FF5858;
+        background-color: rgb(255,88, 88 ,0.2);
+        border: none;
+        font-weight: bold;
+        border-radius: 8px;
     }
 `;
 
@@ -133,8 +149,8 @@ const SetMonthlyBudget = (props) => {
                 <h1>한달 예산 금액</h1>
                 <InputBox type="text" id="budget" value={budget} onChange={onBudgetHandler}></InputBox>
                 <ButtonBox>
-                    <button onClick={closeBudgetModalHandler}>취소</button>
-                    <button onClick={onBudgetSubmit}>확인</button>
+                    <button onClick={closeBudgetModalHandler} className="cancelButton">취소</button>
+                    <button onClick={onBudgetSubmit} className="checkButton">확인</button>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
@@ -179,10 +195,10 @@ const SetExpenseRatio = (props) => {
             <ModalWrapper>
                 <StyledModal>
                 <h1>{props.content} 비율 설정</h1>
-                <InputBox type="text" id="expenseRatio" value={expenseRatio} onChange={onRatioModalHandler}></InputBox>
+                <InputBox type="text" id="expenseRatio" value={expenseRatio} onChange={onRatioModalHandler}></InputBox><b>%</b>
                 <ButtonBox>
-                    <button onClick={closeRatioModalHandler}>취소</button>
-                    <button onClick={onRatioSubmit}>확인</button>
+                    <button onClick={closeRatioModalHandler} className="cancelButton">취소</button>
+                    <button onClick={onRatioSubmit} className="checkButton">확인</button>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
