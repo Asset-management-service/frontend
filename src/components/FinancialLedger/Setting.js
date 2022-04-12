@@ -172,6 +172,45 @@ const SetMonthlyBudget = (props) => {
     );
 }
 
+//카테고리 설정 컴포넌트
+const SetCategory = (props) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openCategoryModalHandler = () => {
+    setIsOpen(true)
+    };
+
+    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
+    const closeCategoryModalHandler = () => {
+        setIsOpen(false)
+    }
+
+    const [category,SetCategory] = useState(" ");
+
+    const onCategoryModalHandler = (event) => { 
+    SetCategory(event.currentTarget.value)
+    }
+
+    // + 아이콘, X 버튼, 삭제 아이콘 추가
+    // + 아이콘을 누르면 입력창이 뜨도록
+
+    return(
+        <SettingListContentWrapper>
+            {props.content}
+            <ChevronRightRoundedIcon onClick={openCategoryModalHandler}></ChevronRightRoundedIcon>
+            {isOpen ===false ? null : 
+            <ModalWrapper>
+                <StyledModal>
+                <h1>{props.content}</h1>
+                <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
+                <InputBox type="text" id="category" value={category} onChange={onCategoryModalHandler}></InputBox>
+                </StyledModal>
+            </ModalWrapper>
+            }
+        </SettingListContentWrapper>
+    );
+}
+
 //지출 비율 설정 로직
 const SetExpenseRatio = (props) => {
 
@@ -216,45 +255,6 @@ const SetExpenseRatio = (props) => {
                     <button onClick={closeRatioModalHandler} className="cancelButton">취소</button>
                     <button onClick={onRatioSubmit} className="checkButton">확인</button>
                 </ButtonBox>
-                </StyledModal>
-            </ModalWrapper>
-            }
-        </SettingListContentWrapper>
-    );
-}
-
-//카테고리 설정 컴포넌트
-const SetCategory = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openCategoryModalHandler = () => {
-    setIsOpen(true)
-    };
-
-    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
-    const closeCategoryModalHandler = () => {
-        setIsOpen(false)
-    }
-
-    const [category,SetCategory] = useState(" ");
-
-    const onCategoryModalHandler = (event) => { 
-    SetCategory(event.currentTarget.value)
-    }
-
-    // + 아이콘, X 버튼, 삭제 아이콘 추가
-    // + 아이콘을 누르면 입력창이 뜨도록
-
-    return(
-        <SettingListContentWrapper>
-            {props.content}
-            <ChevronRightRoundedIcon onClick={openCategoryModalHandler}></ChevronRightRoundedIcon>
-            {isOpen ===false ? null : 
-            <ModalWrapper>
-                <StyledModal>
-                <h1>{props.content}</h1>
-                <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
-                <InputBox type="text" id="category" value={category} onChange={onCategoryModalHandler}></InputBox>
                 </StyledModal>
             </ModalWrapper>
             }
