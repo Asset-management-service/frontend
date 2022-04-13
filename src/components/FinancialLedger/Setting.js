@@ -216,16 +216,16 @@ const SetExpenseRatio = (props) => {
             setIsOpen(false)
         }
         else{
-            document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setRatio').style.color='red';
+            document.getElementById('showRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
+            document.getElementById('showRatio').style.color='red';
         }
     }
 
     return(
         <SettingListContentWrapper>
             {props.content}
-            <ChevronRightRoundedIcon onClick={openRatioModalHandler}></ChevronRightRoundedIcon>
-            {isOpen ===false ? null : 
+            <span onClick={openBudgetModalHandler}>{props.content}</span>
+            {isOpen === false ? null : 
             <ModalWrapper>
                 <StyledModal>
                 <h1>{props.content} 비율 설정</h1>
@@ -240,6 +240,7 @@ const SetExpenseRatio = (props) => {
                 </StyledModal>
             </ModalWrapper>
             }
+            <span id='showRatio'>--</span>
         </SettingListContentWrapper>
     );
 }
