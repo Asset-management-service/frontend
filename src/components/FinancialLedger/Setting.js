@@ -83,7 +83,7 @@ const SetMonthlyBudget = (props) => {
     const onBudgetSubmit = (event) => {
         event.preventDefault();
         let check = /^[0-9]+$/;
-        if(budget == " " && !check.test(budget) ){
+        if(budget === null || !check.test(budget) ){
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
         }
@@ -206,7 +206,7 @@ const SetExpenseRatio = (props) => {
     const onRatioSubmit = (event) => {
         event.preventDefault();
         let check = /^[0-9]+$/;
-        if(expenseRatio == " " && !check.test(expenseRatio) ){
+        if(expenseRatio === null || !check.test(expenseRatio) ){
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
         }
