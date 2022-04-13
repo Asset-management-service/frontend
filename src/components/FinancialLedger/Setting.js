@@ -50,7 +50,9 @@ const InputBoxWrapper = styled.div`
     display: ${({ isClicked }) => (isClicked ? 'flex' : 'none')};
 `;
 
-//설정 항목 제목 설정 컴포넌트
+
+function Setting(){
+    //설정 항목 제목 설정 컴포넌트
 const SettingListTitle = (props) =>{
     return(
         <SettingListTitleWrapper>{props.title}</SettingListTitleWrapper>
@@ -225,8 +227,6 @@ const SetExpenseRatio = (props) => {
         </SettingListContentWrapper>
     );
 }
-
-function Setting(){
 
 
     return(
