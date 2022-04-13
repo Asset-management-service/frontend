@@ -83,23 +83,22 @@ const SetMonthlyBudget = (props) => {
     const onBudgetSubmit = (event) => {
         event.preventDefault();
         let check = /^[0-9]+$/;
-        if(budget === null || !check.test(budget) ){
+        if(budget == " " && !check.test(budget) ){
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
         }
-        else if(isNaN(budget) === false){
+        else if(isNaN(budget) === false && budget > 0){
             document.getElementById('showBudget').innerHTML=budget;
             document.getElementById('showBudget').style.color='black';
             setIsOpen(false)
         }
-        else if(budget < 0){
+	    else if(budget == 0){
             document.getElementById('setBudget').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
         }
         else{
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
-        }
     }
 
     return(
