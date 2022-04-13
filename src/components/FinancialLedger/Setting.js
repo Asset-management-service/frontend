@@ -82,13 +82,11 @@ const SetMonthlyBudget = (props) => {
 
     const onBudgetSubmit = (event) => {
         event.preventDefault();
-        if(budget == " "){
+        let check = /^[0-9]+$/;
+        if(budget == " " && !check.test(budget) ){
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
         }
-        //입력 값이 모두 숫자인지, 비어있지 않은지 확인
-        //모달창 사라짐
-        //확인버튼을 누르면 화면에 해당 금액이 보이도록 설정
     }
 
     return(
@@ -198,10 +196,10 @@ const SetExpenseRatio = (props) => {
 
     const onRatioSubmit = (event) => {
         event.preventDefault();
-
-        if(expenseRatio == " "){
-            document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setRatio').style.color='red';
+        let check = /^[0-9]+$/;
+        if(budget == " " && !check.test(budget) ){
+            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
+            document.getElementById('setBudget').style.color='red';
         }
     }
 
