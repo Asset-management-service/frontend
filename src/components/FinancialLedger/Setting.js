@@ -87,6 +87,15 @@ const SetMonthlyBudget = (props) => {
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
         }
+        else if(isNaN(budget) === false){
+            document.getElementById('showBudget').innerHTML=budget;
+            document.getElementById('showBudget').style.color='black';
+            setIsOpen(false)
+        }
+        else{
+            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
+            document.getElementById('setBudget').style.color='red';
+        }
     }
 
     return(
@@ -197,9 +206,18 @@ const SetExpenseRatio = (props) => {
     const onRatioSubmit = (event) => {
         event.preventDefault();
         let check = /^[0-9]+$/;
-        if(budget == " " && !check.test(budget) ){
-            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
+        if(expenseRatio == " " && !check.test(expenseRatio) ){
+            document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
+            document.getElementById('setRatio').style.color='red';
+        }
+        else if(isNaN(expenseRatio) === false){
+            document.getElementById('setRatio').innerHTML=expenseRatio;
+            document.getElementById('setRatio').style.color='black';
+            setIsOpen(false)
+        }
+        else{
+            document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
+            document.getElementById('setRatio').style.color='red';
         }
     }
 
