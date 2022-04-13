@@ -100,9 +100,8 @@ const SetMonthlyBudget = (props) => {
 
     return(
         <SettingListContentWrapper>
-            {props.content}
-            <ChevronRightRoundedIcon onClick={openBudgetModalHandler}></ChevronRightRoundedIcon>
-            {isOpen ===false ? null : 
+            <span onClick={openBudgetModalHandler}>{props.content}</span>
+            {isOpen === false ? null : 
             <ModalWrapper>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
@@ -117,6 +116,7 @@ const SetMonthlyBudget = (props) => {
                 </StyledModal>
             </ModalWrapper>
             }
+            <span id='showBudget'>--</span>
         </SettingListContentWrapper>
     );
 }
