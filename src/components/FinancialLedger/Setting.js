@@ -215,6 +215,10 @@ const SetExpenseRatio = (props) => {
             document.getElementById('showRatio').style.color='black';
             setIsOpen(false)
         }
+        else if(expenseRatio < 0 || expenseRatio > 100){
+            document.getElementById('showRatio').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
+            document.getElementById('showRatio').style.color='black';
+        }
         else{
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
