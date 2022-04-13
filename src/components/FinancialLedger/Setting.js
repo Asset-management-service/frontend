@@ -92,6 +92,10 @@ const SetMonthlyBudget = (props) => {
             document.getElementById('showBudget').style.color='black';
             setIsOpen(false)
         }
+        else if(budget < 0){
+            document.getElementById('setBudget').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
+            document.getElementById('setBudget').style.color='red';
+        }
         else{
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
