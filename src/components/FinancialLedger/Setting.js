@@ -223,8 +223,7 @@ const SetExpenseRatio = (props) => {
 
     return(
         <SettingListContentWrapper>
-            {props.content}
-            <span onClick={openBudgetModalHandler}>{props.content}</span>
+            <span onClick={openRatioModalHandler}>{props.content}</span>
             {isOpen === false ? null : 
             <ModalWrapper>
                 <StyledModal>
