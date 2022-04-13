@@ -211,13 +211,13 @@ const SetExpenseRatio = (props) => {
             document.getElementById('setRatio').style.color='red';
         }
         else if(isNaN(expenseRatio) === false){
-            document.getElementById('setRatio').innerHTML=expenseRatio;
-            document.getElementById('setRatio').style.color='black';
+            document.getElementById('showRatio').innerHTML=expenseRatio;
+            document.getElementById('showRatio').style.color='black';
             setIsOpen(false)
         }
         else{
-            document.getElementById('showRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('showRatio').style.color='red';
+            document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
+            document.getElementById('setRatio').style.color='red';
         }
     }
 
@@ -228,7 +228,7 @@ const SetExpenseRatio = (props) => {
             <ModalWrapper>
                 <StyledModal>
                 <h1>{props.content} 비율 설정</h1>
-                <InputBox type="text" value={expenseRatio} onChange={onRatioModalHandler}></InputBox><b>%</b>
+                <InputBox type="text" className="ratio" value={expenseRatio} onChange={onRatioModalHandler}></InputBox><b>%</b>
                 <ErrorMessageBox>
                     <span id='setRatio'></span>
                 </ErrorMessageBox>
