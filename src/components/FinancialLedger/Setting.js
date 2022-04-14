@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 //리스트 컴포넌트 스타일링
 const SettingList = styled.div`
@@ -173,6 +174,7 @@ const SetCategory = (props) => {
             categoryList.style.fontSize = "15px";
 
             categoryContentDiv.appendChild(categoryList);
+            
     }
 
 
@@ -198,7 +200,7 @@ const SetCategory = (props) => {
                 <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon}></AddCircleOutlinedIcon>
                         <InputBoxWrapper>
                         <div id='categoryContent'>
-                            <span id='deleteIcon'></span>
+                                <DeleteIcon></DeleteIcon>
                         </div>
                              <input type="text" id="category" placeholder="카테고리를 입력하세요" onChange={onCategoryModalHandler}></input>
                             <ButtonBox>
