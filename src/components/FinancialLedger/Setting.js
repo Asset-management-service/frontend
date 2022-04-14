@@ -143,7 +143,11 @@ const SetCategory = (props) => {
     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
     const closeCategoryModalHandler = () => {
         setIsOpen(false)
-        SetCategory(" ")
+    }
+
+    //취소를 클릭하면, 다시 아이콘이 뜨도록 설정하고 싶음
+     const closeCategoryInputHandler = () => {
+        setIsOpen(false)
     }
 
     const [category,SetCategory] = useState(" ");
@@ -158,13 +162,16 @@ const SetCategory = (props) => {
         //입력 받은 내용을 화면에 표시해주기
             var category = document.getElementById("category");
             var categoryContentDiv = document.getElementById("categoryContent");
-            var categoryValue = category.value;
+            var categoryValue = category.value; //입력 폼에 입력되는 카테고리 값
 
             var categoryList = document.createElement("div");
             categoryList.innerText = categoryValue;
-            categoryList.style.backgroundColor = "darkgrey";
-            categoryList.style.width = "400px";
-            categoryList.style.height = "30px";
+            categoryList.style.borderBottom = "1px solid black";
+            categoryList.style.width =  "300px";
+            categoryList.style.padding = "10px";
+            categoryList.style.textAlign = "left";
+            categoryList.style.fontSize = "15px";
+
             categoryContentDiv.appendChild(categoryList);
     }
 
@@ -190,10 +197,12 @@ const SetCategory = (props) => {
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
                 <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon}></AddCircleOutlinedIcon>
                         <InputBoxWrapper>
-                        <div id='categoryContent'></div>
+                        <div id='categoryContent'>
+                            <span id='deleteIcon'></span>
+                        </div>
                              <input type="text" id="category" placeholder="카테고리를 입력하세요" onChange={onCategoryModalHandler}></input>
                             <ButtonBox>
-                                <button onClick={closeCategoryModalHandler} className="cancelButton">취소</button>
+                                <button onClick={closeCategoryInputHandler} className="cancelButton">취소</button>
                                 <button onClick={onCategorySubmit} className="checkButton">확인</button>
                             </ButtonBox>
                         </InputBoxWrapper>
