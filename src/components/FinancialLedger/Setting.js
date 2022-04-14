@@ -47,7 +47,6 @@ const ErrorMessageBox = styled.div`
 const InputBoxWrapper = styled.div`
     justify-content: center;
     font-size: 15px;
-    display: ${({ isClicked }) => (isClicked ? 'flex' : 'none')};
 `;
 
 
@@ -92,7 +91,7 @@ const SetMonthlyBudget = (props) => {
             document.getElementById('showBudget').style.color='black';
             setIsOpen(false)
         }
-	    else if(budget == 0){
+        else if(budget == 0){
             document.getElementById('setBudget').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
         }
@@ -131,16 +130,15 @@ const SetCategory = (props) => {
 
     const [isClicked, setIsClicked] = useState(false);
 
-    //모달창 하단의 아이콘을 클릭하면 입력창이 열리도록 함
-    const openInputBoxHandler = () => {
-        setIsClicked(true)
-
-    };
-
-
     const openCategoryModalHandler = () => {
         setIsOpen(true)
     };
+
+
+    //입력 박스 핸ㅡ러
+    const openInputBoxHandler = () => {
+        setIsClicked(true)
+    }
 
     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
     const closeCategoryModalHandler = () => {
@@ -157,9 +155,8 @@ const SetCategory = (props) => {
         position: 'absolute',
         bottom: '10px;',
         right: '20px',
-        display: 'flex'
+        display : 'flex'
     };
-
     // + 아이콘, X 버튼, 삭제 아이콘 추가
     // + 아이콘을 누르면 입력창이 뜨도록
 
@@ -172,15 +169,14 @@ const SetCategory = (props) => {
                 <StyledModal>
                 <h1>{props.content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
-                <AddCircleOutlinedIcon onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon}></AddCircleOutlinedIcon>
-                    {isClicked === true?
+                <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon}></AddCircleOutlinedIcon>
+                    {isClicked === false ? null :
                         <InputBoxWrapper>
-                            <InputBox type="text" id="category" value={category} onChange={onCategoryModalHandler}></InputBox>
+                            <InputBox type="text" id="category" value={category} placeholder="카테고리를 입력하세요." onChange={onCategoryModalHandler}></InputBox>
                         </InputBoxWrapper>
-                        : null
                     }
                 </StyledModal>
-            </ModalWrapper>
+                </ModalWrapper>
             }
         </SettingListContentWrapper>
     );
@@ -214,12 +210,12 @@ const SetExpenseRatio = (props) => {
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
         }
-        else if(isNaN(expenseRatio) === false){
+        else if(isNaN(expenseRatio) === false && (expenseRatio > -1 || expenseRatio < 101)){
             document.getElementById('showRatio').innerHTML=expenseRatio;
             document.getElementById('showRatio').style.color='black';
             setIsOpen(false)
         }
-        else if(expenseRatio < 0 || expenseRatio > 100){
+        else if(expenseRatio < -1 || expenseRatio > 101){
             document.getElementById('showRatio').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
             document.getElementById('showRatio').style.color='black';
         }
