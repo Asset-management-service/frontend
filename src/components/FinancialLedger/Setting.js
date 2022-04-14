@@ -243,7 +243,7 @@ const SetExpenseRatio = (props) => {
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
         }
-        else if(isNaN(expenseRatio) === false && (expenseRatio > -1 || expenseRatio < 101)){
+        else if(isNaN(expenseRatio) === false){
             document.getElementById('showRatio').innerHTML=expenseRatio;
             document.getElementById('showRatio').style.color='black';
             setIsOpen(false)
