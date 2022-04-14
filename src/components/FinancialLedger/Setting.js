@@ -51,7 +51,7 @@ const InputBoxWrapper = styled.div`
 
 
 function Setting(){
-    //설정 항목 제목 설정 컴포넌트
+//설정 항목 제목 설정 컴포넌트
 const SettingListTitle = (props) =>{
     return(
         <SettingListTitleWrapper>{props.title}</SettingListTitleWrapper>
@@ -135,7 +135,7 @@ const SetCategory = (props) => {
     };
 
 
-    //입력 박스 핸ㅡ러
+    //입력 박스 핸들러 조정
     const openInputBoxHandler = () => {
         setIsClicked(true)
     }
@@ -143,13 +143,32 @@ const SetCategory = (props) => {
     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
     const closeCategoryModalHandler = () => {
         setIsOpen(false)
+        SetCategory(" ")
     }
 
     const [category,SetCategory] = useState(" ");
 
+    //카레고리 입력값 설정
     const onCategoryModalHandler = (event) => { 
     SetCategory(event.currentTarget.value)
     }
+
+    const onCategorySubmit = (event) => {
+        event.preventDefault();
+        //입력 받은 내용을 화면에 표시해주기
+            var category = document.getElementById("category");
+            var categoryContentDiv = document.getElementById("categoryContent");
+            var categoryValue = category.value;
+
+            var categoryList = document.createElement("div");
+            categoryList.innerText = categoryValue;
+            categoryList.style.backgroundColor = "darkgrey";
+            categoryList.style.width = "400px";
+            categoryList.style.height = "30px";
+            categoryContentDiv.appendChild(categoryList);
+    }
+
+
 
     const StyledAddCircleOutlinedIcon = {
         position: 'absolute',
@@ -170,11 +189,14 @@ const SetCategory = (props) => {
                 <h1>{props.content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
                 <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon}></AddCircleOutlinedIcon>
-                    {isClicked === false ? null :
                         <InputBoxWrapper>
-                            <InputBox type="text" id="category" value={category} placeholder="카테고리를 입력하세요." onChange={onCategoryModalHandler}></InputBox>
+                        <div id='categoryContent'></div>
+                             <input type="text" id="category" placeholder="카테고리를 입력하세요" onChange={onCategoryModalHandler}></input>
+                            <ButtonBox>
+                                <button onClick={closeCategoryModalHandler} className="cancelButton">취소</button>
+                                <button onClick={onCategorySubmit} className="checkButton">확인</button>
+                            </ButtonBox>
                         </InputBoxWrapper>
-                    }
                 </StyledModal>
                 </ModalWrapper>
             }
