@@ -34,6 +34,9 @@ export const CheckButton = styled(ButtonBox)`
     font-size: 17px;
     font-weight: bold;
     border-radius: 8px;
+    &:hover{
+        cursor: pointer;
+    }
 `;
 
 export const CancelButton = styled(ButtonBox)`
@@ -46,6 +49,9 @@ export const CancelButton = styled(ButtonBox)`
         border: none;
         font-weight: bold;
         border-radius: 8px;
+        &:hover{
+        cursor: pointer;
+    }
 `;
 
 export const ContentPropsWrapper = styled.span`
