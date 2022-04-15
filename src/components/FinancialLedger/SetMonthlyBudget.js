@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
-import { SettingListContentWrapper, CheckButton, CancelButton } from './StyledComponentInSetting';
+import { SettingListContentWrapper, CheckButton, CancelButton, ContentPropsWrapper } from './StyledComponentInSetting';
 
 
 //예산 설정 입력 박스
@@ -20,13 +20,6 @@ const ErrorMessageBox = styled.div`
     font-size: 15px;
 `;
 
-const ContentPropsWrapper = styled.span`
-    width: "100px";
-    border: none;
-    &:hover{
-        background-color: gray;
-    }
-`;
 
 //한달 예산 금액 설정
 function SetMonthlyBudget(props){
