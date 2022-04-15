@@ -1,5 +1,4 @@
-import { SettingListTitleWrapper } from './SettingListContentWrapper';
-
+import { SettingListTitleWrapper } from './StyledComponentInSetting';
 
 function SettingListTitle(props){
     return(

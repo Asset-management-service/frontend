@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SetMonthlyBudget from './SetMonthlyBudget';
 import SetCategory from './SetCategory';
 import SetExpenseRatio from './SetExpenseRatio';
-import { SettingList } from './SettingListContentWrapper';
+import { SettingList } from './StyledComponentInSetting';
 import SettingListTitle from './SettingListTitle';
 
 function Setting(){

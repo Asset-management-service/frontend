@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
-import { SettingListContentWrapper } from './SettingListContentWrapper';
+import { SettingListContentWrapper, CheckButton, CancelButton } from './StyledComponentInSetting';
+
 
 //예산 설정 입력 박스
 const InputBox = styled.input`
@@ -73,8 +74,8 @@ function SetMonthlyBudget(props){
                     <span id='setBudget'></span>
                 </ErrorMessageBox>
                 <ButtonBox>
-                    <button onClick={closeBudgetModalHandler} className="cancelButton">취소</button>
-                    <button onClick={onBudgetSubmit} className="checkButton">확인</button>
+                    <CancelButton onClick={closeBudgetModalHandler} >취소</CancelButton>
+                    <CheckButton onClick={onBudgetSubmit}>확인</CheckButton>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>

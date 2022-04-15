@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
-import { SettingListContentWrapper } from './SettingListContentWrapper';
-
+import { SettingListContentWrapper, CheckButton, CancelButton } from './StyledComponentInSetting';
 //예산 설정 입력 박스
 const InputBox = styled.input`
     border: 2px solid black;
@@ -64,8 +63,7 @@ function SetExpenseRatio(props){
     return(
         <SettingListContentWrapper>
             <span onClick={openRatioModalHandler}>{props.content}</span>
-            {isOpen === false ? null : 
-            <ModalWrapper>
+            <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>{props.content} 비율 설정</h1>
                 <InputBox type="text" className="ratio" value={expenseRatio} onChange={onRatioModalHandler}></InputBox><b>%</b>
@@ -73,12 +71,11 @@ function SetExpenseRatio(props){
                     <span id='setRatio'></span>
                 </ErrorMessageBox>
                 <ButtonBox>
-                    <button onClick={closeRatioModalHandler} className="cancelButton">취소</button>
-                    <button onClick={onRatioSubmit} className="checkButton">확인</button>
+                    <CancelButton onClick={closeRatioModalHandler} >취소</CancelButton>
+                    <CheckButton onClick={onRatioSubmit}>확인</CheckButton>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
-            }
             <span id='showRatio'>--</span>
         </SettingListContentWrapper>
     );

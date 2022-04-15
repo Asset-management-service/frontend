@@ -4,7 +4,7 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { SettingListContentWrapper } from './SettingListContentWrapper';
+import { SettingListContentWrapper } from './StyledComponentInSetting';
 
 
 //인풋 박스
