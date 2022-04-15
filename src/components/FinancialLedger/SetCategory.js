@@ -4,7 +4,7 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { SettingListContentWrapper } from './StyledComponentInSetting';
+import { CancelButton, SettingListContentWrapper, CheckButton } from './StyledComponentInSetting';
 
 
 //인풋 박스
@@ -65,8 +65,6 @@ function SetCategory(props){
             
     }
 
-
-
     const StyledAddCircleOutlinedIcon = {
         position: 'absolute',
         bottom: '10px;',
@@ -84,15 +82,13 @@ function SetCategory(props){
                 <StyledModal>
                 <h1>{props.content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
-                <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon}></AddCircleOutlinedIcon>
+                    <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon} show={isClicked}></AddCircleOutlinedIcon>
                         <InputBoxWrapper>
-                        <div id='categoryContent'>
-                                <DeleteIcon></DeleteIcon>
-                        </div>
+                        <div id='categoryContent'><DeleteIcon></DeleteIcon></div>
                              <input type="text" id="category" placeholder="카테고리를 입력하세요" onChange={onCategoryModalHandler}></input>
                             <ButtonBox>
-                                <button onClick={closeCategoryInputHandler} className="cancelButton">취소</button>
-                                <button onClick={onCategorySubmit} className="checkButton">확인</button>
+                                <CancelButton onClick={closeCategoryInputHandler} className="cancelButton">취소</CancelButton>
+                                <CheckButton onClick={onCategorySubmit} className="checkButton">입력</CheckButton>
                             </ButtonBox>
                         </InputBoxWrapper>
                 </StyledModal>

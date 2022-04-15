@@ -1,9 +1,4 @@
-import styled from 'styled-components';
 import React, {useState} from 'react';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
-import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
-import DeleteIcon from '@mui/icons-material/Delete';
 import SetMonthlyBudget from './SetMonthlyBudget';
 import SetCategory from './SetCategory';
 import SetExpenseRatio from './SetExpenseRatio';
