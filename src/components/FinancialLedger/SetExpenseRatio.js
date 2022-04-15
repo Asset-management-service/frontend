@@ -45,7 +45,7 @@ function SetExpenseRatio(props){
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
         }
-        else if(isNaN(expenseRatio) === false){
+        else if(isNaN(expenseRatio) === false && (expenseRatio > -1 || expenseRatio < 101)){
             document.getElementById('showRatio').innerHTML=expenseRatio;
             document.getElementById('showRatio').style.color='black';
             setIsOpen(false)

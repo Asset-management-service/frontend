@@ -49,7 +49,7 @@ function SetMonthlyBudget(props){
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
         }
-        else if(isNaN(budget) === false && budget > 0){
+        else if(isNaN(budget) === false && (budget != 0)){
             document.getElementById('showBudget').innerHTML=budget;
             document.getElementById('showBudget').style.color='black';
             setIsOpen(false)
