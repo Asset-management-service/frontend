@@ -4,9 +4,17 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { SettingListContentWrapper } from './SettingListContentWrapper';
+
+
+//인풋 박스
+const InputBoxWrapper = styled.div`
+    justify-content: center;
+    font-size: 15px;
+`;
 
 //카테고리 설정 컴포넌트
-function SetCategory{
+function SetCategory(props){
     const [isOpen, setIsOpen] = useState(false);
 
     const [isClicked, setIsClicked] = useState(false);
@@ -92,3 +100,5 @@ function SetCategory{
         </SettingListContentWrapper>
     );
 }
+
+export default SetCategory;

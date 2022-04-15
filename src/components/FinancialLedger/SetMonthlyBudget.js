@@ -1,5 +1,26 @@
+import styled from 'styled-components';
+import React, {useState} from 'react';
+import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
+import { SettingListContentWrapper } from './SettingListContentWrapper';
+
+//예산 설정 입력 박스
+const InputBox = styled.input`
+    border: 2px solid black;
+    border-radius: 5px;
+    justify-content: center;
+    font-size: 20px;
+    padding: 3px;
+    margin: 1em;
+`;
+
+//에러 메시지 박스
+const ErrorMessageBox = styled.div`
+    justify-content: center;
+    font-size: 15px;
+`;
+
 //한달 예산 금액 설정
-function SetMonthlyBudget{
+function SetMonthlyBudget(props){
 
     const [isOpen, setIsOpen] = useState(false);
 
