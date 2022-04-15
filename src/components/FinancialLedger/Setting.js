@@ -15,6 +15,7 @@ function Setting(){
         <div>
             <SettingList>
                 <SettingListTitle title='예산 설정'></SettingListTitle>
+                <hr align='left' width='50%'></hr>
                 <SetMonthlyBudget content='한달 예산 금액'></SetMonthlyBudget>
             </SettingList>
             <SettingList>

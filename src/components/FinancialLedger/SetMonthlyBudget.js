@@ -20,6 +20,14 @@ const ErrorMessageBox = styled.div`
     font-size: 15px;
 `;
 
+const ContentPropsWrapper = styled.span`
+    width: "100px";
+    border: none;
+    &:hover{
+        background-color: gray;
+    }
+`;
+
 //한달 예산 금액 설정
 function SetMonthlyBudget(props){
 
@@ -65,7 +73,7 @@ function SetMonthlyBudget(props){
 
     return(
         <SettingListContentWrapper>
-            <span onClick={openBudgetModalHandler}>{props.content}</span>
+                <ContentPropsWrapper onClick={openBudgetModalHandler}>{props.content}</ContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
