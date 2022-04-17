@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/common/Button';
-import BoardDetail from '../../components/Community/BoardDetail';
 import styled from 'styled-components';
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
+import PostDetailContainer from '../../containers/PostDetailContainer';
 
 const StyledButton = styled(Button)`
   font-size: 15px;
@@ -16,7 +16,6 @@ const StyledButton = styled(Button)`
 `;
 
 function CommunityDetailPage({ id }) {
-  // id 이용해서 게시글 상세 조회 api 작성
   const navigate = useNavigate();
   return (
     <section>
@@ -27,7 +26,7 @@ function CommunityDetailPage({ id }) {
       >
         <ArrowBackIosRoundedIcon />
       </StyledButton>
-      <BoardDetail id={id} />
+      <PostDetailContainer id={id} />
     </section>
   );
 }

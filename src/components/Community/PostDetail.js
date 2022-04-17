@@ -1,15 +1,11 @@
-import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { DropMenu } from '../common/DropMenu';
 import CommentList from './CommentList';
-import { useToggle } from '../../hooks';
-import { BOARD_DETAIL_DROP_MENU } from '../../constants/nav';
+import PostDropMenu from './PostDropMenu';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-
 import styled from 'styled-components';
 
 const DetailSection = styled.div`
@@ -75,17 +71,9 @@ const DetailHeading = styled.div`
 
 // 자신이 쓴 글이라면 수정 및 삭제 기능 추가되어야 함.
 
-function PostDetail() {
-  const { auth } = useSelector(({ login }) => login);
-  const [like, setLike] = useToggle(false);
-  const timer = useRef(null);
-  const onLike = () => {
-    setLike();
-  };
-  useEffect(() => {
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => console.log(like), 2000); // 좋어요 추가 기능 api 작성
-  }, [like]);
+function PostDetail({ onLike, like, user, data, onEdit }) {
+  //const { auth } = useSelector(({ login }) => login);
+  const auth = 'sdf';
   return (
     <DetailSection>
       <div className="BoardDetail-user">
@@ -116,7 +104,7 @@ function PostDetail() {
             <button onClick={onLike} className="like-btn">
               {like ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
             </button>
-            <DropMenu menus={BOARD_DETAIL_DROP_MENU} height={99} />
+            <PostDropMenu scrap="true" user={user} onEdit={onEdit} />
           </div>
         )}
       </DetailHeading>
@@ -145,7 +133,81 @@ function PostDetail() {
         sapien congue. Donec nec pellentesque nisl. Etiam nibh magna, vulputate
         vitae ultricies non, aliquet ut sem. Sed a massa purus. Cras viverra,
       </p>
-      <CommentList />
+      <CommentList
+        postId={1}
+        commentList={[
+          {
+            parentId: null,
+            commentId: 1,
+            content: '무야호~',
+            username: 'dasdad',
+            createDate: '2022-04-04 21:37:52',
+            updateDate: '2022-04-06 01:31:45',
+            children: [
+              {
+                parentId: 1,
+                commentId: 4,
+                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
+                username: 'dasdad',
+                createDate: '2022-04-04 21:38:19',
+                updateDate: null,
+              },
+              {
+                parentId: 1,
+                commentId: 9,
+                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
+                username: 'dasdad',
+                createDate: '2022-04-07 00:38:18',
+                updateDate: null,
+              },
+            ],
+          },
+          {
+            parentId: null,
+            commentId: 2,
+            content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
+            username: 'dasdad',
+            createDate: '2022-04-04 21:38:04',
+            updateDate: null,
+            children: [
+              {
+                parentId: 2,
+                commentId: 5,
+                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
+                username: 'dasdad',
+                createDate: '2022-04-04 21:38:21',
+                updateDate: null,
+              },
+            ],
+          },
+          {
+            parentId: null,
+            commentId: 3,
+            content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
+            username: 'dasdad',
+            createDate: '2022-04-04 21:38:09',
+            updateDate: null,
+            children: [
+              {
+                parentId: 3,
+                commentId: 7,
+                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
+                username: 'dasdad',
+                createDate: '2022-04-06 23:35:28',
+                updateDate: null,
+              },
+              {
+                parentId: 3,
+                commentId: 8,
+                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
+                username: 'dasdad',
+                createDate: '2022-04-07 00:34:16',
+                updateDate: null,
+              },
+            ],
+          },
+        ]}
+      />
     </DetailSection>
   );
 }

@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { DropMenu } from '../common/DropMenu';
-import { COMMENT_DROP_MENU } from '../../constants/nav'; // 자신이 쓴 댓글이라면 수정 및 삭제 기능 추가되어야 함.
+import { useState } from 'react';
+import PostDropMenu from './PostDropMenu';
+import CommentForm from './CommentForm';
+import { useToggle } from '../../hooks';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styled, { css } from 'styled-components';
-import { useToggle } from '../../hooks';
-import CommentForm from './CommentForm';
+import { useDispatch } from 'react-redux';
+import { deleteComment } from '../../modules/comment';
 
 const StyledItem = styled.div`
   margin: 1rem 0;
@@ -25,6 +25,7 @@ const ItemRow = styled.div`
   justify-content: space-between;
 
   div:first-child {
+    flex-grow: 1;
     .user-icon {
       font-size: 30px;
       margin-right: 10px;
@@ -41,34 +42,62 @@ const ItemRow = styled.div`
   }
   .Comment-comment {
     margin: 0.8rem 0;
+    white-space: pre-line;
   }
   .recomment-btn {
     opacity: 0.7;
   }
 `;
-function CommentItem({ type, children }) {
+function CommentItem({ type, children, comment, postId }) {
   const [recomment, setRecomment] = useToggle(false);
-  const { auth } = useSelector(({ login }) => login);
+  const [edit, setEdit] = useState(false);
+  const dispatch = useDispatch();
+  // const { auth } = useSelector(({ login }) => login);
+  const auth = 'sdf';
+  const onDelete = () => {
+    dispatch(deleteComment(comment.commentId));
+  };
+  const onEdit = () => {
+    setEdit(true);
+  };
   return (
     <StyledItem type={type}>
       <ItemRow>
         <div>
           <div>
             <AccountCircleRoundedIcon className="user-icon" />
-            <h4>아모아모</h4>
-            <p className="Comment-date">2022-03-23 15:00</p>
+            <h4>{comment.username}</h4>
+            <p className="Comment-date">{comment.createDate}</p>
           </div>
-          <p className="Comment-comment">00000000000000000000</p>
+          {edit ? (
+            <CommentForm
+              comment={comment.content}
+              commentId={comment.commentId}
+              isEdit={edit}
+              setEdit={setEdit}
+            />
+          ) : (
+            <p className="Comment-comment">{comment.content}</p>
+          )}
+
           {type === '댓글' && auth && (
             <button className="recomment-btn" onClick={setRecomment}>
               {recomment ? `취소` : `대댓글 달기`}
             </button>
           )}
         </div>
-        {auth && <DropMenu menus={COMMENT_DROP_MENU} height={67} />}
+        {auth && (
+          <PostDropMenu user="true" onEdit={onEdit} onDelete={onDelete} />
+        )}
       </ItemRow>
       {children}
-      {recomment && <CommentForm type="대댓글" />}
+      {recomment && (
+        <CommentForm
+          type="대댓글"
+          parentId={comment.commentId}
+          postId={postId}
+        />
+      )}
     </StyledItem>
   );
 }
