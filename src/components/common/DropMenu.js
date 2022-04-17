@@ -19,7 +19,7 @@ const Menus = styled.ul`
   position: absolute;
   border-radius: 15px;
   right: 0;
-  width: 130px;
+  width: 150px;
   height: 0;
   overflow: hidden;
   transition: all 0.2s linear;
@@ -31,12 +31,13 @@ const Menus = styled.ul`
 `;
 
 const Menu = styled.li`
-  padding: 0.4rem 1rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   font-size: 15px;
   button {
     font-size: 15px;
+    width: 100%;
+    padding: 0.4rem 1rem;
   }
   &:hover {
     background-color: lightgray;
@@ -57,7 +58,7 @@ export function DropMenu({ menus, height }) {
     };
   }, []);
   return (
-    <DropMenuWrapper ref={menuRef}>
+    <DropMenuWrapper ref={menuRef} className="DropMenu">
       <DropMenuBtn onClick={onToggle}>
         <MoreVertIcon className="DropMenu-icon" />
       </DropMenuBtn>
