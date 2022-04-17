@@ -26,7 +26,6 @@ function Setting(){
                 <hr align='left' width='50%'></hr>
                 <SetExpenseRatio content='고정비'></SetExpenseRatio>
                 <SetExpenseRatio content='변동비'></SetExpenseRatio>
-                <SetExpenseRatio content='투자비'></SetExpenseRatio>
             </SettingList>
         </div>
     );

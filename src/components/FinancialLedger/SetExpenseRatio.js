@@ -28,45 +28,50 @@ function SetExpenseRatio(props){
 
     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
     const closeRatioModalHandler = () => {
-        setExpenseRatio(" ");
+        setFixRatio(" ");
+        setChangeRatio(" ");
         setIsOpen(false);
     }
 
-    const [expenseRatio,setExpenseRatio] = useState(" ");
+    const [fixRatio,setFixRatio] = useState(" ");
+    const [changeRatio,setChangeRatio] = useState(" ");
 
-    const onRatioModalHandler = (event) => { 
-        setExpenseRatio(event.currentTarget.value);
+    const onFixRatioModalHandler = (event) => { 
+        setFixRatio(event.currentTarget.value);
+    }
+
+    const onChangeRatioModalHandler = (event) => { 
+        setChangeRatio(event.currentTarget.value);
     }
 
     const onRatioSubmit = (event) => {
         event.preventDefault();
         let check = /^[0-9]+$/;
-        if(expenseRatio === null || !check.test(expenseRatio) ){
+        if(fixRatio == " " && !check.test(fixRatio) ||  changeRatio == " " && !check.test(changeRatio)){
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
         }
-        else if(isNaN(expenseRatio) === false && (expenseRatio > -1 || expenseRatio < 101)){
-            document.getElementById('showRatio').innerHTML=expenseRatio;
-            document.getElementById('showRatio').style.color='black';
-            setIsOpen(false)
-        }
-        else if(expenseRatio < -1 || expenseRatio > 101){
-            document.getElementById('showRatio').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
-            document.getElementById('showRatio').style.color='black';
-        }
-        else{
-            document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
+
+        else if((changeRatio + fixRatio) !== 100){
+            document.getElementById('setRatio').innerHTML='<b>총합이 100%가 아닙니다! 다시 입력해주세요!<b>';
             document.getElementById('setRatio').style.color='red';
-        }
     }
+
+        else if(changeRatio + fixRatio === 100){
+            document.getElementById('showFixRatio').innerHTML=fixRatio;
+            document.getElementById('showChangeRatio').innerHTML=changeRatio;
+    }
+}
 
     return(
         <SettingListContentWrapper>
             <ContentPropsWrapper onClick={openRatioModalHandler}>{props.content}</ContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
-                <h1>{props.content} 비율 설정</h1>
-                <InputBox type="text" className="ratio" value={expenseRatio} onChange={onRatioModalHandler}></InputBox><b>%</b>
+                <h1>지출 비율 설정</h1>
+                <b>고정비</b><InputBox type="text" className="fixRatio" value={fixRatio} onChange={onFixRatioModalHandler}></InputBox><b>%</b>
+                <br></br>
+                <b>변동비</b><InputBox type="text" className="changeRatio" value={changeRatio} onChange={onChangeRatioModalHandler}></InputBox><b>%</b>
                 <ErrorMessageBox>
                     <span id='setRatio'></span>
                 </ErrorMessageBox>
@@ -76,7 +81,7 @@ function SetExpenseRatio(props){
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
-            <span id='showRatio'>--</span>
+            <span id='showFixRatio'>--</span>
         </SettingListContentWrapper>
     );
 }
