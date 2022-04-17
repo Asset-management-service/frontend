@@ -48,6 +48,7 @@ function UserLinks() {
   const navigate = useNavigate();
   const onLogout = () => {
     localStorage.removeItem('TOKEN');
+    localStorage.removeItem('EXPIRED_AT');
     dispatch(logout());
     navigate('/', { replace: true });
   };
