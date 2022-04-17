@@ -9,8 +9,9 @@ import OauthRedirect from './components/Login/OauthRedirect';
 import CommunityPage from './pages/CommunityPage';
 import CommunitySubPage from './pages/CommunityPage/CommunitySubPage';
 import CommunityWritePage from './pages/CommunityPage/CommunityWritePage';
-import MoneyBook from './pages/MoneyBook';
+import FinancialLedgerPage from './pages/FinancialLedgerPage';
 import './App.scss';
+import FinancialLedgerSubPage from './pages/FinancialLedgerPage/FinancialLedgerSubPage';
 
 const queryClient = new QueryClient();
 
@@ -24,7 +25,12 @@ function App() {
           <Route path="/mypage" element={<MyPage auth={auth} />}>
             <Route path=":category" element={<MySubPage />} />
           </Route>
-          <Route path="/moneybook" element={<MoneyBook auth={auth} />} />
+          <Route
+            path="/financial"
+            element={<FinancialLedgerPage auth={auth} />}
+          >
+            <Route path=":category" element={<FinancialLedgerSubPage />} />
+          </Route>
           <Route path="/community" element={<CommunityPage />}>
             <Route path=":category" element={<CommunitySubPage />}>
               <Route path=":id" element={<CommunitySubPage />} />
@@ -33,7 +39,6 @@ function App() {
           <Route path="/community/write" element={<CommunityWritePage />} />
         </Route>
         <Route path="/oauth/redirect" element={<OauthRedirect />} />
-        <Route path="/register" />
       </Routes>
     </QueryClientProvider>
   );
