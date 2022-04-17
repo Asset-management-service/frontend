@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { FormInput } from '../../components/common/FormInput';
 import ImagePreview from './ImagePreview';
 import Palette from '../../lib/Palette';
@@ -71,32 +72,44 @@ const ImageButton = styled.span`
   }
 `;
 
-export function Editor({ value, onChange, onUploadImage, onRemoveImage }) {
+export function Editor({
+  onChange,
+  onUploadImage,
+  onRemoveImage,
+  contentRef,
+  error,
+}) {
+  const { title, content, images } = useSelector(({ post }) => post);
   return (
     <StyledEditor>
-      {value.title !== undefined && (
+      {title !== undefined && (
         <FormInput
           type="text"
           name="title"
-          value={value.title}
+          value={title}
           onChange={onChange}
           placeholder="제목을 입력하세요"
+          error={error}
         />
       )}
       <EditorBox>
-        <EditorTextArea
-          name="content"
-          value={value.content}
-          onChange={onChange}
-          placeholder="내용을 작성해주세요"
-        />
+        {content === '' ? (
+          <EditorTextArea placeholder="내용을 작성해주세요" ref={contentRef} />
+        ) : (
+          <EditorTextArea
+            name="content"
+            value={content}
+            placeholder="내용을 작성해주세요"
+            onChange={onChange}
+          />
+        )}
         <ButtonWrapper>
           <ImageButton>
             <AddPhotoAlternateOutlinedIcon color="#fff" />
           </ImageButton>
           <input accept="image/*" type="file" onChange={onUploadImage} />
         </ButtonWrapper>
-        <ImagePreview images={value.images} removeImage={onRemoveImage} />
+        <ImagePreview images={images} removeImage={onRemoveImage} />
       </EditorBox>
     </StyledEditor>
   );
