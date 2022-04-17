@@ -45,24 +45,24 @@ const StyledLink = styled(Link)`
   }
 `;
 
-function BoardItem({ board, id }) {
-  const to = `${id}`;
+function PostItem({ post }) {
+  const to = `${post.postId}`;
   return (
     <StyledItem>
       <StyledLink to={to}>
         <div>
           <div className="BoardItem-title">
-            <h3>{board.title}</h3>
-            <span>[{board.commentNum}]</span>
+            <h3>{post.title}</h3>
+            <span>[{post.commentCount}]</span>
           </div>
-          <p>{board.content}</p>
+          <p>{post.content}</p>
         </div>
-        <div>{board.author}</div>
-        <div>{board.date}</div>
-        <div>{board.view} views</div>
+        <div>{post.username}</div>
+        <div>{post.localDateTime}</div>
+        <div>{post.viewCount} views</div>
       </StyledLink>
     </StyledItem>
   );
 }
 
-export default BoardItem;
+export default PostItem;

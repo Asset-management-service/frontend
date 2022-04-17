@@ -75,7 +75,7 @@ const DetailHeading = styled.div`
 
 // 자신이 쓴 글이라면 수정 및 삭제 기능 추가되어야 함.
 
-function BoardDetail() {
+function PostDetail() {
   const { auth } = useSelector(({ login }) => login);
   const [like, setLike] = useToggle(false);
   const timer = useRef(null);
@@ -150,4 +150,4 @@ function BoardDetail() {
   );
 }
 
-export default BoardDetail;
+export default PostDetail;

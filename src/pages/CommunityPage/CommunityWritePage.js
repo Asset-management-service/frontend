@@ -1,11 +1,9 @@
-import { useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Button } from '../../components/common/Button';
-import { FormInput } from '../../components/common/FormInput';
-import { NotLogin } from '../../components/common/NotLogin';
-import { Editor } from '../../components/common/Editor';
-import { useForm } from '../../hooks';
+import { useEffect, useState, useRef } from 'react';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import WriteActionButtons from '../../components/common/WriteActionButtons';
+import EditorContainer from '../../containers/EditorContainer';
+import { initialize, setPost } from '../../modules/post';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -15,92 +13,74 @@ const StyledForm = styled.form`
   flex-direction: column;
   padding: 4.5rem;
   height: 100vh;
-
-  input {
+  label {
     margin: 1rem 0;
   }
 `;
 
-const ButtonBox = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-  align-self: flex-end;
-  button {
-    margin: 0.5rem;
-    font-size: 15px;
-    font-weight: bold;
-    border-width: 2px;
-  }
-`;
-
 function CommunityWritePage() {
-  const { auth } = useSelector(({ login }) => login);
-  const navigate = useNavigate();
+  //const { auth } = useSelector(({ login }) => login);
+  const { title, content, images, postId } = useSelector(({ post }) => post);
+  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
-  const id = searchParams.get('id');
   const category = searchParams.get('category');
-  const { form, onChange } = useForm({
-    title: '',
-    content: '',
-  });
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const contentRef = useRef(null);
+  const [error, setError] = useState(false);
 
-  const [images, setImages] = useState([]);
-  const nextId = useRef(0);
-  const uploadImage = (e) => {
-    const file = e.target.files;
-    console.log(file);
-    if (file && file.length > 0) {
-      setImages(
-        images.concat({
-          image: file[0],
-          name: file[0].name,
-          key: nextId.current,
-        }),
-      );
-      nextId.current++;
-    }
-    e.target.value = '';
-  };
-  const removeImage = (key) => {
-    setImages(images.filter((image) => image.key !== key));
-  };
+  const onCancel = () => navigate('/community');
   const onSubmit = (e) => {
     e.preventDefault();
-    // api 로직
+    if (title === '') setError(true);
+    console.log(contentRef.current.value);
+
+    // post api or patch api
+    // navigate to /community/category/id
   };
+  useEffect(() => {
+    if (state) {
+      console.log(state);
+      dispatch(
+        setPost({
+          title: state.title === undefined ? '' : state.title,
+          content: state.content,
+          images: state.images,
+          postId: state.id,
+        }),
+      );
+    } else {
+      dispatch(
+        setPost({
+          title: '',
+          content: '',
+          images: [],
+        }),
+      );
+    }
+    if (contentRef && contentRef.current) {
+      contentRef.current.value = null;
+    }
+  }, [state]);
+  useEffect(() => {
+    return () => {
+      dispatch(initialize());
+    };
+  }, []);
+  /*
   if (!auth) {
     return <NotLogin />;
   }
-
-  if (id) {
-    return <main>{id}</main>;
-  }
+*/
   return (
     <main style={{ padding: 0 }}>
-      <StyledForm onSubmit={onSubmit}>
-        <ButtonBox>
-          <Button outlined basiccolor="#40B2B7">
-            {id ? '수정' : '완료'}
-          </Button>
-          <Button outlined basiccolor="black" onClick={() => navigate(-1)}>
-            취소
-          </Button>
-        </ButtonBox>
-        <FormInput
-          type="text"
-          name="title"
-          value={form.title}
-          onChange={onChange}
-          placeholder="제목을 입력하세요"
+      <StyledForm>
+        <WriteActionButtons
+          isEdit={postId ? 'true' : undefined}
+          onCancel={onCancel}
+          onSubmit={onSubmit}
         />
-        <Editor
-          content={form.content}
-          onChange={onChange}
-          uploadImage={uploadImage}
-          images={images}
-          removeImage={removeImage}
-        />
+        <EditorContainer error={error} contentRef={contentRef} />
       </StyledForm>
     </main>
   );
