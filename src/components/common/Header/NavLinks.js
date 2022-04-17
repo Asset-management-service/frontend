@@ -22,7 +22,7 @@ function NavLinks() {
   return (
     <StyledNavLinks>
       <StyledNavLink>
-        <NavLink to="/moneybook">가계부</NavLink>
+        <NavLink to="/financial">가계부</NavLink>
       </StyledNavLink>
       <StyledNavLink>
         <NavLink to="/community">커뮤니티</NavLink>
