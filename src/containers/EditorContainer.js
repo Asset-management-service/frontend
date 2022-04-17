@@ -1,22 +1,15 @@
-import { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Editor } from '../components/common/Editor';
-import {
-  changeField,
-  uploadImage,
-  removeImage,
-  initialize,
-} from '../modules/post';
+import { changeField, uploadImage, removeImage } from '../modules/post';
 
-const EditorContainer = ({ initialState }) => {
-  const { title, content, images } = useSelector(({ post }) => post);
+const EditorContainer = ({ contentRef, error }) => {
   const dispatch = useDispatch();
   const nextId = useRef(0);
-  useEffect(() => dispatch(initialize(initialState)), []);
+
   const onChange = (e) => {
     dispatch(changeField(e.target.name, e.target.value));
   };
-
   const onUploadImage = (e) => {
     dispatch(uploadImage(e.target.files, nextId.current));
     nextId.current++;
@@ -29,10 +22,11 @@ const EditorContainer = ({ initialState }) => {
 
   return (
     <Editor
-      value={{ title, content, images }}
-      onChange={onChange}
+      error={error}
       onUploadImage={onUploadImage}
       onRemoveImage={onRemoveImage}
+      onChange={onChange}
+      contentRef={contentRef}
     />
   );
 };
