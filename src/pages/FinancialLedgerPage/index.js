@@ -1,6 +1,7 @@
 import { Outlet, useParams } from 'react-router-dom';
+import { NotLogin } from '../../components/common/NotLogin';
 import SideBar from '../../components/common/SideBar';
-import { COMMUNITY_PAGE_NAV } from '../../constants/nav';
+import { MONEYBOOK_PAGE_NAV } from '../../constants/nav';
 import { useRedirect } from '../../hooks/useRedirect';
 import styled from 'styled-components';
 
@@ -15,15 +16,20 @@ const MainWrapper = styled.main`
   }
 `;
 
-function CommunityPage() {
+function FinancialLedgerPage({ auth }) {
+  /*
+  if (!auth) {
+    return <NotLogin />;
+  }
+  */
   const { category } = useParams();
-  useRedirect(category, '/community/qna');
+  useRedirect(category, '/financial/history');
   return (
     <MainWrapper>
-      <SideBar menu={'커뮤니티'} navs={COMMUNITY_PAGE_NAV} />
+      <SideBar menu={'가계부'} navs={MONEYBOOK_PAGE_NAV} />
       <Outlet />
     </MainWrapper>
   );
 }
 
-export default CommunityPage;
+export default FinancialLedgerPage;

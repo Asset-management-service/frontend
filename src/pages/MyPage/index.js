@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { NotLogin } from '../../components/common/NotLogin';
 import SideBar from '../../components/common/SideBar';
 import { MY_PAGE_NAV } from '../../constants/nav';
 import styled from 'styled-components';
+import { useRedirect } from '../../hooks/useRedirect';
 
 const MyPageWrapper = styled.main`
   padding-top: 4.5rem;
@@ -20,11 +20,9 @@ const MyPageWrapper = styled.main`
 `;
 
 function MyPage({ auth }) {
-  const navigate = useNavigate();
   const { category } = useParams();
-  useEffect(() => {
-    if (!category) navigate('/mypage/edit');
-  }, [category]);
+  useRedirect(category, '/mypage/edit');
+
   if (!auth) {
     return <NotLogin />;
   }
