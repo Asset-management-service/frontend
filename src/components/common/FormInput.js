@@ -67,13 +67,21 @@ export function FormInput({
         {label}
       </p>
       <InputWrapper pwdBtn={type === 'password' ? true : false} error={error}>
-        <input
-          type={type === 'password' ? (show ? 'text' : 'password') : type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-        />
+        {value === undefined ? (
+          <input
+            type={type === 'password' ? (show ? 'text' : 'password') : type}
+            name={name}
+            placeholder={placeholder}
+          />
+        ) : (
+          <input
+            type={type === 'password' ? (show ? 'text' : 'password') : type}
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+          />
+        )}
         {type === 'password' && (
           <PasswordButton type="button" onClick={setShow}>
             {show ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
