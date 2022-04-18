@@ -24,8 +24,7 @@ function Setting(){
             <SettingList>
                 <SettingListTitle title='지출 비율 설정'></SettingListTitle>
                 <hr align='left' width='50%'></hr>
-                <SetExpenseRatio content='고정비'></SetExpenseRatio>
-                <SetExpenseRatio content='변동비'></SetExpenseRatio>
+                <SetExpenseRatio content1='고정비' content2='변동비'></SetExpenseRatio>
             </SettingList>
         </div>
     );
