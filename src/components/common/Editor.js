@@ -79,7 +79,7 @@ export function Editor({
   contentRef,
   error,
 }) {
-  const { title, content, images } = useSelector(({ post }) => post);
+  const { title, content, imageFiles } = useSelector(({ post }) => post);
   return (
     <StyledEditor>
       {title !== undefined && (
@@ -93,23 +93,20 @@ export function Editor({
         />
       )}
       <EditorBox>
-        {content === '' ? (
-          <EditorTextArea placeholder="내용을 작성해주세요" ref={contentRef} />
-        ) : (
-          <EditorTextArea
-            name="content"
-            value={content}
-            placeholder="내용을 작성해주세요"
-            onChange={onChange}
-          />
-        )}
+        <EditorTextArea
+          name="content"
+          value={content}
+          placeholder="내용을 작성해주세요"
+          onChange={onChange}
+        />
+
         <ButtonWrapper>
           <ImageButton>
             <AddPhotoAlternateOutlinedIcon color="#fff" />
           </ImageButton>
           <input accept="image/*" type="file" onChange={onUploadImage} />
         </ButtonWrapper>
-        <ImagePreview images={images} removeImage={onRemoveImage} />
+        <ImagePreview images={imageFiles} removeImage={onRemoveImage} />
       </EditorBox>
     </StyledEditor>
   );

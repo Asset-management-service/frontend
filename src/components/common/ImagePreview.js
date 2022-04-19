@@ -28,18 +28,6 @@ const StyledPreview = styled.li`
     height: 100px;
     object-fit: cover;
   }
-  p {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -20px;
-    padding: 3px;
-    text-align: center;
-    background-color: aliceblue;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; /* 말줄임 적용 */
-  }
 `;
 
 const RemoveButton = styled.div`
@@ -68,7 +56,6 @@ function ImagePreview({ images, removeImage }) {
                 <RemoveButton onClick={() => removeImage(image.key)}>
                   <CloseRoundedIcon />
                 </RemoveButton>
-                <p>{image.name}</p>
               </StyledPreview>
             ))}
           </PreviewList>
