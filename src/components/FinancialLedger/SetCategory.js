@@ -7,13 +7,23 @@ import {SettingListContentWrapper} from './StyledComponentInSetting';
 import InsertCategory from './InsertCategory';
 import CategoryItemList from './CategoryList';
 
-
-
-
 //인풋 박스
 const InputBoxWrapper = styled.div`
     justify-content: center;
     font-size: 15px;
+`;
+
+//아이콘을 클릭하면 입력창이 드도록 설정
+const CreateAddCircleOutlinedIcon = styled(AddCircleOutlinedIcon)`
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    display: ${({ show }) => (show ? 'none' : 'flex')};
+`;
+
+const CategoryListWrapper = styled.div`
+    display: ${({ show }) => (show ? 'flex' : 'none')};
+    flex-direction: column;
 `;
 
 //카테고리 설정 컴포넌트
@@ -58,7 +68,6 @@ function SetCategory({content}){
         setIsOpen(true)
     };
 
-
     //입력 박스 핸들러 조정
     const openInputBoxHandler = () => {
         setIsClicked(true)
@@ -69,15 +78,6 @@ function SetCategory({content}){
         setIsOpen(false)
     }
 
-    const StyledAddCircleOutlinedIcon = {
-        position: 'absolute',
-        bottom: '10px;',
-        right: '20px',
-        display: isClicked ? "flex" : "none"
-    };
-    // + 아이콘, X 버튼, 삭제 아이콘 추가
-    // + 아이콘을 누르면 입력창이 뜨도록
-
     return(
         <SettingListContentWrapper>
             {content}
@@ -86,9 +86,11 @@ function SetCategory({content}){
                 <StyledModal>
                 <h1>{content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
-                    <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon} show={isClicked}></AddCircleOutlinedIcon>
-                        <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
-                        <InsertCategory onSubmit={handleSubmit}></InsertCategory>
+                <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler} show={isClicked}></CreateAddCircleOutlinedIcon>
+                <CategoryListWrapper show={isClicked}>
+                    <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
+                    <InsertCategory onSubmit={handleSubmit}></InsertCategory>
+                </CategoryListWrapper>
                 </StyledModal>
                 </ModalWrapper>
         </SettingListContentWrapper>
