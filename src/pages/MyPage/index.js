@@ -16,6 +16,9 @@ const MyPageWrapper = styled.main`
     h2 {
       font-size: 25px;
     }
+    .loadMore {
+      opacity: 0;
+    }
   }
 `;
 

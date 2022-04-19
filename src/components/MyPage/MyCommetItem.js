@@ -1,25 +1,40 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import DoubleCheckModal from '../common/DoubleCheckModal';
+import { COMMUNITY_CATEGORY } from '../../constants/community';
+import { deleteComment } from '../../lib/api/comment';
 import styled from 'styled-components';
 
 const CommentItem = styled.li`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   padding: 1.5rem 1rem;
   font-size: 17px;
   border-bottom: 1px solid lightgray;
 `;
 
-const CommentItemRow = styled.div`
+const CommentItemColumn = styled.div`
   display: flex;
+  flex-direction: column;
   &:first-child {
-    justify-content: space-between;
-    margin-bottom: 10px;
+    flex-grow: 1;
+    div {
+      font-size: 15px;
+      display: flex;
+      margin-top: 10px;
+    }
     a {
       font-weight: bold;
     }
   }
   &:last-child {
-    font-size: 15px;
+    align-items: flex-end;
+  }
+  .removeBtn {
+    margin-top: 5px;
+    color: gray;
+    text-decoration: underline;
   }
   .comment-category {
     opacity: 0.5;
@@ -35,18 +50,59 @@ const CommentItemRow = styled.div`
 `;
 
 function MyCommentItem({ comment }) {
+  const navigate = useNavigate();
+  const commentMutation = useMutation(() => deleteComment(comment.commentId), {
+    onMutate: () => {
+      setDisabled(true);
+    },
+    onSuccess: () => {
+      navigate(0);
+    },
+    onSettled: () => {
+      setShow(false);
+    },
+  });
+  const [show, setShow] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const onClick = () => {
+    setShow(true);
+  };
+  const onCancel = () => {
+    setShow(false);
+  };
+  const onSubmit = () => {
+    commentMutation.mutate();
+  };
+  const to = `/community/${comment.categoryName}/${comment.postId}`;
+
   return (
-    <CommentItem>
-      <CommentItemRow>
-        <Link to="/">{comment.comment}</Link>
-        <p>{comment.date}</p>
-      </CommentItemRow>
-      <CommentItemRow>
-        <p className="comment-category">{comment.category}</p>
-        <p className="comment-title">{comment.title}</p>
-        <span>[{comment.commentNum}]</span>
-      </CommentItemRow>
-    </CommentItem>
+    <>
+      <CommentItem>
+        <CommentItemColumn>
+          <Link to={to}>{comment.content}</Link>
+          <div>
+            <p className="comment-category">
+              {COMMUNITY_CATEGORY[comment.categoryName]}
+            </p>
+            <p className="comment-title">{comment.title}</p>
+            <span>[{comment.commentNum}]</span>
+          </div>
+        </CommentItemColumn>
+        <CommentItemColumn>
+          <p>{comment.localDateTime}</p>
+          <button type="button" onClick={onClick} className="removeBtn">
+            삭제
+          </button>
+        </CommentItemColumn>
+      </CommentItem>
+      <DoubleCheckModal
+        show={show}
+        text={disabled ? '댓글 삭제하는 중...' : '댓글을 삭제하시겠습니까?'}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        disabled={disabled}
+      />
+    </>
   );
 }
 

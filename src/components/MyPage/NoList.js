@@ -14,7 +14,7 @@ const NoListText = styled.p`
 `;
 function NoList({ category }) {
   return (
-    <NoListText>
+    <NoListText className="NoList">
       <BorderColorOutlinedIcon className="NoList-icon" />
       {category === 'scrap'
         ? '스크랩한 글이 없습니다'
