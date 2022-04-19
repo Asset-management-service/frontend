@@ -3,9 +3,10 @@ import React, {useState} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { CancelButton, SettingListContentWrapper, CheckButton } from './StyledComponentInSetting';
 import InsertCategory from './InsertCategory';
+import CategoryItemList from './CategoryList';
+
 
 
 //인풋 박스
@@ -16,6 +17,22 @@ const InputBoxWrapper = styled.div`
 
 //카테고리 설정 컴포넌트
 function SetCategory({content}){
+    const [items, setItems] = useState([
+    { id: 1,
+      text: '월급',
+      checked: false,
+    },
+    {
+      id: 2,
+      text: '주식',
+      checked: false,
+    },
+    {
+      id: 3,
+      text: '기타',
+      checked: false,
+    },
+  ]);
     const [isOpen, setIsOpen] = useState(false);
 
     const [isClicked, setIsClicked] = useState(false);
@@ -70,7 +87,7 @@ function SetCategory({content}){
         position: 'absolute',
         bottom: '10px;',
         right: '20px',
-        display : 'flex'
+        display: isClicked ? "flex" : "none"
     };
     // + 아이콘, X 버튼, 삭제 아이콘 추가
     // + 아이콘을 누르면 입력창이 뜨도록
@@ -84,7 +101,7 @@ function SetCategory({content}){
                 <h1>{content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
                     <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon} show={isClicked}></AddCircleOutlinedIcon>
-                        <div id='categoryContent'><DeleteIcon></DeleteIcon></div>
+                        <CategoryItemList items={items}></CategoryItemList>
                         <InsertCategory></InsertCategory>
                 </StyledModal>
                 </ModalWrapper>
