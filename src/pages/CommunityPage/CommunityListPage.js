@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { Button } from '../../components/common/Button';
+import Loading from '../../components/common/Loading';
 import { NotLoginModal } from '../../components/common/NotLogin';
 import PostList from '../../components/Community/PostList';
 import { useNotLogin } from '../../hooks/useNotLogin';
-import { getPost } from '../../lib/api/post';
+import { getRecentPosts } from '../../lib/api/post';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 const StyledButton = styled(Button)`
   font-size: 14px;
@@ -20,37 +22,68 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function CommunityListPage({ category }) {
+function CommunityListPage() {
+  const { category } = useParams();
   // category에 따라 게시물 가져오기 (api 요청)
-
+  const { data, hasNextPage, status, fetchNextPage, remove } = useInfiniteQuery(
+    ['recentPosts', category],
+    ({ pageParam = 0 }) => getRecentPosts(category, pageParam),
+    {
+      getNextPageParam: (lastPage) => {
+        const { number, totalPages } = lastPage;
+        return number + 1 < totalPages ? number + 1 : undefined;
+      },
+      refetchOnWindowFocus: false,
+    },
+  );
   const { auth } = useSelector(({ login }) => login);
+  const loadMoreRef = useRef(null);
   const { show, handleNotLogin, onClose } = useNotLogin(false);
   const to = `/community/write?category=${category}`;
+  useEffect(() => {
+    if (!hasNextPage) {
+      return;
+    }
+    const observer = new IntersectionObserver((entries) =>
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          fetchNextPage();
+        }
+      }),
+    );
+    const el = loadMoreRef && loadMoreRef.current;
+    if (!el) return;
+    observer.observe(el);
+    return () => {
+      observer.unobserve(el);
+    };
+  }, [hasNextPage, loadMoreRef.current]);
 
+  useEffect(() => {
+    return () => remove();
+  }, []);
+
+  if (status === 'loading') {
+    return (
+      <section>
+        <Loading mainColor="black" />
+      </section>
+    );
+  }
   return (
     <section>
       <StyledButton
         outlined
         basiccolor="black"
         to={to}
-        //onClick={(e) => handleNotLogin(auth, e)}
+        onClick={(e) => handleNotLogin(auth, e)}
       >
         <CreateOutlinedIcon /> 글쓰기
       </StyledButton>
-      <PostList
-        data={[
-          {
-            title: '제목입니다',
-            content:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id orci turpis. Nunc porta lacus at nibh dapibus, ut semper ipsum maximus. Nam et ipsum non felis euismod rhoncus eu at turpis. Etiam euismod risus rhoncus, tempus neque at, posuere elit. Vivamus varius neque vitae purus maximus hendrerit. Morbi rutrum mauris ex, ultricies rhoncus ante viverra et. Phasellus ut velit tincidunt, porta velit et, pellentesque tellus. Integer convallis sagittis vulputate. Integer augue dui, dignissim ac ullamcorper mollis, tristique et ante. Integer commodo massa non ipsum cursus, id blandit sapien congue. Donec nec pellentesque nisl. Etiam nibh magna, vulputate vitae ultricies non, aliquet ut sem. Sed a massa purus. Cras viverra, mauris eu porttitor fringilla, ex orci iaculis quam, ac ullamcorper metus metus vitae mauris.',
-            username: '김김김김',
-            localDateTime: '2022-03-23 12:20',
-            viewCount: 10,
-            commentCount: 3,
-            postId: 1,
-          },
-        ]}
-      />
+      <PostList pages={data.pages} />
+      <p className="loadMore" ref={loadMoreRef}>
+        Load More
+      </p>
       <NotLoginModal show={show} onClose={onClose} />
     </section>
   );

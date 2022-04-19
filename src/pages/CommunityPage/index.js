@@ -9,9 +9,11 @@ const MainWrapper = styled.main`
   height: 100vh;
   padding-left: 266px;
   section {
-    position: relative;
     flex-grow: 1;
     margin: 2rem;
+    .loadMore {
+      opacity: 0;
+    }
   }
 `;
 
