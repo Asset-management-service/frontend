@@ -22,7 +22,7 @@ const ErrorMessageBox = styled.div`
 
 
 //한달 예산 금액 설정
-function SetMonthlyBudget(props){
+function SetMonthlyBudget({content}){
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -66,7 +66,7 @@ function SetMonthlyBudget(props){
 
     return(
         <SettingListContentWrapper>
-                <ContentPropsWrapper onClick={openBudgetModalHandler}>{props.content}</ContentPropsWrapper>
+                <ContentPropsWrapper onClick={openBudgetModalHandler}>{content}</ContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>

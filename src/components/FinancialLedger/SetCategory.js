@@ -5,6 +5,7 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { CancelButton, SettingListContentWrapper, CheckButton } from './StyledComponentInSetting';
+import InsertCategory from './InsertCategory';
 
 
 //인풋 박스
@@ -14,7 +15,7 @@ const InputBoxWrapper = styled.div`
 `;
 
 //카테고리 설정 컴포넌트
-function SetCategory(props){
+function SetCategory({content}){
     const [isOpen, setIsOpen] = useState(false);
 
     const [isClicked, setIsClicked] = useState(false);
@@ -76,21 +77,15 @@ function SetCategory(props){
 
     return(
         <SettingListContentWrapper>
-            {props.content}
+            {content}
             <ChevronRightRoundedIcon onClick={openCategoryModalHandler}></ChevronRightRoundedIcon>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
-                <h1>{props.content}</h1>
+                <h1>{content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
                     <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon} show={isClicked}></AddCircleOutlinedIcon>
-                        <InputBoxWrapper>
                         <div id='categoryContent'><DeleteIcon></DeleteIcon></div>
-                             <input type="text" id="category" placeholder="카테고리를 입력하세요" onChange={onCategoryModalHandler}></input>
-                            <ButtonBox>
-                                <CancelButton onClick={closeCategoryInputHandler} className="cancelButton">취소</CancelButton>
-                                <CheckButton onClick={onCategorySubmit} className="checkButton">입력</CheckButton>
-                            </ButtonBox>
-                        </InputBoxWrapper>
+                        <InsertCategory></InsertCategory>
                 </StyledModal>
                 </ModalWrapper>
         </SettingListContentWrapper>

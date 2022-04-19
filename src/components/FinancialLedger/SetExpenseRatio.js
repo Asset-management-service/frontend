@@ -19,7 +19,7 @@ const ErrorMessageBox = styled.div`
 `;
 
 //지출 비율 설정 로직
-function SetExpenseRatio(props){
+function SetExpenseRatio({content}){
     const [isOpen, setIsOpen] = useState(false);
 
     const openRatioModalHandler = () => {
@@ -65,7 +65,7 @@ function SetExpenseRatio(props){
 
     return(
         <SettingListContentWrapper>
-            <ContentPropsWrapper onClick={openRatioModalHandler}>{props.content}</ContentPropsWrapper>
+            <ContentPropsWrapper onClick={openRatioModalHandler}>{content}</ContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>지출 비율 설정</h1>
