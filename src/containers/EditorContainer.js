@@ -11,7 +11,7 @@ const EditorContainer = ({ contentRef, error }) => {
     dispatch(changeField(e.target.name, e.target.value));
   };
   const onUploadImage = (e) => {
-    dispatch(uploadImage(e.target.files, nextId.current));
+    dispatch(uploadImage(e.target.files[0], nextId.current));
     nextId.current++;
     e.target.value = '';
   };

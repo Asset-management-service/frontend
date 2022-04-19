@@ -1,10 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { NotLogin } from '../../components/common/NotLogin';
 import WriteActionButtons from '../../components/common/WriteActionButtons';
 import EditorContainer from '../../containers/EditorContainer';
 import { initialize, setPost } from '../../modules/post';
 import styled from 'styled-components';
+import { useMutation } from 'react-query';
+import { createPost } from '../../lib/api/post';
+import Loading from '../../components/common/Loading';
 
 const StyledForm = styled.form`
   width: 90vw;
@@ -19,8 +23,15 @@ const StyledForm = styled.form`
 `;
 
 function CommunityWritePage() {
-  //const { auth } = useSelector(({ login }) => login);
-  const { title, content, images, postId } = useSelector(({ post }) => post);
+  const { auth } = useSelector(({ login }) => login);
+  const { title, content, imageFiles, postId } = useSelector(
+    ({ post }) => post,
+  );
+  const createMutation = useMutation((newPost) => createPost(newPost), {
+    onSuccess: () => {
+      navigate(`/community/${category}`, { replace: true });
+    },
+  });
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const category = searchParams.get('category');
@@ -30,11 +41,18 @@ function CommunityWritePage() {
   const [error, setError] = useState(false);
 
   const onCancel = () => navigate('/community');
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (title === '') setError(true);
-    console.log(contentRef.current.value);
-
+    if (title === '' || content === '') setError(true);
+    else {
+      const newPost = {
+        category,
+        title,
+        content,
+        imageFiles,
+      };
+      createMutation.mutate(newPost);
+    }
     // post api or patch api
     // navigate to /community/category/id
   };
@@ -45,7 +63,7 @@ function CommunityWritePage() {
         setPost({
           title: state.title === undefined ? '' : state.title,
           content: state.content,
-          images: state.images,
+          imageFiles: state.images,
           postId: state.id,
         }),
       );
@@ -53,13 +71,10 @@ function CommunityWritePage() {
       dispatch(
         setPost({
           title: '',
+          imageFiles: [],
           content: '',
-          images: [],
         }),
       );
-    }
-    if (contentRef && contentRef.current) {
-      contentRef.current.value = null;
     }
   }, [state]);
   useEffect(() => {
@@ -67,11 +82,13 @@ function CommunityWritePage() {
       dispatch(initialize());
     };
   }, []);
-  /*
+
   if (!auth) {
     return <NotLogin />;
   }
-*/
+  if (createMutation.status === 'loading') {
+    return <Loading mainColor="black" text="게시물 등록 중..." />;
+  }
   return (
     <main style={{ padding: 0 }}>
       <StyledForm>
