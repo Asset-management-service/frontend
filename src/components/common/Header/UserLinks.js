@@ -7,6 +7,7 @@ import LoginModal from '../../Login/LoginModal';
 import { logout } from '../../../modules/login';
 import styled from 'styled-components';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import { logoutAuth } from '../../../lib/api/auth';
 
 const StyledUserLinks = styled.ul`
   display: flex;
@@ -47,10 +48,14 @@ function UserLinks() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onLogout = () => {
-    localStorage.removeItem('TOKEN');
-    localStorage.removeItem('EXPIRED_AT');
-    dispatch(logout());
-    navigate('/', { replace: true });
+    logoutAuth().then((data) => {
+      if (data) {
+        localStorage.removeItem('TOKEN');
+        localStorage.removeItem('EXPIRED_AT');
+        dispatch(logout());
+        navigate('/', { replace: true });
+      }
+    });
   };
 
   return (
