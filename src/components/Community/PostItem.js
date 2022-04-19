@@ -30,6 +30,7 @@ const StyledItem = styled.li`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     opacity: 0.6;
+    word-break: break-all;
   }
 `;
 
