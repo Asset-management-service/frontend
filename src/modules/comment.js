@@ -1,6 +1,6 @@
 const SET_COMMENT_LIST = 'comment/SET_COMMENT_LIST';
-const EDIT_COMMENT = 'comment/EDIT_COMMENT';
-const DELETE_COMMENT = 'comment//DELETE_COMMENT';
+const CHANGE_COMMENT = 'comment/CHANGE_COMMENT';
+const REMOVE_COMMENT = 'comment/REMOVE_COMMENT';
 const ADD_COMMENT = 'comment/ADD_COMMENT';
 const SET_LOADING = 'comment/SET_LOADING';
 
@@ -14,21 +14,23 @@ export const addComment = (comment) => ({
   comment,
 });
 
-export const editComment = (id, content) => ({
-  type: EDIT_COMMENT,
+export const changeComment = (id, content) => ({
+  type: CHANGE_COMMENT,
   id,
   content,
 });
 
-export const deleteComment = (id) => ({
-  type: DELETE_COMMENT,
-  id,
+export const removeComment = (commentId, parentId) => ({
+  type: REMOVE_COMMENT,
+  commentId,
+  parentId,
 });
 
 export const setLoading = (loading) => ({
   type: SET_LOADING,
   loading,
 });
+
 const initialState = {
   comments: [],
   loading: false,
@@ -52,6 +54,7 @@ const comment = (state = initialState, action) => {
             commentId,
             username,
             children: [],
+            myComment: true,
           }),
         };
       } else {
@@ -66,13 +69,14 @@ const comment = (state = initialState, action) => {
                     createDate,
                     commentId,
                     username,
+                    myComment: true,
                   }),
                 }
               : comment,
           ),
         };
       }
-    case EDIT_COMMENT:
+    case CHANGE_COMMENT:
       return {
         comments: state.comments.map((comment) =>
           comment.commentId === action.id
@@ -93,18 +97,29 @@ const comment = (state = initialState, action) => {
               },
         ),
       };
-    case DELETE_COMMENT:
-      return {
-        comments: state.comments.map(
-          (comment) =>
-            comment.commentId !== action.id && {
-              ...comment,
-              children: comment.children.filter(
-                (recomment) => recomment.commentId !== action.id,
-              ),
-            },
-        ),
-      };
+    case REMOVE_COMMENT:
+      if (!action.parentId) {
+        return {
+          ...state,
+          comments: state.comments.filter(
+            (comment) => comment.commentId !== action.commentId,
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          comments: state.comments.map((comment) =>
+            comment.commentId === action.parentId
+              ? {
+                  ...comment,
+                  children: comment.children.filter(
+                    (recomment) => recomment.commentId !== action.commentId,
+                  ),
+                }
+              : comment,
+          ),
+        };
+      }
     case SET_LOADING:
       return {
         ...state,

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CommentItem from './CommentItem';
-import CommentForm from './CommentForm';
+import CommentFormContainer from '../../containers/CommentFormContainer';
 import { setCommentList } from '../../modules/comment';
 import styled from 'styled-components';
 
@@ -16,21 +16,19 @@ const CommentWrapper = styled.div`
     color: red;
   }
 `;
-function CommentList({ commentList, postId }) {
-  //const { auth } = useSelector(({ login }) => login);
-  const auth = 'asdf';
+function CommentList({ commentList, postId, commentCount }) {
+  const { auth } = useSelector(({ login }) => login);
   const { comments, loading } = useSelector(({ comment }) => comment);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCommentList(commentList));
-  }, []);
-  useEffect(() => console.log(comments), [comments]);
+  }, [commentList]);
   if (loading) {
     return <h1>Loading...</h1>;
   }
   return (
     <CommentWrapper>
-      <div className="CommentList-divider">댓글 총 10개</div>
+      <div className="CommentList-divider">댓글 총 {commentCount}개</div>
       <ul>
         {comments &&
           comments.map((comment) => (
@@ -52,7 +50,7 @@ function CommentList({ commentList, postId }) {
           ))}
       </ul>
       {auth ? (
-        <CommentForm type="댓글" postId={postId} />
+        <CommentFormContainer type="댓글" postId={postId} parentId={null} />
       ) : (
         <p className="CommentList-guide">댓글은 로그인 후에 작성 가능합니다.</p>
       )}
