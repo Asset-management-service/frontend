@@ -39,7 +39,7 @@ function PostDropMenu({ scrap, user, onEdit, onDelete }) {
         ]);
       }
     }
-  }, []);
+  }, [user, scrap]);
   return <DropMenu menus={dropMenus} height={height} />;
 }
 

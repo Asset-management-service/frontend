@@ -1,15 +1,16 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useMutation } from 'react-query';
 import PostDropMenu from './PostDropMenu';
-import CommentForm from './CommentForm';
 import { useToggle } from '../../hooks';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styled, { css } from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { deleteComment } from '../../modules/comment';
+import { removeComment } from '../../modules/comment';
+import { deleteComment } from '../../lib/api/comment';
+import CommentFormContainer from '../../containers/CommentFormContainer';
 
 const StyledItem = styled.div`
-  margin: 1rem 0;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   border-bottom: 1px solid gray;
   ${({ type }) =>
     type === '대댓글' &&
@@ -17,6 +18,8 @@ const StyledItem = styled.div`
       margin-left: 3rem;
       border: 1px solid gray;
       border-radius: 20px;
+      margin-bottom: 1rem;
+      padding: 1rem;
     `};
 `;
 
@@ -49,13 +52,18 @@ const ItemRow = styled.div`
   }
 `;
 function CommentItem({ type, children, comment, postId }) {
+  const dispatch = useDispatch();
+  const deleteMutation = useMutation(() => deleteComment(comment.commentId), {
+    onSuccess: (datas) => {
+      dispatch(removeComment(comment.commentId, comment.parentId));
+    },
+  });
   const [recomment, setRecomment] = useToggle(false);
   const [edit, setEdit] = useState(false);
-  const dispatch = useDispatch();
-  // const { auth } = useSelector(({ login }) => login);
-  const auth = 'sdf';
+
+  const { auth } = useSelector(({ login }) => login);
   const onDelete = () => {
-    dispatch(deleteComment(comment.commentId));
+    deleteMutation.mutate();
   };
   const onEdit = () => {
     setEdit(true);
@@ -70,11 +78,11 @@ function CommentItem({ type, children, comment, postId }) {
             <p className="Comment-date">{comment.createDate}</p>
           </div>
           {edit ? (
-            <CommentForm
+            <CommentFormContainer
               comment={comment.content}
               commentId={comment.commentId}
               isEdit={edit}
-              setEdit={setEdit}
+              finishEdit={() => setEdit(false)}
             />
           ) : (
             <p className="Comment-comment">{comment.content}</p>
@@ -92,7 +100,7 @@ function CommentItem({ type, children, comment, postId }) {
       </ItemRow>
       {children}
       {recomment && (
-        <CommentForm
+        <CommentFormContainer
           type="대댓글"
           parentId={comment.commentId}
           postId={postId}

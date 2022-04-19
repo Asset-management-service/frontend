@@ -1,20 +1,59 @@
-import { useEffect, useRef } from 'react';
-import { useQuery } from 'react-query';
+import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQuery } from 'react-query';
 import Loading from '../components/common/Loading';
 import PostDetail from '../components/Community/PostDetail';
-import { getPost } from '../lib/api/post';
-import { useToggle } from '../hooks';
-import { useNavigate } from 'react-router-dom';
+import DoubleCheckModal from '../components/common/DoubleCheckModal';
+import { deletePost, getPost, likePost, scrapPost } from '../lib/api/post';
 
-function PostDetailContainer({ id }) {
-  const { data, isLoading } = useQuery(['postDetail', id], () => getPost(id));
-  const timer = useRef(null);
+function PostDetailContainer({ id, category }) {
+  const { data, status, remove } = useQuery(
+    ['postDetail', id],
+    () => getPost(id),
+    {
+      onSuccess: (data) => {
+        setLike(data.myLike);
+        setScrap(data.myScrap);
+      },
+      refetchOnWindowFocus: false,
+    },
+  );
+  const deleteMutation = useMutation((postId) => deletePost(postId), {
+    onSuccess: () => {
+      navigate(`/community/${category}`, { replace: true });
+    },
+  });
+  const scrapMutation = useMutation((postId) => scrapPost(postId), {
+    onSuccess: (data) => {
+      setScrap(data.scrapStatus);
+    },
+  });
   const navigate = useNavigate();
-  const [like, setLike] = useToggle(false);
-  const [scrap, setScrap] = useToggle(false);
+  const [show, setShow] = useState(false);
+  const [like, setLike] = useState(null);
+  const [scrap, setScrap] = useState(null);
+  const timer = useRef(null);
 
-  // 스크랩하기
-  const onScrap = () => {};
+  useEffect(() => {
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      if (like !== null && data.myLike !== like) {
+        likePost(data.postId);
+      }
+    }, 2000);
+  }, [like]);
+  useEffect(() => {
+    return () => remove();
+  }, []);
+
+  const onScrap = () => {
+    if (scrap) {
+      alert('이미 스크랩한 글입니다.');
+    } else {
+      scrapMutation.mutate(id);
+    }
+  };
+
   // 수정하기
   const onEdit = () => {
     navigate('/community/write', {
@@ -27,27 +66,33 @@ function PostDetailContainer({ id }) {
     });
   };
   // 삭제하기
-  const onDelete = () => {};
-  // 좋아요
-  const onLike = () => {
-    setLike(!like);
+  const onDelete = (e) => {
+    e.preventDefault();
+    deleteMutation.mutate(id);
   };
-  useEffect(() => {
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => console.log(like), 2000); // 좋어요 추가 기능 api 작성
-  }, [like]);
-  if (isLoading) {
+  if (status === 'loading') {
     return <Loading mainColor={'black'} />;
   }
+  if (deleteMutation.status === 'loading') {
+    return <Loading mainColor={'black'} text="게시물 삭제중..." />;
+  }
   return (
-    <PostDetail
-      data={data}
-      like={like}
-      onLike={onLike}
-      onScrap={onScrap}
-      onEdit={onEdit}
-      user={'true'}
-    />
+    <>
+      <PostDetail
+        post={data}
+        onEdit={onEdit}
+        onDelete={() => setShow(true)}
+        like={like}
+        onLike={() => setLike(!like)}
+        onScrap={onScrap}
+      />
+      <DoubleCheckModal
+        text="게시물을 삭제하시겠습니까?"
+        show={show}
+        onCancel={() => setShow(false)}
+        onSubmit={onDelete}
+      />
+    </>
   );
 }
 

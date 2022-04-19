@@ -5,7 +5,7 @@ import CommunityListPage from './CommunityListPage';
 function CommunitySubPage() {
   const { category, id } = useParams();
   if (id) {
-    return <CommunityDetailPage id={id} />;
+    return <CommunityDetailPage />;
   }
   return <CommunityListPage category={category} />;
 }
