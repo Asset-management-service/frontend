@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/common/Button';
 import styled from 'styled-components';
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
@@ -15,18 +15,19 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function CommunityDetailPage({ id }) {
+function CommunityDetailPage() {
+  const { category, id } = useParams();
   const navigate = useNavigate();
   return (
     <section>
       <StyledButton
         outlined={true}
         basiccolor="black"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(`/community/${category}`)}
       >
         <ArrowBackIosRoundedIcon />
       </StyledButton>
-      <PostDetailContainer id={id} />
+      <PostDetailContainer id={id} category={category} />
     </section>
   );
 }

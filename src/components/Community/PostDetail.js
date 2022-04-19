@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import CommentList from './CommentList';
 import PostDropMenu from './PostDropMenu';
@@ -28,6 +29,7 @@ const DetailSection = styled.div`
     font-size: 20px;
     padding: 3rem 0;
     margin-bottom: 2rem;
+    white-space: pre-line;
   }
 `;
 
@@ -71,31 +73,32 @@ const DetailHeading = styled.div`
 
 // 자신이 쓴 글이라면 수정 및 삭제 기능 추가되어야 함.
 
-function PostDetail({ onLike, like, user, data, onEdit }) {
-  //const { auth } = useSelector(({ login }) => login);
-  const auth = 'sdf';
+function PostDetail({ post, onEdit, onDelete, like, onLike, onScrap }) {
+  const { auth } = useSelector(({ login }) => login);
   return (
     <DetailSection>
       <div className="BoardDetail-user">
         <AccountCircleRoundedIcon className="BoardDetail-icon" />
         <div>
-          <p>김김김김김</p>
-          <p className="BoardDetail-date">2022-03-23 12:20</p>
+          <p>{post.username}</p>
+          <p className="BoardDetail-date">{post.createDate}</p>
         </div>
       </div>
       <DetailHeading>
         <div>
-          <h3>제목제목제목</h3>
+          <h3>{post.title}</h3>
           <ul className="BoardDetail-list">
             <li>
-              <FavoriteBorderRoundedIcon className="like-icon" /> 10
+              <FavoriteBorderRoundedIcon className="like-icon" />
+              {post.likeCount}
             </li>
             <li>
-              <BookmarkBorderRoundedIcon className="scrap-icon" /> 10
+              <BookmarkBorderRoundedIcon className="scrap-icon" />
+              {post.scrapCount}
             </li>
             <li>
               <RemoveRedEyeOutlinedIcon className="view-icon" />
-              10
+              {post.viewCount}
             </li>
           </ul>
         </div>
@@ -104,112 +107,25 @@ function PostDetail({ onLike, like, user, data, onEdit }) {
             <button onClick={onLike} className="like-btn">
               {like ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
             </button>
-            <PostDropMenu scrap="true" user={user} onEdit={onEdit} />
+            <PostDropMenu
+              scrap="true"
+              user={post.myPost}
+              onEdit={onEdit}
+              onScrap={onScrap}
+              onDelete={onDelete}
+            />
           </div>
         )}
       </DetailHeading>
 
-      <p className="BoardDetail-content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id orci
-        turpis. Nunc porta lacus at nibh dapibus, ut semper ipsum maximus. Nam
-        et ipsum non felis euismod rhoncus eu at turpis. Etiam euismod risus
-        rhoncus, tempus neque at, posuere elit. Vivamus varius neque vitae purus
-        maximus hendrerit. Morbi rutrum mauris ex, ultricies rhoncus ante
-        viverra et. Phasellus ut velit tincidunt, porta velit et, pellentesque
-        tellus. Integer convallis sagittis vulputate. Integer augue dui,
-        dignissim ac ullamcorper mollis, tristique et ante. Integer commodo
-        massa non ipsum cursus, id blandit sapien congue. Donec nec pellentesque
-        nisl. Etiam nibh magna, vulputate vitae ultricies non, aliquet ut sem.
-        Sed a massa purus. Cras viverra, mauris eu porttitor fringilla, ex orci
-        iaculis quam, ac ullamcorper metus metus vitae mauris. Lorem ipsum dolor
-        sit amet, consectetur adipiscing elit. Nunc id orci turpis. Nunc porta
-        lacus at nibh dapibus, ut semper ipsum maximus. Nam et ipsum non felis
-        euismod rhoncus eu at turpis. Etiam euismod risus rhoncus, tempus neque
-        at, posuere elit. Vivamus varius neque vitae purus maximus hendrerit.
-        Morbi rutrum mauris ex, ultricies rhoncus ante viverra et. Phasellus ut
-        velit tincidunt, porta velit et, pellentesque tellus. Integer convallis
-        sagittis vulputate. Integer augue dui, dignissim ac ullamcorper mollis,
-        tristique et ante. Integer commodo massa non ipsum cursus, id blandit
-        sapien congue. Donec nec pellentesque nisl. Etiam nibh magna, vulputate
-        vitae ultricies non, aliquet ut sem. Sed a massa purus. Cras viverra,
-      </p>
+      <p className="BoardDetail-content">{post.content}</p>
       <CommentList
-        postId={1}
-        commentList={[
-          {
-            parentId: null,
-            commentId: 1,
-            content: '무야호~',
-            username: 'dasdad',
-            createDate: '2022-04-04 21:37:52',
-            updateDate: '2022-04-06 01:31:45',
-            children: [
-              {
-                parentId: 1,
-                commentId: 4,
-                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
-                username: 'dasdad',
-                createDate: '2022-04-04 21:38:19',
-                updateDate: null,
-              },
-              {
-                parentId: 1,
-                commentId: 9,
-                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
-                username: 'dasdad',
-                createDate: '2022-04-07 00:38:18',
-                updateDate: null,
-              },
-            ],
-          },
-          {
-            parentId: null,
-            commentId: 2,
-            content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
-            username: 'dasdad',
-            createDate: '2022-04-04 21:38:04',
-            updateDate: null,
-            children: [
-              {
-                parentId: 2,
-                commentId: 5,
-                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
-                username: 'dasdad',
-                createDate: '2022-04-04 21:38:21',
-                updateDate: null,
-              },
-            ],
-          },
-          {
-            parentId: null,
-            commentId: 3,
-            content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
-            username: 'dasdad',
-            createDate: '2022-04-04 21:38:09',
-            updateDate: null,
-            children: [
-              {
-                parentId: 3,
-                commentId: 7,
-                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
-                username: 'dasdad',
-                createDate: '2022-04-06 23:35:28',
-                updateDate: null,
-              },
-              {
-                parentId: 3,
-                commentId: 8,
-                content: 'zxxzcxcxzcdsadadasddasdzsadadsdsdasdz',
-                username: 'dasdad',
-                createDate: '2022-04-07 00:34:16',
-                updateDate: null,
-              },
-            ],
-          },
-        ]}
+        postId={post.postId}
+        commentList={post.comments}
+        commentCount={post.commentCount}
       />
     </DetailSection>
   );
 }
 
-export default PostDetail;
+export default React.memo(PostDetail);
