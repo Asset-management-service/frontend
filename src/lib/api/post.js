@@ -1,12 +1,49 @@
 import axios from 'axios';
-export const getRecentPosts = async (category) => {
-  const response = await axios.get('/api/posts/recent', {
-    params: { categoryName: '자유게시판' },
-  });
-  return response.data;
+import { setToken } from './auth';
+
+const baseUrl = process.env.REACT_APP_BACKEND_BASE_URL
+  ? `${process.env.REACT_APP_BACKEND_BASE_URL}/api/posts`
+  : '/api/posts';
+export const getRecentPosts = async (category, page = 0) => {
+  const { data } = await axios.get(
+    `${baseUrl}/recent?categoryName=${category}&page=${page}`,
+  );
+  return data;
 };
 
 export const getPost = async (id) => {
-  const { data } = await axios.get(`/api/posts/${id}`);
+  const { data } = await axios.get(`${baseUrl}/${id}`);
+  return data;
+};
+
+export const createPost = async (newPost) => {
+  const { title, content, category, imageFiles } = newPost;
+  const formData = new FormData();
+  formData.append('categoryName', category);
+  formData.append('content', content);
+  formData.append('title', title);
+  console.log(imageFiles);
+  if (imageFiles.length != 0) {
+    imageFiles.forEach((file) => formData.append('imageFiles', file.image));
+  }
+  setToken();
+  const { data } = await axios.post(baseUrl, formData);
+  return data;
+};
+
+export const deletePost = async (postId) => {
+  setToken();
+  const { data } = await axios.delete(`${baseUrl}/${postId}`);
+  return data;
+};
+
+export const likePost = (postId) => {
+  setToken();
+  axios.post(`${baseUrl}/${postId}/likes`);
+};
+
+export const scrapPost = async (postId) => {
+  setToken();
+  const { data } = await axios.post(`${baseUrl}/${postId}/scrap`);
   return data;
 };

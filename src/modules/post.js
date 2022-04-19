@@ -33,7 +33,7 @@ export const setPost = (post) => ({
 const initialState = {
   title: '',
   content: '',
-  images: [],
+  imageFiles: [],
   postId: null,
 };
 
@@ -47,16 +47,15 @@ const post = (state = initialState, action) => {
     case UPLOAD_IMAGE:
       return {
         ...state,
-        images: state.images.concat({
-          image: action.file[0],
-          name: action.file[0].name,
+        imageFiles: state.imageFiles.concat({
+          image: action.file,
           key: action.key,
         }),
       };
     case REMOVE_IMAGE:
       return {
         ...state,
-        images: state.images.filter((image) => image.key !== action.id),
+        imageFiles: state.imageFiles.filter((image) => image.key !== action.id),
       };
     case INITIALIZE:
       return {
