@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {ButtonBox} from '../common/Modal';
 import { CancelButton, SettingListContentWrapper, CheckButton } from './StyledComponentInSetting';
 
@@ -19,32 +19,48 @@ const InsertCategoryWrapper = styled.div`
 
 
 
-function InsertCategory(){
+function InsertCategory(props){
+    
 
     const [categoryContent, setCategoryContent] = useState("");
+    const ref = useRef();
 
      //카레고리 입력값 설정
     const onCategorySetHandler = (event) => { 
     setCategoryContent(event.currentTarget.value)
     }
 
-    //카테고리 입력 상태
-    const [category,SetCategory] = useState(" ");
+    //엔터 누를 시, 입력이 되도록 설정
+    const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit();
+    }
+  };
 
-    const [isOpen, setIsOpen] = useState(false);
+   const handleSubmit = (event) => {
+    event.preventDefault(); // onSubmit 이벤트는 브라우저를 새로고치기 때문에 막아주기
+    if (!categoryContent) return;
+    // 만약 input 창이 빈채로 submit을 하려고 할 땐 return시키기
+    props.onSubmit(categoryContent);
+    setCategoryContent("");
+    // submit을 한 후에는 input 창을 비우기
+  };
+
+    useEffect(() => {
+    ref.current.focus();
+    }, []);
 
     //취소를 클릭하면, 입력 내용이 없어지도록
      const closeCategoryInputHandler = () => {
         setCategoryContent(" ")
-        setIsOpen(false)
     }
 
     return(
         <InsertCategoryWrapper>
-            <InputBox type="text" id="category" placeholder="카테고리를 입력하세요" value={categoryContent} onChange={onCategorySetHandler} autoFocus></InputBox>
+            <InputBox ref={ref} type="text" id="category" placeholder="카테고리를 입력하세요" value={categoryContent} onChange={onCategorySetHandler} autoFocus></InputBox>
             <ButtonBox>
                 <CancelButton onClick={closeCategoryInputHandler} className="cancelButton">취소</CancelButton>
-                <CheckButton className=" checkButton">추가</CheckButton>
+                <CheckButton onClick={handleSubmit} onKeyPress={handleKeyPress} className="checkButton">추가</CheckButton>
             </ButtonBox>
         </InsertCategoryWrapper>
     );
