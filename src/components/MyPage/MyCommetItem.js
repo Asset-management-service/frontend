@@ -74,6 +74,7 @@ function MyCommentItem({ comment }) {
     commentMutation.mutate();
   };
   const to = `/community/${comment.categoryName}/${comment.postId}`;
+
   return (
     <>
       <CommentItem>
