@@ -1,15 +1,31 @@
 import axios from 'axios';
 
-export const logoutAuth = () => axios.post('/api/logout');
+const baseUrl = process.env.REACT_APP_BACKEND_BASE_URL
+  ? `${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth`
+  : '/api/auth';
+
+export const logoutAuth = async () => {
+  setToken();
+  const { data } = await axios.post(`${baseUrl}/logout`);
+  return data;
+};
 export const setToken = async () => {
-  axios.defaults.headers.common['x-access-token'] =
-    localStorage.getItem('TOKEN');
-  const expiredAt = new Date(localStorage.getItem('EXPIRED_AT'));
+  const token = localStorage.getItem(process.env.REACT_APP_TOKEN_KEY);
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  const expiredAt = new Date(
+    localStorage.getItem(process.env.REACT_APP_EXPIRED_AT_KEY),
+  );
   const today = new Date();
   const diffTime = expiredAt.getTime() - today.getTime();
-  if (diffTime < 30000) {
-    axios.defaults.headers.common['x-refresh-token'] =
-      localStorage.getItem('TOKEN'); // refresh token set
-    const response = await axios.get('/auth/refresh');
+  if (diffTime <= 30000) {
+    const { data } = await axios.get(`${baseUrl}/reissue`, {
+      withCredentials: true,
+    });
+    today.setMinutes(today.getMinutes() + 30);
+    localStorage.setItem(process.env.REACT_APP_TOKEN_KEY, data.accessToken);
+    localStorage.setItem(process.env.REACT_APP_EXPIRED_AT_KEY, today);
+    axios.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${data.accessToken}`;
   }
 };
