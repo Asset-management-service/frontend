@@ -46,6 +46,10 @@ function SetCategory({content}){
     nextId.current += 1; // nextId를 1씩 더하기
   };
 
+  const onRemove = (id) => {
+      setItems(items.filter((item) => item.id !== id));
+};
+
     const [isOpen, setIsOpen] = useState(false);
 
     const [isClicked, setIsClicked] = useState(false);
@@ -83,7 +87,7 @@ function SetCategory({content}){
                 <h1>{content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
                     <AddCircleOutlinedIcon className="modalIcon" onclick={openInputBoxHandler} style={StyledAddCircleOutlinedIcon} show={isClicked}></AddCircleOutlinedIcon>
-                        <CategoryItemList items={items}></CategoryItemList>
+                        <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
                         <InsertCategory onSubmit={handleSubmit}></InsertCategory>
                 </StyledModal>
                 </ModalWrapper>

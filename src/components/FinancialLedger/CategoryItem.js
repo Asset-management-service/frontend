@@ -11,12 +11,12 @@ const CategoryWrapper = styled.div`
     font-size: 20px;
 `;
 
-function CategoryItem({item}){
+function CategoryItem({item, onRemove}){
     const { id, text, checked } = item;
     return(
     <CategoryWrapper>
        <span>{text}</span>
-      <DeleteIcon></DeleteIcon>
+      <DeleteIcon onClick={() => onRemove(id)}></DeleteIcon>
     </CategoryWrapper>
     );
 }
