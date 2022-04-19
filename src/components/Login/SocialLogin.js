@@ -58,9 +58,8 @@ function SocialLogin() {
   const dispatch = useDispatch();
   const onLogin = (type) => {
     dispatch(loading());
-    window.location.assign(
-      `https://moamoadev.shop/oauth2/authorization/${type}?redirect_uri=http://localhost:3000/oauth/redirect`,
-    );
+    const loginUrl = `${process.env.REACT_APP_LOGIN_BASE_URL}/api/oauth2/authorization/${type}?redirect_uri=${process.env.REACT_APP_LOGIN_REDIRECT_URL}`;
+    window.location.assign(loginUrl);
   };
 
   return (
