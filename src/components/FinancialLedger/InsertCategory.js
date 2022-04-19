@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, {useState, useEffect, useRef} from 'react';
 import {ButtonBox} from '../common/Modal';
-import { CancelButton, SettingListContentWrapper, CheckButton } from './StyledComponentInSetting';
+import { CancelButton, CheckButton } from './StyledComponentInSetting';
 
 const InputBox = styled.input`
     border: 1px solid black;
@@ -17,11 +17,8 @@ const InsertCategoryWrapper = styled.div`
     border-top: 1px solid black;
 `;
 
-
-
 function InsertCategory(props){
     
-
     const [categoryContent, setCategoryContent] = useState("");
     const ref = useRef();
 

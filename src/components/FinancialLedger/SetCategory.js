@@ -7,12 +7,6 @@ import {SettingListContentWrapper} from './StyledComponentInSetting';
 import InsertCategory from './InsertCategory';
 import CategoryItemList from './CategoryList';
 
-//인풋 박스
-const InputBoxWrapper = styled.div`
-    justify-content: center;
-    font-size: 15px;
-`;
-
 //아이콘을 클릭하면 입력창이 드도록 설정
 const CreateAddCircleOutlinedIcon = styled(AddCircleOutlinedIcon)`
     position: absolute;
@@ -68,14 +62,14 @@ function SetCategory({content}){
         setIsOpen(true)
     };
 
+     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
+    const closeCategoryModalHandler = () => {
+        setIsOpen(false)
+    }
+
     //입력 박스 핸들러 조정
     const openInputBoxHandler = () => {
         setIsClicked(true)
-    }
-
-    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
-    const closeCategoryModalHandler = () => {
-        setIsOpen(false)
     }
 
     return(
@@ -87,8 +81,8 @@ function SetCategory({content}){
                 <h1>{content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
                 <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler} show={isClicked}></CreateAddCircleOutlinedIcon>
-                <CategoryListWrapper show={isClicked}>
                     <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
+                <CategoryListWrapper show={isClicked}>
                     <InsertCategory onSubmit={handleSubmit}></InsertCategory>
                 </CategoryListWrapper>
                 </StyledModal>

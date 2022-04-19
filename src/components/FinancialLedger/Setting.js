@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import SetMonthlyBudget from './SetMonthlyBudget';
 import SetCategory from './SetCategory';
 import SetExpenseRatio from './SetExpenseRatio';

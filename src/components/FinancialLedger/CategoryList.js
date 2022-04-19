@@ -9,7 +9,7 @@ function CategoryItemList({items, onRemove}) {
           item={item}
           key={item.id}
           onRemove={onRemove}
-    />
+          />
       ))}
       </div>
   );

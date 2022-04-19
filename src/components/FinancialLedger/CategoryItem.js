@@ -12,7 +12,7 @@ const CategoryWrapper = styled.div`
 `;
 
 function CategoryItem({item, onRemove}){
-    const { id, text, checked } = item;
+    const { id, text} = item;
     return(
     <CategoryWrapper>
        <span>{text}</span>
