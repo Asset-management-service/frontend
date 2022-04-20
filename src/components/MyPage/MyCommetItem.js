@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from 'react-query';
+import { Link } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
 import DoubleCheckModal from '../common/DoubleCheckModal';
 import { COMMUNITY_CATEGORY } from '../../constants/community';
 import { deleteComment } from '../../lib/api/comment';
@@ -50,13 +50,13 @@ const CommentItemColumn = styled.div`
 `;
 
 function MyCommentItem({ comment }) {
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const commentMutation = useMutation(() => deleteComment(comment.commentId), {
     onMutate: () => {
       setDisabled(true);
     },
     onSuccess: () => {
-      navigate(0);
+      queryClient.refetchQueries(['userPosts', 'comment']);
     },
     onSettled: () => {
       setShow(false);

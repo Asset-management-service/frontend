@@ -6,7 +6,6 @@ import MyCommentItem from './MyCommetItem';
 import NoList from './NoList';
 import { getUserCommunityInfo } from '../../lib/api/user';
 import styled from 'styled-components';
-import { deleteComment } from '../../lib/api/comment';
 
 const StyledPostList = styled.ul`
   margin-top: 2rem;
@@ -46,13 +45,6 @@ function MyPostList({ category }) {
       observer.unobserve(el);
     };
   }, [hasNextPage, loadMoreRef.current]);
-  if (status === 'loading') {
-    return (
-      <section>
-        <Loading mainColor="black" />
-      </section>
-    );
-  }
   return (
     <section>
       <h2>
@@ -63,7 +55,10 @@ function MyPostList({ category }) {
           : '내가 쓴 글'}
       </h2>
       <StyledPostList>
-        {data.pages.length !== 0 &&
+        {status === 'loading' ? (
+          <Loading mainColor="black" />
+        ) : (
+          data.pages.length !== 0 &&
           data.pages.map((page, index) => (
             <Fragment key={index}>
               {page.content.length == 0 ? (
@@ -73,12 +68,17 @@ function MyPostList({ category }) {
                   category === 'comment' ? (
                     <MyCommentItem comment={post} key={post.commentId} />
                   ) : (
-                    <MyPostItem post={post} key={post.postId} />
+                    <MyPostItem
+                      post={post}
+                      key={post.postId}
+                      category={category}
+                    />
                   ),
                 )
               )}
             </Fragment>
-          ))}
+          ))
+        )}
       </StyledPostList>
       <p ref={loadMoreRef} className="loadMore">
         Load More

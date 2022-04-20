@@ -14,7 +14,7 @@ export const getUserCommunityInfo = async (category, page = 0) => {
     url = `${baseUrl}/mypage/comments`;
   } else {
     // scrap
-    url = `${baseUrl}/mypage/posts`;
+    url = `${baseUrl}/mypage/scraps`;
   }
   const { data } = await axios.get(`${url}?page=${page}`);
   return data;
