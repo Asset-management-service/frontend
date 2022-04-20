@@ -12,6 +12,7 @@ const CreateAddCircleOutlinedIcon = styled(AddCircleOutlinedIcon)`
     position: absolute;
     bottom: 10px;
     right: 20px;
+    display: ${({ show }) => (show ? 'flex' : 'none')};
 `;
 
 const CategoryListWrapper = styled.div`
@@ -60,7 +61,7 @@ function SetCategory({content}){
   //입력창 열림 설정
     const [isClicked, setIsClicked] = useState(false);
 
-    const [isIconClicked, setIsIconClicked] = useState(true);
+    const [isIconClicked, setIsIconClicked] = useState(false);
 
     const openCategoryModalHandler = () => {
         setIsOpen(true)
@@ -73,7 +74,6 @@ function SetCategory({content}){
      //입력 박스 핸들러 조정
     const openInputBoxHandler = () => {
         setIsClicked(true)
-        setIsIconClicked(false)
     }
 
 

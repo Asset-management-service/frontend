@@ -3,11 +3,6 @@ import React, {useState} from 'react';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
 import { SettingListContentWrapper, CheckButton, CancelButton, ContentPropsWrapper } from './StyledComponentInSetting';
 
-
-const ExpenseContentPropsWrapper = styled(ContentPropsWrapper)`
-    flex-direction: column;
-`;
-
 //예산 설정 입력 박스
 const InputBox = styled.input`
     border: 2px solid black;
@@ -24,10 +19,8 @@ const ErrorMessageBox = styled.div`
     font-size: 15px;
 `;
 
-
-
 //지출 비율 설정 로직
-function SetExpenseRatio({content1, content2}){
+function SetExpenseRatio({content}){
     const [isOpen, setIsOpen] = useState(false);
 
     const openRatioModalHandler = () => {
@@ -75,8 +68,8 @@ function SetExpenseRatio({content1, content2}){
 
     return(
         <SettingListContentWrapper>
-            <ExpenseContentPropsWrapper onClick={openRatioModalHandler}>{content1}</ExpenseContentPropsWrapper>
-            <ExpenseContentPropsWrapper onClick={openRatioModalHandler}>{content2}</ExpenseContentPropsWrapper>
+                <ContentPropsWrapper onClick={openRatioModalHandler}>{content}</ContentPropsWrapper>
+                <span id='showFixRatio'>--</span>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>지출 비율 설정</h1>
@@ -92,7 +85,6 @@ function SetExpenseRatio({content1, content2}){
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
-            <span id='showFixRatio'>--</span>
         </SettingListContentWrapper>
     );
 }
