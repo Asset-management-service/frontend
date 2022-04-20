@@ -44,23 +44,32 @@ const RemoveButton = styled.div`
   }
 `;
 
-function ImagePreview({ images, removeImage }) {
+function ImagePreview({ saveImageUrl, imageFiles, removeImage }) {
   return (
     <div>
-      {images && images.length !== 0 && (
-        <PreviewWrapper>
-          <PreviewList>
-            {images.map((image) => (
-              <StyledPreview key={image.key}>
-                <img src={URL.createObjectURL(image.image)} />
-                <RemoveButton onClick={() => removeImage(image.key)}>
-                  <CloseRoundedIcon />
-                </RemoveButton>
-              </StyledPreview>
-            ))}
-          </PreviewList>
-        </PreviewWrapper>
-      )}
+      {(saveImageUrl || imageFiles) &&
+        (imageFiles.length !== 0 || saveImageUrl.length !== 0) && (
+          <PreviewWrapper>
+            <PreviewList>
+              {saveImageUrl.map((image) => (
+                <StyledPreview key={image.key}>
+                  <img src={image.image} />
+                  <RemoveButton onClick={() => removeImage(image.key)}>
+                    <CloseRoundedIcon />
+                  </RemoveButton>
+                </StyledPreview>
+              ))}
+              {imageFiles.map((image) => (
+                <StyledPreview key={image.key}>
+                  <img src={URL.createObjectURL(image.image)} />
+                  <RemoveButton onClick={() => removeImage(image.key)}>
+                    <CloseRoundedIcon />
+                  </RemoveButton>
+                </StyledPreview>
+              ))}
+            </PreviewList>
+          </PreviewWrapper>
+        )}
     </div>
   );
 }
