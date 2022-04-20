@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import CommentList from './CommentList';
 import PostDropMenu from './PostDropMenu';
+import ImageList from './ImageList';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
@@ -118,7 +119,10 @@ function PostDetail({ post, onEdit, onDelete, like, onLike, onScrap }) {
         )}
       </DetailHeading>
 
-      <p className="BoardDetail-content">{post.content}</p>
+      <p className="BoardDetail-content">
+        <ImageList images={post.imageUrl} />
+        {post.content}
+      </p>
       <CommentList
         postId={post.postId}
         commentList={post.comments}
