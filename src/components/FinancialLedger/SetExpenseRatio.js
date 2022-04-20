@@ -2,6 +2,12 @@ import styled from 'styled-components';
 import React, {useState} from 'react';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
 import { SettingListContentWrapper, CheckButton, CancelButton, ContentPropsWrapper } from './StyledComponentInSetting';
+
+
+const ExpenseContentPropsWrapper = styled(ContentPropsWrapper)`
+    flex-direction: column;
+`;
+
 //예산 설정 입력 박스
 const InputBox = styled.input`
     border: 2px solid black;
@@ -18,8 +24,10 @@ const ErrorMessageBox = styled.div`
     font-size: 15px;
 `;
 
+
+
 //지출 비율 설정 로직
-function SetExpenseRatio({content}){
+function SetExpenseRatio({content1, content2}){
     const [isOpen, setIsOpen] = useState(false);
 
     const openRatioModalHandler = () => {
@@ -36,42 +44,45 @@ function SetExpenseRatio({content}){
     const [fixRatio,setFixRatio] = useState(" ");
     const [changeRatio,setChangeRatio] = useState(" ");
 
-    const onFixRatioModalHandler = (event) => { 
+    const onFixRatioHandler = (event) => { 
         setFixRatio(event.currentTarget.value);
     }
 
-    const onChangeRatioModalHandler = (event) => { 
+    const onChangeRatioHandler = (event) => { 
         setChangeRatio(event.currentTarget.value);
     }
 
     const onRatioSubmit = (event) => {
         event.preventDefault();
+        let ratioSum = fixRatio + changeRatio;
         let check = /^[0-9]+$/;
         if(fixRatio == " " && !check.test(fixRatio) ||  changeRatio == " " && !check.test(changeRatio)){
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
         }
 
-        else if((changeRatio + fixRatio) !== 100){
-            document.getElementById('setRatio').innerHTML='<b>총합이 100%가 아닙니다! 다시 입력해주세요!<b>';
-            document.getElementById('setRatio').style.color='red';
-    }
-
-        else if(changeRatio + fixRatio === 100){
+        else if((isNaN(fixRatio) === false && isNaN(changeRatio) === false) && (ratioSum === 100)){
             document.getElementById('showFixRatio').innerHTML=fixRatio;
             document.getElementById('showChangeRatio').innerHTML=changeRatio;
-    }
+            setIsOpen(false)
+        }
+
+        else if((isNaN(fixRatio) === false && isNaN(changeRatio) === false) && (ratioSum !== 100)){
+            document.getElementById('setRatio').innerHTML='<b>총합이 100%가 아닙니다! 다시 입력해주세요!<b>';
+            document.getElementById('setRatio').style.color='red';
+        }
 }
 
     return(
         <SettingListContentWrapper>
-            <ContentPropsWrapper onClick={openRatioModalHandler}>{content}</ContentPropsWrapper>
+            <ExpenseContentPropsWrapper onClick={openRatioModalHandler}>{content1}</ExpenseContentPropsWrapper>
+            <ExpenseContentPropsWrapper onClick={openRatioModalHandler}>{content2}</ExpenseContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>지출 비율 설정</h1>
-                <b>고정비</b><InputBox type="text" className="fixRatio" value={fixRatio} onChange={onFixRatioModalHandler}></InputBox><b>%</b>
+                <b>고정비</b><InputBox type="text" className="fixRatio" value={fixRatio} onChange={onFixRatioHandler}></InputBox><b>%</b>
                 <br></br>
-                <b>변동비</b><InputBox type="text" className="changeRatio" value={changeRatio} onChange={onChangeRatioModalHandler}></InputBox><b>%</b>
+                <b>변동비</b><InputBox type="text" className="changeRatio" value={changeRatio} onChange={onChangeRatioHandler}></InputBox><b>%</b>
                 <ErrorMessageBox>
                     <span id='setRatio'></span>
                 </ErrorMessageBox>

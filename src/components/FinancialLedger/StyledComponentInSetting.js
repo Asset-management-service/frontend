@@ -57,7 +57,6 @@ export const CancelButton = styled(ButtonBox)`
 export const ContentPropsWrapper = styled.span`
     width: "100px";
     padding: 5px;
-    border: none;
     &:hover{
         background-color: lightgray;
         cursor: pointer;

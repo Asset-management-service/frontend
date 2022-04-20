@@ -12,7 +12,6 @@ const CreateAddCircleOutlinedIcon = styled(AddCircleOutlinedIcon)`
     position: absolute;
     bottom: 10px;
     right: 20px;
-    display: ${({ show }) => (show ? 'none' : 'flex')};
 `;
 
 const CategoryListWrapper = styled.div`
@@ -54,9 +53,14 @@ function SetCategory({content}){
       setItems(items.filter((item) => item.id !== id));
 };
 
+  //모달창 열림 설정
     const [isOpen, setIsOpen] = useState(false);
 
+
+  //입력창 열림 설정
     const [isClicked, setIsClicked] = useState(false);
+
+    const [isIconClicked, setIsIconClicked] = useState(true);
 
     const openCategoryModalHandler = () => {
         setIsOpen(true)
@@ -66,11 +70,12 @@ function SetCategory({content}){
     const closeCategoryModalHandler = () => {
         setIsOpen(false)
     }
-
-    //입력 박스 핸들러 조정
+     //입력 박스 핸들러 조정
     const openInputBoxHandler = () => {
         setIsClicked(true)
+        setIsIconClicked(false)
     }
+
 
     return(
         <SettingListContentWrapper>
@@ -80,7 +85,7 @@ function SetCategory({content}){
                 <StyledModal>
                 <h1>{content}</h1>
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
-                <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler} show={isClicked}></CreateAddCircleOutlinedIcon>
+                <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
                     <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
                 <CategoryListWrapper show={isClicked}>
                     <InsertCategory onSubmit={handleSubmit}></InsertCategory>
