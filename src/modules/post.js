@@ -34,7 +34,9 @@ const initialState = {
   title: '',
   content: '',
   imageFiles: [],
+  saveImageUrl: [],
   postId: null,
+  nextId: 0,
 };
 
 const post = (state = initialState, action) => {
@@ -49,13 +51,17 @@ const post = (state = initialState, action) => {
         ...state,
         imageFiles: state.imageFiles.concat({
           image: action.file,
-          key: action.key,
+          key: state.nextId,
         }),
+        nextId: state.nextId + 1,
       };
     case REMOVE_IMAGE:
       return {
         ...state,
         imageFiles: state.imageFiles.filter((image) => image.key !== action.id),
+        saveImageUrl: state.saveImageUrl.filter(
+          (image) => image.key != action.id,
+        ),
       };
     case INITIALIZE:
       return {

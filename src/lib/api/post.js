@@ -22,12 +22,30 @@ export const createPost = async (newPost) => {
   formData.append('categoryName', category);
   formData.append('content', content);
   formData.append('title', title);
-  console.log(imageFiles);
   if (imageFiles.length != 0) {
     imageFiles.forEach((file) => formData.append('imageFiles', file.image));
   }
   setToken();
   const { data } = await axios.post(baseUrl, formData);
+  return data;
+};
+
+export const editPost = async (post) => {
+  const { title, content, postId, imageFiles, saveImageUrl } = post;
+  const formData = new FormData();
+  formData.append('postId', postId);
+  formData.append('title', title);
+  formData.append('content', content);
+  if (saveImageUrl.length != 0) {
+    saveImageUrl.forEach((image) =>
+      formData.append('saveImageUrl', image.image),
+    );
+  }
+  if (imageFiles.length != 0) {
+    imageFiles.forEach((file) => formData.append('imageFiles', file.image));
+  }
+  setToken();
+  const { data } = await axios.patch(baseUrl, formData);
   return data;
 };
 

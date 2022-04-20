@@ -72,14 +72,10 @@ const ImageButton = styled.span`
   }
 `;
 
-export function Editor({
-  onChange,
-  onUploadImage,
-  onRemoveImage,
-  contentRef,
-  error,
-}) {
-  const { title, content, imageFiles } = useSelector(({ post }) => post);
+export function Editor({ onChange, onUploadImage, onRemoveImage, error }) {
+  const { title, content, imageFiles, saveImageUrl } = useSelector(
+    ({ post }) => post,
+  );
   return (
     <StyledEditor>
       {title !== undefined && (
@@ -106,7 +102,11 @@ export function Editor({
           </ImageButton>
           <input accept="image/*" type="file" onChange={onUploadImage} />
         </ButtonWrapper>
-        <ImagePreview images={imageFiles} removeImage={onRemoveImage} />
+        <ImagePreview
+          saveImageUrl={saveImageUrl}
+          imageFiles={imageFiles}
+          removeImage={onRemoveImage}
+        />
       </EditorBox>
     </StyledEditor>
   );
