@@ -7,7 +7,7 @@ import EditorContainer from '../../containers/EditorContainer';
 import { initialize, setPost } from '../../modules/post';
 import styled from 'styled-components';
 import { useMutation } from 'react-query';
-import { createPost } from '../../lib/api/post';
+import { createPost, editPost } from '../../lib/api/post';
 import Loading from '../../components/common/Loading';
 
 const StyledForm = styled.form`
@@ -24,12 +24,17 @@ const StyledForm = styled.form`
 
 function CommunityWritePage() {
   const { auth } = useSelector(({ login }) => login);
-  const { title, content, imageFiles, postId } = useSelector(
+  const { title, content, saveImageUrl, imageFiles, postId } = useSelector(
     ({ post }) => post,
   );
   const createMutation = useMutation((newPost) => createPost(newPost), {
-    onSuccess: () => {
-      navigate(`/community/${category}`, { replace: true });
+    onSuccess: (data) => {
+      navigate(`/community/${category}/${data.postId}`, { replace: true });
+    },
+  });
+  const editMutation = useMutation((post) => editPost(post), {
+    onSuccess: (data) => {
+      navigate(`/community/${category}/${data.postId}`, { replace: true });
     },
   });
   const dispatch = useDispatch();
@@ -37,14 +42,25 @@ function CommunityWritePage() {
   const category = searchParams.get('category');
   const navigate = useNavigate();
   const { state } = useLocation();
-  const contentRef = useRef(null);
   const [error, setError] = useState(false);
 
   const onCancel = () => navigate('/community');
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (title === '' || content === '') setError(true);
-    else {
+    if (title === '' || content === '') {
+      setError(true);
+      return;
+    }
+    if (postId) {
+      const post = {
+        title,
+        content,
+        imageFiles,
+        saveImageUrl,
+        postId,
+      };
+      editMutation.mutate(post);
+    } else {
       const newPost = {
         category,
         title,
@@ -63,8 +79,13 @@ function CommunityWritePage() {
         setPost({
           title: state.title === undefined ? '' : state.title,
           content: state.content,
-          imageFiles: state.images,
+          saveImageUrl: state.saveImageUrl.map((url, index) => ({
+            image: url,
+            key: index,
+          })),
           postId: state.id,
+          imageFiles: [],
+          nextId: state.saveImageUrl.length + 1,
         }),
       );
     } else {
@@ -72,11 +93,17 @@ function CommunityWritePage() {
         setPost({
           title: '',
           imageFiles: [],
+          saveImageUrl: [],
           content: '',
+          nextId: 0,
         }),
       );
     }
   }, [state]);
+  useEffect(() => {
+    console.log(saveImageUrl, imageFiles);
+    console.log(postId);
+  }, [saveImageUrl, imageFiles, postId]);
   useEffect(() => {
     return () => {
       dispatch(initialize());
@@ -97,7 +124,7 @@ function CommunityWritePage() {
           onCancel={onCancel}
           onSubmit={onSubmit}
         />
-        <EditorContainer error={error} contentRef={contentRef} />
+        <EditorContainer error={error} />
       </StyledForm>
     </main>
   );
