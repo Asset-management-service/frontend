@@ -18,13 +18,14 @@ function PostDetailContainer({ id, category }) {
       refetchOnWindowFocus: false,
     },
   );
-  const deleteMutation = useMutation((postId) => deletePost(postId), {
+  const deleteMutation = useMutation(() => deletePost(id), {
     onSuccess: () => {
       navigate(`/community/${category}`, { replace: true });
     },
   });
-  const scrapMutation = useMutation((postId) => scrapPost(postId), {
+  const scrapMutation = useMutation(() => scrapPost(id), {
     onSuccess: (data) => {
+      alert('스크랩 완료! 마이페이지에서 확인할 수 있습니다.');
       setScrap(data.scrapStatus);
     },
   });
@@ -50,25 +51,26 @@ function PostDetailContainer({ id, category }) {
     if (scrap) {
       alert('이미 스크랩한 글입니다.');
     } else {
-      scrapMutation.mutate(id);
+      scrapMutation.mutate();
     }
   };
 
   // 수정하기
   const onEdit = () => {
-    navigate('/community/write', {
+    navigate(`/community/write?category=${category}`, {
       state: {
         title: data.title,
         content: data.content,
         id: data.postId,
-        images: [],
+        saveImageUrl: data.imageUrl,
+        category,
       },
     });
   };
   // 삭제하기
   const onDelete = (e) => {
     e.preventDefault();
-    deleteMutation.mutate(id);
+    deleteMutation.mutate();
   };
   if (status === 'loading') {
     return <Loading mainColor={'black'} />;
