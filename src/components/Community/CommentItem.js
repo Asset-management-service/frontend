@@ -15,10 +15,9 @@ const StyledItem = styled.div`
   ${({ type }) =>
     type === '대댓글' &&
     css`
-      margin-left: 3rem;
+      margin: 1rem 0 1rem 3rem;
       border: 1px solid gray;
       border-radius: 20px;
-      margin-bottom: 1rem;
       padding: 1rem;
     `};
 `;
@@ -54,7 +53,7 @@ const ItemRow = styled.div`
 function CommentItem({ type, children, comment, postId }) {
   const dispatch = useDispatch();
   const deleteMutation = useMutation(() => deleteComment(comment.commentId), {
-    onSuccess: (datas) => {
+    onSuccess: () => {
       dispatch(removeComment(comment.commentId, comment.parentId));
     },
   });
@@ -95,7 +94,11 @@ function CommentItem({ type, children, comment, postId }) {
           )}
         </div>
         {auth && (
-          <PostDropMenu user="true" onEdit={onEdit} onDelete={onDelete} />
+          <PostDropMenu
+            user={comment.myComment}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
         )}
       </ItemRow>
       {children}
