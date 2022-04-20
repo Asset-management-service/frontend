@@ -26,8 +26,8 @@ function CommentFormContainer({
           addComment({
             parentId,
             content: form.comment,
-            username: '강은비', // data.username
-            createDate: new Date().toString(), // data.createDate
+            username: data.username,
+            createDate: data.createDate,
             commentId: data.commentId,
           }),
         );
