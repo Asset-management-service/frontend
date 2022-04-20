@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DropMenu } from '../common/DropMenu';
 
-function PostDropMenu({ scrap, user, onEdit, onDelete }) {
+function PostDropMenu({ scrap, user, onEdit, onDelete, onScrap }) {
   const [dropMenus, setDropMenus] = useState([]);
   const [height, setHeight] = useState(66);
   useEffect(() => {
@@ -27,8 +27,15 @@ function PostDropMenu({ scrap, user, onEdit, onDelete }) {
     } else {
       if (scrap) {
         setDropMenus([
-          { id: 1, menu: <button>채팅 보내기</button> },
-          { id: 2, menu: <button>스크랩하기</button> },
+          { id: 1, menu: <button type="button">채팅 보내기</button> },
+          {
+            id: 2,
+            menu: (
+              <button type="button" onClick={onScrap}>
+                스크랩하기
+              </button>
+            ),
+          },
           { id: 3, menu: <button>신고하기</button> },
         ]);
         setHeight(99);
