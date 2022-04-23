@@ -23,6 +23,9 @@ jobs:
 
       - name: Install modules 
         run: npm install
+        
+      - name : Install styled-components
+        run : npm i styled-components
 
       - name: Build project
         run: npm run build
