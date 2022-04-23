@@ -8,18 +8,25 @@ on:
 jobs: 
   build:
     runs-on: ubuntu-18.04
+    
+    strategy: 
+      matrix: 
+        node-version: [14.x] 
+
     steps:
-      - name: Checkout source code 
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3 
+        with: 
+          node-version: ${{ matrix.node-version }} 
+          cache: "npm"
 
-      - name: Check Node v 
-        run: node -v
+      - name: Install modules 
+        run: npm install
 
-      - name: Install Dependencies 
-        run: yarn install --frozen-lockfile
+      - name: Build project
+        run: npm run build
 
-      - name: Build 
-        run: yarn build
       - name: zip create 
         run: zip -qq -r ./build.zip .
         shell: bash
