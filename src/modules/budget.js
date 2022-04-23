@@ -5,7 +5,7 @@ const SETMONTHLY_INPUT = 'budget/SETMONTHLY_INPUT';
 export const setmonthlyInput = () => ({
      type:SETMONTHLY_INPUT,
      input,
-    });
+});
 
 const initialState = {
     input: '',
