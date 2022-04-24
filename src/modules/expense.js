@@ -3,12 +3,12 @@ const FIX_RATIO_INPUT = 'expense/FIX_RATIO_INPUT';
 const CHANGE_RATIO_INPUT = 'expense/CHANGE_RATIO_INPUT';
 
 //비율 설정 액션 생성 함수 만들기
-export const fixRatioInput = () => ({
+export const fixRatioInput = (input) => ({
      type: FIX_RATIO_INPUT,
      input,
 });
 
-export const changeRatioInput = () => ({
+export const changeRatioInput = (input) => ({
      type: CHANGE_RATIO_INPUT,
      input,
 });

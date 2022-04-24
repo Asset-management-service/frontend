@@ -2,7 +2,7 @@
 const SETMONTHLY_INPUT = 'budget/SETMONTHLY_INPUT';
 
 //예산 설정 액션 생성 함수 만들기
-export const setmonthlyInput = () => ({
+export const setMonthlyInput = (input) => ({
      type:SETMONTHLY_INPUT,
      input,
 });
