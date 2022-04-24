@@ -3,10 +3,10 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ec2-user/apps
+    destination: /home/ec2-user/apps/front
     overwrite: yes
 permissions:
-   - object: /home/ec2-user/apps
+   - object: /home/ec2-user/apps/front
      owner: ec2-user
      group: ec2-user
      mode: 755
