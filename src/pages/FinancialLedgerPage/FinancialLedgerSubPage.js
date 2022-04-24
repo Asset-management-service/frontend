@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import HistoryPage from './HistoryPage';
 import MoneyLogPage from './MoneyLogPage';
-import SettingPage from './Setting';
+import SettingPage from './SettingPage';
 
 function FinancialLedgerSubPage() {
   const { category } = useParams();
@@ -11,7 +11,7 @@ function FinancialLedgerSubPage() {
   if (category === 'history') {
     return <HistoryPage />;
   }
-  if (category === 'setting'){
+  if (category === 'setting') {
     return <SettingPage />;
   }
   return <section>sub</section>;
