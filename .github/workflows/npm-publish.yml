@@ -7,7 +7,7 @@ on:
 
 jobs: 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     
     strategy: 
       matrix: 
@@ -41,8 +41,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: aws deploy create-deployment
-          --application-name Github-Actions-Deploy
+          --application-name EC2-S3-Deploy-FE
           --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name Github-Actions-Group
+          --deployment-group-name EC2-S3-FE
           --s3-location bucket=moamoa1-bucket,key=build.zip,bundleType=zip
           --region ap-northeast-2
