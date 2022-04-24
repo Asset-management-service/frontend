@@ -36,8 +36,8 @@ export const changeMonth = (month) => ({
 });
 
 const initialState = {
-  year: null,
-  month: null,
+  year: new Date().getFullYear(),
+  month: new Date().getMonth(),
   selected: {
     year: null,
     month: null,
