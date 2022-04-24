@@ -79,7 +79,7 @@ const ItemRow = styled.div`
   }
 `;
 
-function HistoryMainItem() {
+function HistoryMainItem({ history }) {
   const dispatch = useDispatch();
   const onEdit = () => {
     dispatch(
