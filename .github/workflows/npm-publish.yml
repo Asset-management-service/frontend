@@ -27,7 +27,8 @@ jobs:
         run: CI=false npm run build
 
       - name: zip create 
-        run: zip -r ./build.zip .
+        run: zip -qq -r ./build.zip .
+        shell: bash
 
       - name: Upload to S3 # Upload build file to S3
         env:
