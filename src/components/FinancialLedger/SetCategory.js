@@ -61,8 +61,6 @@ function SetCategory({content}){
   //입력창 열림 설정
     const [isClicked, setIsClicked] = useState(false);
 
-    const [isIconClicked, setIsIconClicked] = useState(false);
-
     const openCategoryModalHandler = () => {
         setIsOpen(true)
     };
