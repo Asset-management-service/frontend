@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run build
+        run: CI=false npm run build
 
       - name: zip create 
         run: zip -r ./build.zip .
