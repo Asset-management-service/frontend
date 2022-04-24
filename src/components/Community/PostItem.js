@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledItem = styled.li`
@@ -34,7 +35,9 @@ const StyledItem = styled.li`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.div.attrs(({ auth }) => ({
+  as: auth && Link,
+}))`
   padding: 1rem;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
@@ -48,9 +51,10 @@ const StyledLink = styled(Link)`
 
 function PostItem({ post }) {
   const to = `${post.postId}`;
+  const { auth } = useSelector(({ login }) => login);
   return (
     <StyledItem>
-      <StyledLink to={to}>
+      <StyledLink to={to} auth={auth}>
         <div>
           <div className="BoardItem-title">
             <h3>{post.title}</h3>
