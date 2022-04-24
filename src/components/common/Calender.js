@@ -10,7 +10,7 @@ const CalenderWrapper = styled.div`
   .changeBtns {
     display: flex;
     justify-content: space-between;
-    margin: 0 12px 1rem;
+    margin: 0 5px 1rem;
   }
 `;
 const StyledComboBoxes = styled.div`
@@ -75,6 +75,7 @@ export function Calender({
   onMovePrev,
   onChangeYear,
   onChangeMonth,
+  extraComponent,
 }) {
   const { year, month, selected } = calender;
   const [calenderData, setCalenderData] = useState(() => {
@@ -140,7 +141,7 @@ export function Calender({
           </ButtonBox>
         )}
       </div>
-
+      {extraComponent}
       <StyledCalender>
         <thead>
           <tr>
