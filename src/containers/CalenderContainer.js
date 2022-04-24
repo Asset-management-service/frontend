@@ -9,7 +9,7 @@ import {
   changeYear,
   changeMonth,
 } from '../modules/calender';
-function CalenderContainer({ noChevron, noComboBox }) {
+function CalenderContainer({ noChevron, noComboBox, extraComponent }) {
   const dispatch = useDispatch();
   const calender = useSelector(({ calender }) => calender);
   const onSelect = (id, date, year, month) => {
@@ -40,6 +40,7 @@ function CalenderContainer({ noChevron, noComboBox }) {
       onChangeMonth={onChangeMonth}
       noChevron={noChevron}
       noComboBox={noComboBox}
+      extraComponent={extraComponent}
     />
   );
 }
