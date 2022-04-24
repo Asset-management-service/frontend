@@ -47,26 +47,28 @@ function SetExpenseRatio({content}){
 
     const onRatioSubmit = (event) => {
         event.preventDefault();
-        fixRatio = parseInt(fixRatio);
-        changeRatio = parseInt(changeRatio);
-        let ratioSum = fixRatio + changeRatio;
-        ratioSum = parseInt(ratioSum);
+        const ratio1 = parseInt(fixRatio);
+        const ratio2 = parseInt(changeRatio);
+        const ratioSum = ratio1 +ratio2
         let check = /^[0-9]+$/;
         if(fixRatio == " " && !check.test(fixRatio) ||  changeRatio == " " && !check.test(changeRatio)){
             document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setRatio').style.color='red';
         }
 
-        else if((isNaN(fixRatio) === false && isNaN(changeRatio) === false )&& (ratioSum === 100)){
+        else if(ratioSum === 100){
             document.getElementById('showFixRatio').innerHTML=fixRatio;
             document.getElementById('showChangeRatio').innerHTML=changeRatio;
             setIsOpen(false)
         }
 
-        else if((isNaN(fixRatio) === false && isNaN(changeRatio) === false )&& (ratioSum !== 100)){
+        else if(ratioSum !== 100){
             document.getElementById('setRatio').innerHTML='<b>총합이 100%가 아닙니다! 다시 입력해주세요!<b>';
             document.getElementById('setRatio').style.color='red';
         }
+
+        setFixRatio(" ");
+        setChangeRatio(" ");
 }
 
     return(
