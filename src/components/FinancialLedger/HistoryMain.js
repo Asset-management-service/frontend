@@ -1,5 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import Loading from '../common/Loading';
 import HistoryMainItem from './HistoryMainItem';
+import { getHistory } from '../../lib/api/history';
 import styled from 'styled-components';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
@@ -61,6 +65,23 @@ const SummaryBox = styled.div`
   }
 `;
 function HistoryMain({ year, month, onMoveNext, onMovePrev }) {
+  const navigate = useNavigate();
+  const { data, status, isError } = useQuery(
+    ['getHistory', year, month],
+    () => getHistory(year, month),
+    {
+      refetchOnWindowFocus: false,
+      onError: (e) => {
+        navigate('/financial/setting');
+      },
+    },
+  );
+  useEffect(() => {
+    navigate('/financial/setting');
+  }, [isError]);
+  if (status === 'loading') {
+    return <Loading mainColor="black" />;
+  }
   return (
     <HistoryMainWrapper>
       <HistoryMainHeading>
@@ -78,16 +99,21 @@ function HistoryMain({ year, month, onMoveNext, onMovePrev }) {
           </div>
         </div>
         <div className="Heading-column">
-          <SummaryBox className="plus">수익 0원</SummaryBox>
-          <SummaryBox className="minus">지출 0원</SummaryBox>
+          <SummaryBox className="plus">수익 {data.totalRevenue}원</SummaryBox>
+          <SummaryBox className="minus">
+            지출 {data.totalExpenditure}원
+          </SummaryBox>
         </div>
       </HistoryMainHeading>
       <p>
-        💸 이번달 남은 예산 : <span className="budgetPrice">+ 100,000,000</span>
+        💸 이번달 남은 예산 :
+        <span className="budgetPrice">{data.remainingBudget}</span>{' '}
       </p>
       <ul>
-        <HistoryMainItem />
-        <HistoryMainItem />
+        {data.content.length != 0 &&
+          data.content.map((history, index) => (
+            <HistoryMainItem key={index} history={history} />
+          ))}
       </ul>
     </HistoryMainWrapper>
   );
