@@ -5,7 +5,7 @@ import SetExpenseRatio from '../../components/FinancialLedger/SetExpenseRatio';
 import { SettingList } from '../../components/FinancialLedger/StyledComponentInSetting';
 import SettingListTitle from '../../components/FinancialLedger/SettingListTitle';
 
-function Setting(){
+function SettingPage(){
     return(
         <div>
             <SettingList>
@@ -31,4 +31,4 @@ function Setting(){
     );
 }
 
-export default Setting;
+export default SettingPage;
