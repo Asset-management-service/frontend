@@ -78,9 +78,9 @@ function SetExpenseRatio({content}){
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>지출 비율 설정</h1>
-                <b>고정비</b><InputBox type="text" className="fixRatio" value={fixRatio} onChange={onFixRatioHandler}></InputBox><b>%</b>
+                <b>고정비</b><InputBox type="text" className="fixRatio" value1={fixRatio} onChange1={onFixRatioHandler}></InputBox><b>%</b>
                 <br></br>
-                <b>변동비</b><InputBox type="text" className="changeRatio" value={changeRatio} onChange={onChangeRatioHandler}></InputBox><b>%</b>
+                <b>변동비</b><InputBox type="text" className="changeRatio" value2={changeRatio} onChange2={onChangeRatioHandler}></InputBox><b>%</b>
                 <ErrorMessageBox>
                     <span id='setRatio'></span>
                 </ErrorMessageBox>
