@@ -17,13 +17,11 @@ const MainWrapper = styled.main`
 `;
 
 function FinancialLedgerPage({ auth }) {
-  /*
+  const { category } = useParams();
+  useRedirect(category, '/financial/history');
   if (!auth) {
     return <NotLogin />;
   }
-  */
-  const { category } = useParams();
-  useRedirect(category, '/financial/history');
   return (
     <MainWrapper>
       <SideBar menu={'가계부'} navs={MONEYBOOK_PAGE_NAV} />
