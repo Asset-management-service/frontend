@@ -4,6 +4,7 @@ import { setToken } from './auth';
 const baseUrl = process.env.REACT_APP_BACKEND_BASE_URL
   ? `${process.env.REACT_APP_BACKEND_BASE_URL}/api/posts`
   : '/api/posts';
+
 export const getRecentPosts = async (category, page = 0) => {
   const { data } = await axios.get(
     `${baseUrl}/recent?categoryName=${category}&page=${page}`,
@@ -12,6 +13,7 @@ export const getRecentPosts = async (category, page = 0) => {
 };
 
 export const getPost = async (id) => {
+  setToken();
   const { data } = await axios.get(`${baseUrl}/${id}`);
   return data;
 };
