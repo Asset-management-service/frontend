@@ -1,13 +1,17 @@
 import styled from 'styled-components';
-import { ButtonBox } from '../common/Modal';
+import { ButtonBox, StyledModal  } from '../common/Modal';
 //리스트 컴포넌트 스타일링
 export const SettingList = styled.div`
-    margin: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
 `;
 
 //설정 항목 제목 컴포넌트 스타일링
 export const SettingListTitleWrapper = styled.div`
-        font-size: 20px;
+        font-size: 25px;
         font-weight: bold;
         display: flex;
         justify-content: space-between;
@@ -63,4 +67,8 @@ export const ContentPropsWrapper = styled.span`
         cursor: pointer;
         border-radius: 5px;
     }
+`;
+
+export const CategoryStyledModal = styled(StyledModal)`
+    padding: 1.5em;
 `;
