@@ -11,18 +11,12 @@ const CategoryWrapper = styled.div`
     font-size: 20px;
 `;
 
-const CreateDeleteIcon = styled(DeleteIcon)`
-    &:hover{
-        cursor: pointer;
-    }
-`;
-
 function CategoryItem({item, onRemove}){
     const { id, text} = item;
     return(
     <CategoryWrapper>
        <span>{text}</span>
-      <CreateDeleteIcon onClick={() => onRemove(id)}></CreateDeleteIcon>
+      <DeleteIcon onClick={() => onRemove(id)}></DeleteIcon>
     </CategoryWrapper>
     );
 }
