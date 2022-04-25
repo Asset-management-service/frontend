@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ButtonBox } from '../common/Modal';
 //리스트 컴포넌트 스타일링
 export const SettingList = styled.div`
-    margin: 3em;
+    margin: 7.5em;
 `;
 
 //설정 항목 제목 컴포넌트 스타일링
