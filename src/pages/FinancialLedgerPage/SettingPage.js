@@ -23,7 +23,7 @@ function SettingPage() {
         <hr align="left" width="50%"></hr>
         <SetCategory content="고정비 카테고리"></SetCategory>
         <SetCategory content="변동비 카테고리"></SetCategory>
-        <SetCategory content="수익"></SetCategory>
+        <SetCategory content="수익 카테고리"></SetCategory>
         <SetCategory content="결제 카테고리"></SetCategory>
       </SettingList>
       <SettingList>
