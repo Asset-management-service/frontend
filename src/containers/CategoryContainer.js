@@ -4,17 +4,18 @@ import {changeInput, insert, remove} from '../modules/category';
 import {SetCategory} from '../components/FinancialLedger/SetCategory';
 
 
-function CategoryContainer(){
-    const [categoryInput, setcategoryInput] = useState(" ");
+function CategoryContainer({item}){
+    const [item, setItem] = useState(" ");
     let nextId = useRef(4);
     const dispatch = useDispatch();
 
+
     const insert = (event) => {
-        setcategoryInput(e.target.value);
+        setItem(event.target.value);
     };
 
     const remove = (event) => {
-        setcategoryInput("");
+        setcategoryInput(event.target.value);
     };
 
 

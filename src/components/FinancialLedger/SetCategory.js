@@ -16,7 +16,7 @@ const CreateAddCircleOutlinedIcon = styled(AddCircleOutlinedIcon)`
 `;
 
 const CategoryListWrapper = styled.div`
-    display: ${({ show }) => (show ? 'flex' : 'none')};
+    display: ${({ categoryshow }) => (categoryshow ? 'flex' : 'none')};
     flex-direction: column;
 `;
 
@@ -85,7 +85,7 @@ function SetCategory({content}){
                 <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
                 <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
                     <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
-                <CategoryListWrapper show={isClicked}>
+                <CategoryListWrapper categoryshow={isClicked}>
                     <InsertCategory onSubmit={handleSubmit}></InsertCategory>
                 </CategoryListWrapper>
                 </StyledModal>
