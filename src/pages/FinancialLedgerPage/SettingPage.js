@@ -1,13 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 import SetMonthlyBudget from '../../components/FinancialLedger/SetMonthlyBudget';
 import SetCategory from '../../components/FinancialLedger/SetCategory';
 import SetExpenseRatio from '../../components/FinancialLedger/SetExpenseRatio';
 import { SettingList } from '../../components/FinancialLedger/StyledComponentInSetting';
 import SettingListTitle from '../../components/FinancialLedger/SettingListTitle';
 
+const Section = styled.section`
+  justify-content: center;
+`;
+
 function SettingPage() {
   return (
-    <section>
+    <Section>
       <SettingList>
         <SettingListTitle title="예산 설정"></SettingListTitle>
         <hr align="left" width="50%"></hr>
@@ -27,7 +32,7 @@ function SettingPage() {
         <SetExpenseRatio content="고정비"></SetExpenseRatio>
         <SetExpenseRatio content="변동비"></SetExpenseRatio>
       </SettingList>
-    </section>
+    </Section>
   );
 }
 
