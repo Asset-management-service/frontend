@@ -2,12 +2,16 @@ import styled from 'styled-components';
 import { ButtonBox, StyledModal  } from '../common/Modal';
 //리스트 컴포넌트 스타일링
 export const SettingList = styled.div`
-    margin: 7.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
 `;
 
 //설정 항목 제목 컴포넌트 스타일링
 export const SettingListTitleWrapper = styled.div`
-        font-size: 20px;
+        font-size: 25px;
         font-weight: bold;
         display: flex;
         justify-content: space-between;
