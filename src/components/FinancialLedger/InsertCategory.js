@@ -17,6 +17,18 @@ const InsertCategoryWrapper = styled.div`
     border-top: 1px solid black;
 `;
 
+const CategoryButtonBox = styled(ButtonBox)`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  button {
+    margin: 0 1rem;
+    font-size: 20px;
+    width: 100px;
+    color: black;
+  }
+`;
+
 function InsertCategory(props){
     
     const [categoryContent, setCategoryContent] = useState("");
@@ -55,10 +67,10 @@ function InsertCategory(props){
     return(
         <InsertCategoryWrapper>
             <InputBox ref={ref} type="text" id="category" placeholder="카테고리를 입력하세요" value={categoryContent} onChange={onCategorySetHandler} autoFocus></InputBox>
-            <ButtonBox>
+            <CategoryButtonBox>
                 <CancelButton onClick={closeCategoryInputHandler} className="cancelButton">취소</CancelButton>
                 <CheckButton onClick={handleSubmit} onKeyPress={handleKeyPress} className="checkButton">추가</CheckButton>
-            </ButtonBox>
+            </CategoryButtonBox>
         </InsertCategoryWrapper>
     );
 }
