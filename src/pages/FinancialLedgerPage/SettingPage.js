@@ -4,15 +4,18 @@ import SetCategory from '../../components/FinancialLedger/SetCategory';
 import SetExpenseRatio from '../../components/FinancialLedger/SetExpenseRatio';
 import { SettingList } from '../../components/FinancialLedger/StyledComponentInSetting';
 import SettingListTitle from '../../components/FinancialLedger/SettingListTitle';
+import BudgetContainer from '../../containers/BudgetContainer';
 
 function Setting(){
     return(
         <div>
+            <BudgetContainer>
             <SettingList>
                 <SettingListTitle title='예산 설정'></SettingListTitle>
                 <hr align='left' width='50%'></hr>
                 <SetMonthlyBudget content='한달 예산 금액'></SetMonthlyBudget>
             </SettingList>
+            </BudgetContainer>
             <SettingList>
                 <SettingListTitle title='카테고리 설정'></SettingListTitle>
                 <hr align='left' width='50%'></hr>

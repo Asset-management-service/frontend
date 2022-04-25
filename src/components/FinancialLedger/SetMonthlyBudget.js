@@ -22,7 +22,7 @@ const ErrorMessageBox = styled.div`
 
 
 //한달 예산 금액 설정
-function SetMonthlyBudget({content, budget}){
+function SetMonthlyBudget({content, budget, setBudget, onBudgetHandler, onBudgetSubmit}){
     const [isOpen, setIsOpen] = useState(false);
 
     const openBudgetModalHandler = () => {
@@ -30,54 +30,29 @@ function SetMonthlyBudget({content, budget}){
     };
     //취소버튼 클릭 시  값 초화
     const closeBudgetModalHandler = () => {
+        setBudget(" ")
         setIsOpen(false);
     }
 
-    const onBudgetHandler = (event) => { 
-    setBudget(event.currentTarget.value);
-
-    }
-
-     const onBudgetSubmit = (event) => {
-        event.preventDefault();
-        let check = /^[0-9]+$/;
-        if(budget == " " && !check.test(budget) ){
-            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-        }
-        else if(isNaN(budget) === false && (budget != 0)){
-            document.getElementById('showBudget').innerHTML=budget;
-            document.getElementById('showBudget').style.color='black';
-            setIsOpen(false)
-        }
-        else if(budget == 0){
-            document.getElementById('setBudget').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-        }
-        else{
-            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-    }
     return(
         <SettingListContentWrapper>
                 <ContentPropsWrapper onClick={openBudgetModalHandler}>{content}</ContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
-                <InputBox type="text" className="budget" value={budget} onBudgetChange={onBudgetHandler}></InputBox>
+                <InputBox type="text" className="budget" budgetValue={budget} onBudgetChange={onBudgetHandler}></InputBox>
                 <ErrorMessageBox>
                     <span id='setBudget'></span>
                 </ErrorMessageBox>
                 <ButtonBox>
                     <CancelButton onClick={closeBudgetModalHandler} >취소</CancelButton>
-                    <CheckButton onClick={onBudgetSubmit}>확인</CheckButton>
+                    <CheckButton onBudgetClick={onBudgetSubmit}>확인</CheckButton>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
             <span id='showBudget'>--</span>
         </SettingListContentWrapper>
     );
-}
 }
 
 export default SetMonthlyBudget;
