@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ButtonBox } from '../common/Modal';
+import { ButtonBox, StyledModal } from '../common/Modal';
 //리스트 컴포넌트 스타일링
 export const SettingList = styled.div`
     margin: 7.5em;
@@ -63,4 +63,8 @@ export const ContentPropsWrapper = styled.span`
         cursor: pointer;
         border-radius: 5px;
     }
+`;
+
+export const CategoryStyledModal = styled(StyledModal)`
+    padding: 1.5em;
 `;

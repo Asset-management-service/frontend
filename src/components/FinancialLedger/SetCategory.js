@@ -3,8 +3,8 @@ import React, {useState, useRef} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import CloseIcon from '@mui/icons-material/Close';
-import { ModalWrapper, StyledModal} from '../common/Modal';
-import {ModalCloseBtn, SettingListContentWrapper} from './StyledComponentInSetting';
+import { ModalWrapper} from '../common/Modal';
+import { SettingListContentWrapper, CategoryStyledModal } from './StyledComponentInSetting';
 import InsertCategory from './InsertCategory';
 import CategoryItemList from './CategoryList';
 
@@ -101,15 +101,15 @@ function SetCategory({content}){
             {content}
             <CreateChevronRightRoundedIcon onClick={openCategoryModalHandler}></CreateChevronRightRoundedIcon>
             <ModalWrapper show={isOpen}>
-                <StyledModal>
-                <h1>{content}</h1>
-                <CreateCloseIcon onClick={closeCategoryModalHandler}></CreateCloseIcon>
-                <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
-                    <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
-                <CategoryListWrapper show={isClicked}>
-                    <InsertCategory onSubmit={handleSubmit}></InsertCategory>
-                </CategoryListWrapper>
-                </StyledModal>
+                <CategoryStyledModal >
+                    <h1>{content}</h1>
+                    <CreateCloseIcon  onClick={closeCategoryModalHandler}></CreateCloseIcon>
+                    <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
+                        <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
+                    <CategoryListWrapper show={isClicked}>
+                        <InsertCategory onSubmit={handleSubmit}></InsertCategory>
+                    </CategoryListWrapper>
+                </CategoryStyledModal>
                 </ModalWrapper>
         </SettingListContentWrapper>
     );
