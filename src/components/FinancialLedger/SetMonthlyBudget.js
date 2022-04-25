@@ -22,8 +22,7 @@ const ErrorMessageBox = styled.div`
 
 
 //한달 예산 금액 설정
-function SetMonthlyBudget({content}){
-
+function SetMonthlyBudget({content, budget}){
     const [isOpen, setIsOpen] = useState(false);
 
     const openBudgetModalHandler = () => {
@@ -31,18 +30,15 @@ function SetMonthlyBudget({content}){
     };
     //취소버튼 클릭 시  값 초화
     const closeBudgetModalHandler = () => {
-        setBudget(" ");
         setIsOpen(false);
     }
-
-    const [budget,setBudget] = useState(" ");
 
     const onBudgetHandler = (event) => { 
     setBudget(event.currentTarget.value);
 
     }
 
-    const onBudgetSubmit = (event) => {
+     const onBudgetSubmit = (event) => {
         event.preventDefault();
         let check = /^[0-9]+$/;
         if(budget == " " && !check.test(budget) ){
@@ -62,15 +58,13 @@ function SetMonthlyBudget({content}){
             document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
             document.getElementById('setBudget').style.color='red';
     }
-}
-
     return(
         <SettingListContentWrapper>
                 <ContentPropsWrapper onClick={openBudgetModalHandler}>{content}</ContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
-                <InputBox type="text" className="budget" value={budget} onChange={onBudgetHandler}></InputBox>
+                <InputBox type="text" className="budget" value={budget} onBudgetChange={onBudgetHandler}></InputBox>
                 <ErrorMessageBox>
                     <span id='setBudget'></span>
                 </ErrorMessageBox>
@@ -83,6 +77,7 @@ function SetMonthlyBudget({content}){
             <span id='showBudget'>--</span>
         </SettingListContentWrapper>
     );
+}
 }
 
 export default SetMonthlyBudget;

@@ -12,7 +12,7 @@ export const changeInput = (input) => ({
 let id = 4;
 //호출될 때마다 id 값에 1씩 더함
 
-export const insert = (text) => ({
+export const insert = (text, checked) => ({
   type: INSERT,
   item: {
     id: id++,
