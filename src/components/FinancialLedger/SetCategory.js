@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import React, {useState, useRef} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import { ModalWrapper, StyledModal} from '../common/Modal';
-import {SettingListContentWrapper} from './StyledComponentInSetting';
+import {ModalCloseBtn, SettingListContentWrapper} from './StyledComponentInSetting';
 import InsertCategory from './InsertCategory';
 import CategoryItemList from './CategoryList';
 
@@ -24,7 +25,14 @@ const CreateChevronRightRoundedIcon= styled(ChevronRightRoundedIcon)`
     }
 `;
 
-
+const CreateCloseIcon= styled(CloseIcon)`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    &:hover{
+        cursor: pointer;
+    }
+`;
 
 
 const CategoryListWrapper = styled.div`
@@ -95,7 +103,7 @@ function SetCategory({content}){
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>{content}</h1>
-                <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
+                <CreateCloseIcon onClick={closeCategoryModalHandler}></CreateCloseIcon>
                 <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
                     <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
                 <CategoryListWrapper show={isClicked}>
