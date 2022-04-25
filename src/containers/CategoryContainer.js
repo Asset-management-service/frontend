@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {changeInput, insert, remove} from '../modules/category';
+import {changeInput, onInsert, onRemove} from '../modules/category';
 import {SetCategory} from '../components/FinancialLedger/SetCategory';
 
 
-function CategoryContainer({items, id}){
+function CategoryContainer({items,isClicked, isOpen, onInsert,onRemove, openCategoryModalHandler, closeCategoryModalHandler,openInputBoxHandler}){
     const [items, setItems] = useState([
      {id: 1,
       text: '월급',
