@@ -3,7 +3,7 @@ import {useDispatch, connect} from 'react-redux';
 import {budgetInput} from '../modules/budget';
 import {SetMonthlyBudget} from '../components/FinancialLedger/SetMonthlyBudget';
 
-function BudgetContainer({budget, setBudget, onBudgetHandler, onBudgetSubmit}){
+function BudgetContainer({budget, onBudgetHandler, onBudgetSubmit}){
     const [budget, setBudget] = useState(" ")
     const onBudgetHandler = (event) => { 
     setBudget(event.currentTarget.value);
@@ -32,7 +32,7 @@ function BudgetContainer({budget, setBudget, onBudgetHandler, onBudgetSubmit}){
 
 
   return (
-    <SetMonthlyBudget //Todos 컴포넌트에 props로 전달
+    <SetMonthlyBudget
       budgetValue={budget}
       onBudgetChange={onBudgetHandler}
       onBudgetClick={onBudgetSubmit}
@@ -42,7 +42,7 @@ function BudgetContainer({budget, setBudget, onBudgetHandler, onBudgetSubmit}){
 }
 
 export default connect(
-    state => ({budget: state.reduxCounter.budget}),
+    state => ({budget: state.Budget.budget}),
     dispatch => ({
       budgetInput: () => dispatch(budgetInput()),
     })

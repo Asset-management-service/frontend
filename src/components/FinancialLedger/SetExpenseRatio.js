@@ -20,60 +20,11 @@ const ErrorMessageBox = styled.div`
 `;
 
 //지출 비율 설정 로직
-function SetExpenseRatio({content}){
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openRatioModalHandler = () => {
-        setIsOpen(true);
-    };
-
-    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
-    const closeRatioModalHandler = () => {
-        setFixRatio(" ");
-        setChangeRatio(" ");
-        setIsOpen(false);
-    }
-
-    const [fixRatio,setFixRatio] = useState(" ");
-    const [changeRatio,setChangeRatio] = useState(" ");
-
-    const onFixRatioHandler = (event) => { 
-        setFixRatio(event.currentTarget.value);
-    }
-
-    const onChangeRatioHandler = (event) => { 
-        setChangeRatio(event.currentTarget.value);
-    }
-
-    const onRatioSubmit = (event) => {
-        event.preventDefault();
-        const ratio1 = parseInt(fixRatio);
-        const ratio2 = parseInt(changeRatio);
-        const ratioSum = ratio1 +ratio2
-        let check = /^[0-9]+$/;
-        if(fixRatio == " " && !check.test(fixRatio) ||  changeRatio == " " && !check.test(changeRatio)){
-            document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setRatio').style.color='red';
-        }
-
-        else if(ratioSum === 100){
-            document.getElementById('showFixRatio').innerHTML=fixRatio;
-            document.getElementById('showChangeRatio').innerHTML=changeRatio;
-            setIsOpen(false)
-        }
-
-        else if(ratioSum !== 100){
-            document.getElementById('setRatio').innerHTML='<b>총합이 100%가 아닙니다! 다시 입력해주세요!<b>';
-            document.getElementById('setRatio').style.color='red';
-        }
-
-        setFixRatio(" ");
-        setChangeRatio(" ");
-}
+function SetExpenseRatio({content, fixRatio, changeRatio, openRatioModalHandler,closeRatioModalHandler}){
 
     return(
         <SettingListContentWrapper>
-                <ContentPropsWrapper onClick={openRatioModalHandler}>{content}</ContentPropsWrapper>
+                <ContentPropsWrapper onContetnsWrapperClick={openRatioModalHandler}>{content}</ContentPropsWrapper>
                 <span id={(content == '고정비') ? 'showFixRatio' : 'showChangeRatio'}>--</span>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
@@ -85,8 +36,8 @@ function SetExpenseRatio({content}){
                     <span id='setRatio'></span>
                 </ErrorMessageBox>
                 <ButtonBox>
-                    <CancelButton onClick={closeRatioModalHandler} >취소</CancelButton>
-                    <CheckButton onClick={onRatioSubmit}>확인</CheckButton>
+                    <CancelButton onCancelButtonClick={closeRatioModalHandler} >취소</CancelButton>
+                    <CheckButton onCheckButtonClick={onRatioSubmit}>확인</CheckButton>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
