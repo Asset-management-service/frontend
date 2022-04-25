@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import React, {useState, useRef} from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
-import CloseIcon from '@mui/icons-material/Close';
-import { ModalWrapper} from '../common/Modal';
-import { SettingListContentWrapper, CategoryStyledModal } from './StyledComponentInSetting';
+import { ModalWrapper, StyledModal} from '../common/Modal';
+import {SettingListContentWrapper} from './StyledComponentInSetting';
 import InsertCategory from './InsertCategory';
 import CategoryItemList from './CategoryList';
 
@@ -14,26 +13,7 @@ const CreateAddCircleOutlinedIcon = styled(AddCircleOutlinedIcon)`
     bottom: 10px;
     right: 20px;
     display: ${({ show }) => (show ? 'flex' : 'none')};
-    &:hover{
-        cursor: pointer;
-    }
 `;
-
-const CreateChevronRightRoundedIcon= styled(ChevronRightRoundedIcon)`
-    &:hover{
-        cursor: pointer;
-    }
-`;
-
-const CreateCloseIcon= styled(CloseIcon)`
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    &:hover{
-        cursor: pointer;
-    }
-`;
-
 
 const CategoryListWrapper = styled.div`
     display: ${({ show }) => (show ? 'flex' : 'none')};
@@ -81,6 +61,7 @@ function SetCategory({content}){
   //입력창 열림 설정
     const [isClicked, setIsClicked] = useState(false);
 
+    const [isIconClicked, setIsIconClicked] = useState(false);
 
     const openCategoryModalHandler = () => {
         setIsOpen(true)
@@ -99,17 +80,17 @@ function SetCategory({content}){
     return(
         <SettingListContentWrapper>
             {content}
-            <CreateChevronRightRoundedIcon onClick={openCategoryModalHandler}></CreateChevronRightRoundedIcon>
+            <ChevronRightRoundedIcon onClick={openCategoryModalHandler}></ChevronRightRoundedIcon>
             <ModalWrapper show={isOpen}>
-                <CategoryStyledModal >
-                    <h1>{content}</h1>
-                    <CreateCloseIcon  onClick={closeCategoryModalHandler}></CreateCloseIcon>
-                    <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
-                        <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
-                    <CategoryListWrapper show={isClicked}>
-                        <InsertCategory onSubmit={handleSubmit}></InsertCategory>
-                    </CategoryListWrapper>
-                </CategoryStyledModal>
+                <StyledModal>
+                <h1>{content}</h1>
+                <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
+                <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
+                    <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
+                <CategoryListWrapper show={isClicked}>
+                    <InsertCategory onSubmit={handleSubmit}></InsertCategory>
+                </CategoryListWrapper>
+                </StyledModal>
                 </ModalWrapper>
         </SettingListContentWrapper>
     );
