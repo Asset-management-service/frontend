@@ -21,72 +21,21 @@ const CategoryListWrapper = styled.div`
 `;
 
 //카테고리 설정 컴포넌트
-function SetCategory({content}){
-    const [items, setItems] = useState([
-    { id: 1,
-      text: '월급',
-      checked: false,
-    },
-    {
-      id: 2,
-      text: '주식',
-      checked: false,
-    },
-    {
-      id: 3,
-      text: '기타',
-      checked: false,
-    },
-  ]);
-
-  const nextId = useRef(0);
-  const handleSubmit= (text) => {
-    const item = {
-      id: nextId.current,
-      text,
-      checked: false,
-    };
-    setItems(items.concat(item));
-    nextId.current += 1; // nextId를 1씩 더하기
-  };
-
-  const onRemove = (id) => {
-      setItems(items.filter((item) => item.id !== id));
-};
-
-  //모달창 열림 설정
-    const [isOpen, setIsOpen] = useState(false);
-
-
-  //입력창 열림 설정
-    const [isClicked, setIsClicked] = useState(false);
-
-    const openCategoryModalHandler = () => {
-        setIsOpen(true)
-    };
-
-     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
-    const closeCategoryModalHandler = () => {
-        setIsOpen(false)
-    }
-     //입력 박스 핸들러 조정
-    const openInputBoxHandler = () => {
-        setIsClicked(true)
-    }
+function SetCategory({content,onRemove, onInsert, openCategoryModalHandler, closeCategoryModalHandler, openInputBoxHandler, items, isOpen, isClicked}){
 
 
     return(
         <SettingListContentWrapper>
             {content}
-            <ChevronRightRoundedIcon onClick={openCategoryModalHandler}></ChevronRightRoundedIcon>
+            <ChevronRightRoundedIcon onClick1={openCategoryModalHandler}></ChevronRightRoundedIcon>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>{content}</h1>
-                <div className="Modal-close-btn" onClick={closeCategoryModalHandler}>&times;</div>
-                <CreateAddCircleOutlinedIcon onClick={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
+                <div className="Modal-close-btn" onClick2={closeCategoryModalHandler}>&times;</div>
+                <CreateAddCircleOutlinedIcon onClick3={openInputBoxHandler}></CreateAddCircleOutlinedIcon>
                     <CategoryItemList items={items} onRemove={onRemove}></CategoryItemList>
                 <CategoryListWrapper categoryshow={isClicked}>
-                    <InsertCategory onSubmit={handleSubmit}></InsertCategory>
+                    <InsertCategory onSubmit={onInsert}></InsertCategory>
                 </CategoryListWrapper>
                 </StyledModal>
                 </ModalWrapper>
