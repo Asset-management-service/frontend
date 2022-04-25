@@ -13,7 +13,19 @@ const CreateAddCircleOutlinedIcon = styled(AddCircleOutlinedIcon)`
     bottom: 10px;
     right: 20px;
     display: ${({ show }) => (show ? 'flex' : 'none')};
+    &:hover{
+        cursor: pointer;
+    }
 `;
+
+const CreateChevronRightRoundedIcon= styled(ChevronRightRoundedIcon)`
+    &:hover{
+        cursor: pointer;
+    }
+`;
+
+
+
 
 const CategoryListWrapper = styled.div`
     display: ${({ show }) => (show ? 'flex' : 'none')};
@@ -61,7 +73,6 @@ function SetCategory({content}){
   //입력창 열림 설정
     const [isClicked, setIsClicked] = useState(false);
 
-    const [isIconClicked, setIsIconClicked] = useState(false);
 
     const openCategoryModalHandler = () => {
         setIsOpen(true)
@@ -80,7 +91,7 @@ function SetCategory({content}){
     return(
         <SettingListContentWrapper>
             {content}
-            <ChevronRightRoundedIcon onClick={openCategoryModalHandler}></ChevronRightRoundedIcon>
+            <CreateChevronRightRoundedIcon onClick={openCategoryModalHandler}></CreateChevronRightRoundedIcon>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>{content}</h1>
