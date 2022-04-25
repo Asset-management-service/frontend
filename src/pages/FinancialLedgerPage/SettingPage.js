@@ -4,9 +4,9 @@ import SetCategory from '../../components/FinancialLedger/SetCategory';
 import SetExpenseRatio from '../../components/FinancialLedger/SetExpenseRatio';
 import { SettingList } from '../../components/FinancialLedger/StyledComponentInSetting';
 import SettingListTitle from '../../components/FinancialLedger/SettingListTitle';
-import BudgetContainer from '../../containers/BudgetContainer';
 
-function Setting(){
+
+function SettingPage(){
     return(
         <div>
             <BudgetContainer>
@@ -34,4 +34,4 @@ function Setting(){
     );
 }
 
-export default Setting;
+export default SettingPage;
