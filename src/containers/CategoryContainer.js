@@ -15,7 +15,7 @@ function CategoryContainer({item}){
     };
 
     const remove = (event) => {
-        setcategoryInput(event.target.value);
+        setItem(event.target.value);
     };
 
 

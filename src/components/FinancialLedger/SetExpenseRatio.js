@@ -20,7 +20,7 @@ const ErrorMessageBox = styled.div`
 `;
 
 //지출 비율 설정 로직
-function SetExpenseRatio({content, fixRatio, changeRatio, openRatioModalHandler,closeRatioModalHandler}){
+function SetExpenseRatio({content, fixRatio, changeRatio, isOpen, openRatioModalHandler,closeRatioModalHandler}){
 
     return(
         <SettingListContentWrapper>

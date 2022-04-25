@@ -4,12 +4,13 @@ const INSERT = 'category/INSERT';
 const REMOVE = 'category/REMOVE';
 
 //액션 생성 함수 만들기
-export const changeInput = (input) => ({
+export const changeInput = () => ({
   type: CATEGORY_INPUT,
   input,
 });
 
 let id = 4;
+
 //호출될 때마다 id 값에 1씩 더함
 
 export const insert = (text, checked) => ({
@@ -63,7 +64,7 @@ function category(state = initialState, action) {
     case REMOVE:
       return {
         ...state,
-        todos: state.category.filter((item) => item.id !== action.id),
+        items: state.category.filter((item) => item.id !== action.id),
       };
     default:
       return state;

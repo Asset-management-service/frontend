@@ -3,10 +3,20 @@ import {useDispatch, connect} from 'react-redux';
 import {budgetInput} from '../modules/budget';
 import {SetMonthlyBudget} from '../components/FinancialLedger/SetMonthlyBudget';
 
-function BudgetContainer({budget, onBudgetHandler, onBudgetSubmit}){
+function BudgetContainer({budget, onBudgetHandler, onBudgetSubmit, closeBudgetModalHandler, openBudgetModalHandler, isOpen}){
     const [budget, setBudget] = useState(" ")
     const onBudgetHandler = (event) => { 
     setBudget(event.currentTarget.value);
+    }
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openBudgetModalHandler = () => {
+        setIsOpen(true);
+    };
+    //취소버튼 클릭 시  값 초화
+    const closeBudgetModalHandler = () => {
+        setBudget(" ")
+        setIsOpen(false);
     }
 
     const onBudgetSubmit = (event) => {
@@ -35,7 +45,10 @@ function BudgetContainer({budget, onBudgetHandler, onBudgetSubmit}){
     <SetMonthlyBudget
       budgetValue={budget}
       onBudgetChange={onBudgetHandler}
-      onBudgetClick={onBudgetSubmit}
+      onBudgetCheckClick={onBudgetSubmit}
+      onBudgetPropsClick={openBudgetModalHandler}
+      onBudgetCancelClick={closeBudgetModalHandler}
+      show={isOpen}
     />
   );
 }
