@@ -29,6 +29,8 @@ function ExpenseContainer() {
     {
       onSuccess: (data) => {
         console.log(data);
+        localStorage.setItem('FIX_RATIO', Number(input.fixRatio));
+        localStorage.setItem('VARIABLE_RATIO', Number(input.variableRatio));
       },
     },
   );
