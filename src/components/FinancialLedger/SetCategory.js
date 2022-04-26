@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useState, useRef} from 'react';
+import React from 'react';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { ModalWrapper, StyledModal} from '../common/Modal';
@@ -22,7 +22,6 @@ const CategoryListWrapper = styled.div`
 
 //카테고리 설정 컴포넌트
 function SetCategory({content,onRemove, onInsert, openCategoryModalHandler, closeCategoryModalHandler, openInputBoxHandler, items, isOpen, isClicked}){
-
 
     return(
         <SettingListContentWrapper>
