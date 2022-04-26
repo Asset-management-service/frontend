@@ -1,62 +1,70 @@
-import React, {useState} from 'react';
-import {useDispatch, connect} from 'react-redux';
-import {budgetInput} from '../modules/budget';
-import {SetMonthlyBudget} from '../components/FinancialLedger/SetMonthlyBudget';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import SetMonthlyBudget from '../components/FinancialLedger/SetMonthlyBudget';
+import { changeBudgetInput, setBudgetInput } from '../modules/budget';
 
-function BudgetContainer({budget, onBudgetHandler, onBudgetSubmit, closeBudgetModalHandler, openBudgetModalHandler, isOpen}){
-    const [budget, setBudget] = useState(" ")
-    const onBudgetHandler = (event) => { 
-    setBudget(event.currentTarget.value);
+function BudgetContainer() {
+  const { budgetAmount, input } = useSelector(({ budget }) => budget);
+  const dispatch = useDispatch();
+  const onBudgetHandler = (e) => {
+    dispatch(changeBudgetInput(e.target.value));
+  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState({
+    isError: false,
+    errorMessage: '',
+  });
+
+  const openBudgetModalHandler = () => {
+    setIsOpen(true);
+  };
+  //취소버튼 클릭 시  값 초화
+  const closeBudgetModalHandler = () => {
+    dispatch(changeBudgetInput(''));
+    setIsOpen(false);
+    setError({
+      isError: false,
+      errorMessage: '',
+    });
+  };
+
+  const onBudgetSubmit = (event) => {
+    event.preventDefault();
+    const budget = Number(input);
+    let check = /^[0-9]+$/;
+    if (input === '' && !check.test(input)) {
+      setError({
+        isError: true,
+        errorMessage: '입력 값이 올바르지 않습니다',
+      });
+    } else if (isNaN(budget) === false && budget != 0) {
+      dispatch(setBudgetInput());
+      setIsOpen(false);
+      setError({
+        isError: false,
+        errorMessage: '',
+      });
+    } else {
+      setError({
+        isError: true,
+        errorMessage: '입력값이 올바르지 않습니다',
+      });
     }
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openBudgetModalHandler = () => {
-        setIsOpen(true);
-    };
-    //취소버튼 클릭 시  값 초화
-    const closeBudgetModalHandler = () => {
-        setBudget(" ")
-        setIsOpen(false);
-    }
-
-    const onBudgetSubmit = (event) => {
-        event.preventDefault();
-        let check = /^[0-9]+$/;
-        if(budget == " " && !check.test(budget) ){
-            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-        }
-        else if(isNaN(budget) === false && (budget != 0)){
-            document.getElementById('showBudget').innerHTML=budget;
-            document.getElementById('showBudget').style.color='black';
-            setIsOpen(false)
-        }
-        else if(budget == 0){
-            document.getElementById('setBudget').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-        }
-        else{
-            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-    }
-
+  };
 
   return (
     <SetMonthlyBudget
-      budgetValue={budget}
+      budgetAmount={budgetAmount}
+      budgetInput={input}
       onBudgetChange={onBudgetHandler}
-      onBudgetCheckClick={onBudgetSubmit}
-      onBudgetPropsClick={openBudgetModalHandler}
-      onBudgetCancelClick={closeBudgetModalHandler}
+      onBudgetSubmit={onBudgetSubmit}
+      openBudgetModalHandler={openBudgetModalHandler}
+      closeBudgetModalHandler={closeBudgetModalHandler}
       show={isOpen}
+      error={error.isError}
+      errorMessage={error.errorMessage}
     />
   );
 }
-}
 
-export default connect(
-    state => ({budget: state.Budget.budget}),
-    dispatch => ({
-      budgetInput: () => dispatch(budgetInput()),
-    })
-)(BudgetContainer);
+export default BudgetContainer;
