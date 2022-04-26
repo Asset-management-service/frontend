@@ -7,6 +7,7 @@ const Section = styled.section`
   display: flex;
   margin: 0 !important;
   overflow: hidden;
+  padding-left: 270px;
 `;
 function HistoryPage() {
   return (

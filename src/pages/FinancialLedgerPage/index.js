@@ -8,7 +8,6 @@ import styled from 'styled-components';
 const MainWrapper = styled.main`
   display: flex;
   height: 100vh;
-  padding-left: 266px;
   section {
     position: relative;
     flex-grow: 1;
