@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SettingList } from '../../components/FinancialLedger/StyledComponentInSetting';
 import SettingListTitle from '../../components/FinancialLedger/SettingListTitle';
 import BudgetContainer from '../../containers/BudgetContainer';
@@ -7,6 +7,10 @@ import CategoryContainer from '../../containers/CategoryContainer';
 import ExpenseContainer from '../../containers/ExpenseContainer';
 
 function SettingPage() {
+  const { state } = useLocation();
+  useEffect(() => {
+    alert(state);
+  }, []);
   return (
     <section>
       <SettingList>

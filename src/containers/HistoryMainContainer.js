@@ -17,13 +17,17 @@ function HistoryMainContainer() {
     {
       refetchOnWindowFocus: false,
       onError: () => {
-        navigate('/financial/setting');
+        navigate('/financial/setting', {
+          state: '한달 예산 금액을 설정해주세요',
+        });
       },
     },
   );
   useEffect(() => {
-    if (isError) {
-      navigate('/financial/setting');
+    if (!localStorage.getItem('BUDGET') || status === 'error') {
+      navigate('/financial/setting', {
+        state: '한달 예산 금액을 설정해주세요',
+      });
     }
   }, [isError]);
 
