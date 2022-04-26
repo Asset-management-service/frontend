@@ -15,7 +15,7 @@ const StyledForm = styled.form`
     margin: 0.5rem;
   }
 `;
-function MoneyLogForm({ onCancel, isEdit, onSubmit, contentRef }) {
+function MoneyLogForm({ onCancel, isEdit, onSubmit }) {
   return (
     <StyledForm>
       <WriteActionButtons
@@ -23,7 +23,7 @@ function MoneyLogForm({ onCancel, isEdit, onSubmit, contentRef }) {
         isEdit={isEdit}
         onSubmit={onSubmit}
       />
-      <EditorContainer contentRef={contentRef} />
+      <EditorContainer />
     </StyledForm>
   );
 }
