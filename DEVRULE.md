@@ -22,8 +22,6 @@
 | `Initial Commit`   | 첫 커밋을 남길때 내용 없이 작성                                           |
 | `ETC`              | 위에 해당하는 내용이 하나도 없을 때                                       |
 
-EX) git commit -m "Fix: Login Component 기능 추가"
-
 <br/>
 
 ## 📌 Branch Rule

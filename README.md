@@ -9,8 +9,6 @@
 **State Management**
 
 - [redux](https://ko.redux.js.org/introduction/getting-started/)
-- [redux-saga](https://redux-saga.js.org/)
-- [redux-thunk](https://github.com/reduxjs/redux-thunk/)
 - [react-redux](https://react-redux.js.org/)
 - [react-query](https://react-query.tanstack.com/)
 
@@ -40,7 +38,6 @@
 **Dev Tools**
 
 - [@redux-devtools/extension](https://github.com/reduxjs/redux-devtools)
-- [JSON-server](https://github.com/typicode/json-server)
 - [Mock Service Worker](https://mswjs.io/)
 
 **ETC**: 추후 리팩토링 시 고려
