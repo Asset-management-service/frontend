@@ -14,9 +14,7 @@ function HistoryFormContainer() {
   const dispatch = useDispatch();
   const category = useSelector(({ category }) => category);
   const [categories, setCategories] = useState([]);
-  const [payments, setPayments] = useState(
-    category['PAYMENT'].map((category) => category.categoryName),
-  );
+  const [payments, setPayments] = useState([]);
   const [show, setShow] = useState(false);
   const postMutation = useMutation(
     (type) =>
@@ -70,6 +68,40 @@ function HistoryFormContainer() {
       );
     },
   });
+  useEffect(() => {
+    if (history.type === 'income') {
+      setCategories(
+        category['REVENUE'].map((category) => category.categoryName),
+      );
+    } else if (history.type === 'expenditure') {
+      setCategories(
+        category['FIXED']
+          .map((category) => category.categoryName)
+          .concat(
+            category['VARIABLE'].map((category) => category.categoryName),
+          ),
+      );
+    }
+  }, [history.type, category]);
+
+  useEffect(() => {
+    setPayments(category['PAYMENT'].map((category) => category.categoryName));
+  }, [category]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(
+        setHistory({
+          payment: '',
+          category: '',
+          price: '',
+          content: '',
+          isEdit: false,
+          id: null,
+        }),
+      );
+    };
+  }, []);
   const onChange = (e) => {
     dispatch(changeInput(e.target.name, e.target.value));
   };
@@ -125,41 +157,6 @@ function HistoryFormContainer() {
       }),
     );
   };
-  useEffect(() => {
-    if (history.type === 'income') {
-      setCategories(
-        category['REVENUE'].map((category) => category.categoryName),
-      );
-    } else if (history.type === 'expenditure') {
-      setCategories(
-        category['FIXED']
-          .map((category) => category.categoryName)
-          .concat(
-            category['VARIABLE'].map((category) => category.categoryName),
-          ),
-      );
-    }
-  }, [history.type]);
-
-  useEffect(() => {
-    console.log(category);
-    setPayments(category['PAYMENT'].map((category) => category.categoryName));
-  }, [category]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(
-        setHistory({
-          payment: '',
-          category: '',
-          price: '',
-          content: '',
-          isEdit: false,
-          id: null,
-        }),
-      );
-    };
-  }, []);
 
   return (
     <HistoryForm
