@@ -1,5 +1,7 @@
+import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getRevenueExpenditure } from '../../lib/api/moneylog';
 
 const GuideWrapper = styled.div`
   display: flex;
@@ -21,6 +23,13 @@ const GuideWrapper = styled.div`
   }
   .plus {
     color: #1e88e5;
+  }
+  .guideText {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
   }
 `;
 
@@ -52,50 +61,74 @@ const GuideRow = styled.li`
 `;
 
 function MoneyLogGuide() {
-  const { month, date } = useSelector(({ calender }) => calender.selected);
+  const { year, month, date } = useSelector(
+    ({ calender }) => calender.selected,
+  );
   // 단건 조회 api
+  const { data, status } = useQuery(
+    ['getRevenueExpenditure', year, month, date],
+    () => getRevenueExpenditure(year, month + 1, date),
+    {
+      refetchOnWindowFocus: false,
+    },
+  );
   return (
     <GuideWrapper>
       <h2>
         {month + 1}월 {date}일
       </h2>
-      <ul>
-        <GuideRow>
-          <div className="explanation">
-            <span>생활비</span>
-            <span>돌돌이 리필</span>
+      {status === 'loading' ? (
+        <p className="guideText">Loading...</p>
+      ) : data.revenueExpenditureResponses.length === 0 ? (
+        <p className="guideText">수익 지출 내역이 없습니다</p>
+      ) : (
+        <>
+          <ul>
+            {data.revenueExpenditureResponses.map((item) => (
+              <GuideRow key={item.revenueExpenditureId}>
+                <div className="explanation">
+                  <span>{item.categoryName}</span>
+                  <span>{item.content}</span>
+                </div>
+                <div
+                  className={
+                    item.revenueExpenditureType === 'REVENUE'
+                      ? 'price plus'
+                      : 'price minus'
+                  }
+                >
+                  {item.revenueExpenditureType === 'REVENUE' ? '+' : '-'}
+                  {item.cost}
+                </div>
+              </GuideRow>
+            ))}
+          </ul>
+          <div>
+            <GuideRow className="summary">
+              <p>총 수익</p>
+              <p className="price plus">+{data.totalRevenue}</p>
+            </GuideRow>
+            <GuideRow className="summary">
+              <p>총 지출</p>
+              <p className="price minus">-{data.totalExpenditure}</p>
+            </GuideRow>
           </div>
-          <div className="price minus">-2,000</div>
-        </GuideRow>
-        <GuideRow>
-          <div className="explanation">
-            <span>식비</span>
-            <span>부대찌개</span>
-          </div>
-          <div className="price minus">-10,000</div>
-        </GuideRow>
-        <GuideRow>
-          <div className="explanation">
-            <span>용돈</span>
-            <span>생활비 용돈</span>
-          </div>
-          <div className="price plus">+500,000</div>
-        </GuideRow>
-      </ul>
-      <div>
-        <GuideRow className="summary">
-          <p>총 수익</p>
-          <p className="price plus">+500,000</p>
-        </GuideRow>
-        <GuideRow className="summary">
-          <p>총 지출</p>
-          <p className="price minus">-12,000</p>
-        </GuideRow>
-      </div>
-      <GuideRow className="summary totalPrice">
-        <p>총계</p>
-        <p className="price plus">+488,000</p>
-      </GuideRow>
+          <GuideRow className="summary totalPrice">
+            <p>총계</p>
+            <p
+              className={
+                data.totalRevenueExpenditure == 0
+                  ? 'price'
+                  : data.totalRevenueExpenditure > 0
+                  ? 'plus price'
+                  : 'minus price'
+              }
+            >
+              {data.totalRevenueExpenditure}
+            </p>
+          </GuideRow>
+        </>
+      )}
     </GuideWrapper>
   );
 }
