@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useState} from 'react';
+import React from 'react';
 import { ModalWrapper, StyledModal, ButtonBox} from '../common/Modal';
 import { SettingListContentWrapper, CheckButton, CancelButton, ContentPropsWrapper } from './StyledComponentInSetting';
 
@@ -22,61 +22,21 @@ const ErrorMessageBox = styled.div`
 
 
 //한달 예산 금액 설정
-function SetMonthlyBudget({content}){
-
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openBudgetModalHandler = () => {
-        setIsOpen(true);
-    };
-    //취소버튼 클릭 시  값 초화
-    const closeBudgetModalHandler = () => {
-        setBudget(" ");
-        setIsOpen(false);
-    }
-
-    const [budget,setBudget] = useState(" ");
-
-    const onBudgetHandler = (event) => { 
-    setBudget(event.currentTarget.value);
-
-    }
-
-    const onBudgetSubmit = (event) => {
-        event.preventDefault();
-        let check = /^[0-9]+$/;
-        if(budget == " " && !check.test(budget) ){
-            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-        }
-        else if(isNaN(budget) === false && (budget != 0)){
-            document.getElementById('showBudget').innerHTML=budget;
-            document.getElementById('showBudget').style.color='black';
-            setIsOpen(false)
-        }
-        else if(budget == 0){
-            document.getElementById('setBudget').innerHTML='<b>입력 값이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-        }
-        else{
-            document.getElementById('setBudget').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setBudget').style.color='red';
-    }
-}
+function SetMonthlyBudget({content, budget, onBudgetHandler, onBudgetSubmit, isOpen, openBudgetModalHandler, closeBudgetModalHandler}){
 
     return(
         <SettingListContentWrapper>
-                <ContentPropsWrapper onClick={openBudgetModalHandler}>{content}</ContentPropsWrapper>
+                <ContentPropsWrapper onBudgetPropsClick={openBudgetModalHandler}>{content}</ContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
-                <InputBox type="text" className="budget" value={budget} onChange={onBudgetHandler}></InputBox>
+                <InputBox type="text" className="budget" budgetValue={budget} onBudgetChange={onBudgetHandler}></InputBox>
                 <ErrorMessageBox>
                     <span id='setBudget'></span>
                 </ErrorMessageBox>
                 <ButtonBox>
-                    <CancelButton onClick={closeBudgetModalHandler} >취소</CancelButton>
-                    <CheckButton onClick={onBudgetSubmit}>확인</CheckButton>
+                    <CancelButton onBudgetCancelClick={closeBudgetModalHandler} >취소</CancelButton>
+                    <CheckButton onBudgetCheckClick={onBudgetSubmit}>확인</CheckButton>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>

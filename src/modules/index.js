@@ -4,6 +4,9 @@ import post from './post';
 import calender from './calender';
 import history from './history';
 import comment from './comment';
+import budget from './budget';
+import category from './category';
+import expense from './expense';
 import { all } from 'redux-saga/effects';
 
 const rootReducer = combineReducers({
@@ -12,6 +15,9 @@ const rootReducer = combineReducers({
   calender,
   history,
   comment,
+  budget,
+  category,
+  expense,
 });
 
 export function* rootSaga() {
