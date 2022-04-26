@@ -1,9 +1,5 @@
-import { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 import Loading from '../common/Loading';
 import HistoryMainItem from './HistoryMainItem';
-import { getHistory } from '../../lib/api/history';
 import styled from 'styled-components';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
@@ -64,57 +60,51 @@ const SummaryBox = styled.div`
     color: #ff0000;
   }
 `;
-function HistoryMain({ year, month, onMoveNext, onMovePrev }) {
-  const navigate = useNavigate();
-  const { data, status, isError } = useQuery(
-    ['getHistory', year, month],
-    () => getHistory(year, month),
-    {
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        navigate('/financial/setting');
-      },
-    },
-  );
-  useEffect(() => {
-    navigate('/financial/setting');
-  }, [isError]);
-  if (status === 'loading') {
-    return <Loading mainColor="black" />;
-  }
+function HistoryMain({ year, month, onMoveNext, onMovePrev, status, data }) {
   return (
     <HistoryMainWrapper>
-      <HistoryMainHeading>
-        <div className="Heading-column">
-          <h2>
-            {year}년 {month + 1}월
-          </h2>
-          <div>
-            <button onClick={onMovePrev}>
-              <ChevronLeftRoundedIcon />
-            </button>
-            <button onClick={onMoveNext}>
-              <ChevronRightRoundedIcon />
-            </button>
-          </div>
-        </div>
-        <div className="Heading-column">
-          <SummaryBox className="plus">수익 {data.totalRevenue}원</SummaryBox>
-          <SummaryBox className="minus">
-            지출 {data.totalExpenditure}원
-          </SummaryBox>
-        </div>
-      </HistoryMainHeading>
-      <p>
-        💸 이번달 남은 예산 :
-        <span className="budgetPrice">{data.remainingBudget}</span>{' '}
-      </p>
-      <ul>
-        {data.content.length != 0 &&
-          data.content.map((history, index) => (
-            <HistoryMainItem key={index} history={history} />
-          ))}
-      </ul>
+      {status === 'loading' ? (
+        <Loading mainColor="black" />
+      ) : (
+        <>
+          <HistoryMainHeading>
+            <div className="Heading-column">
+              <h2>
+                {year}년 {month + 1}월
+              </h2>
+              <div>
+                <button onClick={onMovePrev}>
+                  <ChevronLeftRoundedIcon />
+                </button>
+                <button onClick={onMoveNext}>
+                  <ChevronRightRoundedIcon />
+                </button>
+              </div>
+            </div>
+            <div className="Heading-column">
+              <SummaryBox className="plus">
+                수익 {data.totalRevenue.toLocaleString()}원
+              </SummaryBox>
+              <SummaryBox className="minus">
+                지출 {data.totalExpenditure}원
+              </SummaryBox>
+            </div>
+          </HistoryMainHeading>
+          <p>
+            💸 이번달 남은 예산 :
+            <span className="budgetPrice">
+              {' '}
+              ₩ {data.remainingBudget.toLocaleString()}
+            </span>{' '}
+          </p>
+          <ul>
+            {data.revenueExpenditureResponses.content.length != 0 &&
+              data.revenueExpenditureResponses.content.map((history, index) => (
+                <HistoryMainItem key={index} history={history} />
+              ))}
+          </ul>
+        </>
+      )}
     </HistoryMainWrapper>
   );
 }
