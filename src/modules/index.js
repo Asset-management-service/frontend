@@ -7,7 +7,6 @@ import comment from './comment';
 import budget from './budget';
 import category from './category';
 import expense from './expense';
-import { all } from 'redux-saga/effects';
 
 const rootReducer = combineReducers({
   login,
@@ -19,9 +18,4 @@ const rootReducer = combineReducers({
   category,
   expense,
 });
-
-export function* rootSaga() {
-  yield all([]);
-}
-
 export default rootReducer;
