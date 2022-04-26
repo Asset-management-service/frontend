@@ -3,13 +3,14 @@ import HistoryMainList from './HistoryMainList';
 import styled from 'styled-components';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import { useEffect, useState } from 'react';
 
 const HistoryMainWrapper = styled.div`
   flex-grow: 1;
   overflow-y: scroll;
   font-size: 17px;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
   .budgetPrice {
     font-weight: bold;
   }
@@ -25,6 +26,18 @@ const HistoryMainWrapper = styled.div`
   }
   &::-webkit-scrollbar-thumb:hover {
     background: #303030;
+  }
+
+  ul {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .History-noContent {
+      font-size: 20px;
+      opacity: 0.5;
+      margin-bottom: 5rem;
+    }
   }
 `;
 
@@ -108,13 +121,16 @@ function HistoryMain({
           </p>
           <ul>
             {history &&
-              history.length !== 0 &&
-              history.map(
-                (item, index) =>
-                  item.length !== 0 && (
-                    <HistoryMainList key={index} history={item} />
-                  ),
-              )}
+              (data.revenueExpenditureResponses.content.length == 0 ? (
+                <p className="History-noContent">수익 지출 내역이 없습니다</p>
+              ) : (
+                history.map(
+                  (item, index) =>
+                    item.length !== 0 && (
+                      <HistoryMainList key={index} history={item} />
+                    ),
+                )
+              ))}
           </ul>
         </>
       )}
