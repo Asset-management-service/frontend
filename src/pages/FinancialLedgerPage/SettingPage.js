@@ -9,7 +9,7 @@ import ExpenseContainer from '../../containers/ExpenseContainer';
 function SettingPage() {
   const { state } = useLocation();
   useEffect(() => {
-    alert(state);
+    if (state) alert(state);
   }, []);
   return (
     <section>
