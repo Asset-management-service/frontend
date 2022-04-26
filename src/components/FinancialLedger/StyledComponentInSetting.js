@@ -70,7 +70,6 @@ export const ContentPropsWrapper = styled.div`
   transition: all 0.3s ease-in-out;
   margin-bottom: 0.5rem;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
     border-radius: 5px;
   }
