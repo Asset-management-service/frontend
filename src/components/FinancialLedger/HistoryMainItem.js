@@ -4,27 +4,6 @@ import { selectDate } from '../../modules/calender';
 import styled from 'styled-components';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
-const HistoryItem = styled.li`
-  border: 1px solid #f5f5f5;
-  border-radius: 10px;
-  padding: 1rem;
-  margin: 2rem 0;
-  .plus {
-    color: #1e88e5;
-  }
-  .minus {
-    color: #ef5350;
-  }
-`;
-
-const ItemHeading = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-  margin-bottom: 1rem;
-`;
-
 const ItemRow = styled.div`
   display: grid;
   padding: 0.5rem 0;
@@ -74,71 +53,57 @@ const ItemRow = styled.div`
       color: #626262;
     }
     &.category {
-      margin: 0 3rem 0 2rem;
+      margin-left: 2rem;
+      text-align: left;
+      width: 190px;
     }
   }
 `;
 
-function HistoryMainItem({ history }) {
+function HistoryMainItem({ item, year, month, date }) {
   const dispatch = useDispatch();
   const onEdit = () => {
     dispatch(
       setHistory({
-        type: 'expenditure',
-        price: '26000',
-        payment: '신용카드',
-        content: '키보드 주문',
-        category: '쇼핑',
+        type:
+          item.revenueExpenditureType === 'REVENUE' ? 'income' : 'expenditure',
+        price: String(item.cost),
+        payment: item.paymentMethod,
+        content: item.content,
+        category: item.categoryName,
       }),
     );
-    dispatch(selectDate(2022 + 4 + 12 - 1, 12, 2022, 4 - 1));
-    dispatch(setIsEdit(true));
+    dispatch(selectDate(year + month + date - 1, date, year, month - 1));
+    dispatch(setIsEdit(true, item.revenueExpenditureId));
   };
   return (
-    <HistoryItem>
-      <ItemHeading>
-        <p className="date">2022년 4월 13일</p>
-        <p>
-          <span className="plus">+ 1,380,000</span>
-          <span className="minus"> - 26,000</span>
-          <span> = </span>
-          <span className="plus">+ 1,354,000</span>
+    <ItemRow>
+      <div>
+        <p
+          className={
+            item.revenueExpenditureType === 'REVENUE'
+              ? 'plus category'
+              : 'minus category'
+          }
+        >
+          {item.categoryName}
         </p>
-      </ItemHeading>
-      <ItemRow>
-        <div>
-          <p className="minus category">쇼핑</p>
-          <p className="content">키보드 주문</p>
-        </div>
-        <p className="payment">신용카드</p>
-        <p className="minus price">- 20,000</p>
-        <button className="editBtn" onClick={onEdit}>
-          <ModeEditOutlineOutlinedIcon />
-        </button>
-      </ItemRow>
-      <ItemRow>
-        <div>
-          <p className="minus category">식비</p>
-          <p className="content">버거킹 점심식사</p>
-        </div>
-        <p className="payment">체크카드</p>
-        <p className="minus price">- 6,000</p>
-        <button className="editBtn">
-          <ModeEditOutlineOutlinedIcon />
-        </button>
-      </ItemRow>
-      <ItemRow>
-        <div>
-          <p className="plus category">월급</p>
-          <p className="content">우아한 테크캠프 월급</p>
-        </div>
-        <p className="payment"></p>
-        <p className="plus price">+ 1,380,000</p>
-        <button className="editBtn">
-          <ModeEditOutlineOutlinedIcon />
-        </button>
-      </ItemRow>
-    </HistoryItem>
+        <p className="content">{item.content}</p>
+      </div>
+      <p className="payment">{item.paymentMethod}</p>
+      <p
+        className={
+          item.revenueExpenditureType === 'REVENUE'
+            ? 'plus price'
+            : 'minus price'
+        }
+      >
+        ₩ {item.cost.toLocaleString()}
+      </p>
+      <button className="editBtn" onClick={onEdit}>
+        <ModeEditOutlineOutlinedIcon />
+      </button>
+    </ItemRow>
   );
 }
 

@@ -113,16 +113,17 @@ export function ComboBox({
         className={active ? 'active' : ''}
         ref={optionList}
       >
-        {categories.map((category, index) => (
-          <OptionItem
-            key={index}
-            onClick={() => onSelect(category)}
-            className={category === label ? 'selected' : ''}
-          >
-            {category}
-            {unit}
-          </OptionItem>
-        ))}
+        {categories &&
+          categories.map((category, index) => (
+            <OptionItem
+              key={index}
+              onClick={() => onSelect(category)}
+              className={category === label ? 'selected' : ''}
+            >
+              {category}
+              {unit}
+            </OptionItem>
+          ))}
       </OptionsList>
     </StyledComboBox>
   );
