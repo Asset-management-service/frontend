@@ -7,6 +7,7 @@ export const SettingList = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 3em;
+    margin-bottom: 10em;
 `;
 
 //설정 항목 제목 컴포넌트 스타일링
