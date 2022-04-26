@@ -22,21 +22,11 @@ const ErrorMessageBox = styled.div`
 
 
 //한달 예산 금액 설정
-function SetMonthlyBudget({content, budget, setBudget, onBudgetHandler, onBudgetSubmit}){
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openBudgetModalHandler = () => {
-        setIsOpen(true);
-    };
-    //취소버튼 클릭 시  값 초화
-    const closeBudgetModalHandler = () => {
-        setBudget(" ")
-        setIsOpen(false);
-    }
+function SetMonthlyBudget({content, budget, onBudgetHandler, onBudgetSubmit, isOpen, openBudgetModalHandler, closeBudgetModalHandler}){
 
     return(
         <SettingListContentWrapper>
-                <ContentPropsWrapper onClick={openBudgetModalHandler}>{content}</ContentPropsWrapper>
+                <ContentPropsWrapper onBudgetPropsClick={openBudgetModalHandler}>{content}</ContentPropsWrapper>
             <ModalWrapper show={isOpen}>
                 <StyledModal>
                 <h1>한달 예산 금액</h1>
@@ -45,8 +35,8 @@ function SetMonthlyBudget({content, budget, setBudget, onBudgetHandler, onBudget
                     <span id='setBudget'></span>
                 </ErrorMessageBox>
                 <ButtonBox>
-                    <CancelButton onClick={closeBudgetModalHandler} >취소</CancelButton>
-                    <CheckButton onBudgetClick={onBudgetSubmit}>확인</CheckButton>
+                    <CancelButton onBudgetCancelClick={closeBudgetModalHandler} >취소</CancelButton>
+                    <CheckButton onBudgetCheckClick={onBudgetSubmit}>확인</CheckButton>
                 </ButtonBox>
                 </StyledModal>
             </ModalWrapper>
