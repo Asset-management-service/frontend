@@ -1,23 +1,19 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
-import CategoryItem from "./CategoryItem";
+import CategoryItem from './CategoryItem';
 
 const CategoryItemListWrapper = styled.div`
-    margin-bottom: 15em;
+  margin-bottom: 15em;
 `;
 
-function CategoryItemList({items, onRemove}) {
+function CategoryList({ items, onRemove }) {
   return (
-      <CategoryItemListWrapper>
-           {items.map((item) => (
-            <CategoryItem
-          item={item}
-          key={item.id}
-          onRemove={onRemove}
-          />
+    <CategoryItemListWrapper>
+      {items.map((item) => (
+        <CategoryItem item={item} key={item.categoryId} onRemove={onRemove} />
       ))}
-      </CategoryItemListWrapper>
+    </CategoryItemListWrapper>
   );
 }
 
-export default CategoryItemList;
+export default CategoryList;

@@ -1,87 +1,68 @@
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {changeInput, onInsert, onRemove} from '../modules/category';
-import {SetCategory} from '../components/FinancialLedger/SetCategory';
+import React from 'react';
+import { useQuery, useMutation } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  changeInput,
+  insertCategory,
+  removeCategory,
+  setCategory,
+} from '../modules/category';
+import SetCategory from '../components/FinancialLedger/SetCategory';
+import {
+  getSettingCategory,
+  postSettingCategory,
+  deleteSettingCategory,
+} from '../lib/api/setting';
 
-
-function CategoryContainer({items,isClicked, isOpen, onInsert,onRemove, openCategoryModalHandler, closeCategoryModalHandler,openInputBoxHandler}){
-    const [items, setItems] = useState([
-     {id: 1,
-      text: '월급',
-      checked: false,
-    },
+function CategoryContainer({ content }) {
+  const category = useSelector(({ category }) => category);
+  const dispatch = useDispatch();
+  const { data, status } = useQuery(
+    ['getCategory', content],
+    () => getSettingCategory(content.toLowerCase()),
     {
-      id: 2,
-      text: '주식',
-      checked: false,
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        dispatch(setCategory(content, data.categories));
+      },
     },
+  );
+  const insertMutation = useMutation(
+    () => postSettingCategory(content, category.categoryInput),
     {
-      id: 3,
-      text: '기타',
-      checked: false,
+      onSuccess: (data) => {
+        dispatch(insertCategory(content, data.categoryName));
+        dispatch(changeInput(''));
+      },
     },
-    ]);
+  );
 
-    const onInsert = (text) => {
-        const item = {
-      id: nextId.current,
-      text,
-      checked: false,
-        };
-    setItems(items.concat(item));
-    nextId.current += 1;
-    };
+  const deleteMutation = useMutation(
+    (categoryId) => deleteSettingCategory(categoryId),
+    {
+      onSuccess: (data, variables) => {
+        dispatch(removeCategory(content, variables));
+      },
+    },
+  );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (category.input === '') return;
+    insertMutation.mutate();
+  };
 
-    const nextId = useRef(0);
-
-    const onRemove = (id) => {
-        setItems(items.filter((item) => item.id !== id));
-    };
-    //모달창 열림 설정
-    const [isOpen, setIsOpen] = useState(false);
-
-
-  //입력창 열림 설정
-    const [isClicked, setIsClicked] = useState(false);
-
-    const openCategoryModalHandler = () => {
-        setIsOpen(true)
-    };
-
-     //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
-    const closeCategoryModalHandler = () => {
-        setIsOpen(false)
-    }
-     //입력 박스 핸들러 조정
-    const openInputBoxHandler = () => {
-        setIsClicked(true)
-    }
-
-
-    return(
-        <SetCategory
-            item={items}
-            value={budget}
-            onChange={budgetHandler}
-            onSubmit={onInsert}
-            onRemove={onRemove}
-            onClick1={openCategoryModalHandler}
-            onClick2={closeCategoryModalHandler}
-            onClick3={openInputBoxHandler}
-            show={isOpen}
-            categoryshow={isClicked}
-        />
-    );
-
-
+  const onRemove = (id) => {
+    deleteMutation.mutate(id);
+  };
+  return (
+    <SetCategory
+      content={content}
+      items={category[content]}
+      onRemove={onRemove}
+      handleSubmit={handleSubmit}
+      category={category}
+    />
+  );
 }
 
-export default connect(
-    state => ({budget: state.Budget.budget},
-        ),
-    dispatch => ({
-      changeInput: () => dispatch(changeInput()),
-      onInsert: () => dispatch(onInsert()),
-      onRemove: () => dispatch(onRemove()),
-    })
-)(CategoryContainer);
+export default CategoryContainer;
