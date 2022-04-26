@@ -6,8 +6,9 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 
 const ItemRow = styled.div`
   display: grid;
-  padding: 0.5rem 0;
+  padding: 0.5rem 1.5rem;
   grid-template-columns: 4fr 2fr 2fr;
+  align-items: center;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   border-radius: 10px;
@@ -39,6 +40,7 @@ const ItemRow = styled.div`
   }
   div {
     display: flex;
+    align-items: center;
   }
   p {
     text-align: center;
@@ -48,14 +50,15 @@ const ItemRow = styled.div`
     &.price {
       text-align: right;
       margin-right: 2rem;
+      font-weight: bold;
     }
     &.payment {
-      color: #626262;
+      opacity: 0.6;
     }
     &.category {
-      margin-left: 2rem;
-      text-align: left;
-      width: 190px;
+      margin-right: 1.5rem;
+      text-align: center;
+      width: 120px;
     }
   }
 `;
