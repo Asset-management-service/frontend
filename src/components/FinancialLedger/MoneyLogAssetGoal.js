@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useMutation } from 'react-query';
 import { FormInput } from '../common/FormInput';
 import { useForm } from '../../hooks';
+import { putAssetGoal } from '../../lib/api/setting';
 import styled, { css } from 'styled-components';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
@@ -47,13 +50,16 @@ const GoalInput = styled.div`
 `;
 
 function MoneyLogAssetGoal() {
+  const { year, month } = useSelector(({ calender }) => calender);
   const { form, onChange } = useForm({
     goal: '',
   });
   const [isEdit, setIsEdit] = useState(true);
+  const putMutation = useMutation(() => putAssetGoal(form.goal, year, month));
   const onSubmit = (e) => {
     e.preventDefault();
     if (form.goal === '') return;
+    putMutation.mutate();
     if (isEdit) {
       setIsEdit(false);
     }

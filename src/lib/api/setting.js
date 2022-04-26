@@ -45,11 +45,11 @@ export const putAssetBudget = async (budgetAmount) => {
   return data;
 };
 
-export const putAssetGoal = async (content, date) => {
+export const putAssetGoal = async (content, year, month, date) => {
   setToken();
   const { data } = await axios.put(`${baseUrl}/asset-goal`, {
     content,
-    date,
+    date: `${year}-${String(month).padStart(2, '0')}`,
   });
   return data;
 };

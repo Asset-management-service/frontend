@@ -75,12 +75,3 @@ export const getRevenueExpenditure = async (year, month, date) => {
   );
   return data;
 };
-
-export const putAssetGoal = async (content, year, month) => {
-  setToken();
-  const { data } = await axios.put(`${baseUrl}/asset-goal`, {
-    content,
-    date: `${year}-${String(month).padStart(2, '0')}`,
-  });
-  return data;
-};
