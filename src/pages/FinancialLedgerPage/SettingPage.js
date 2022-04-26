@@ -6,14 +6,9 @@ import SetExpenseRatio from '../../components/FinancialLedger/SetExpenseRatio';
 import { SettingList } from '../../components/FinancialLedger/StyledComponentInSetting';
 import SettingListTitle from '../../components/FinancialLedger/SettingListTitle';
 
-
-const Section = styled.section`
-  height: 1000px;
-`;
-
 function SettingPage(){
     return(
-        <Section>
+        <section>
             <SettingList>
                 <SettingListTitle title='예산 설정'></SettingListTitle>
                 <hr width='50%'></hr>
@@ -33,7 +28,7 @@ function SettingPage(){
                 <SetExpenseRatio content='고정비'></SetExpenseRatio>
                 <SetExpenseRatio content='변동비'></SetExpenseRatio>
             </SettingList>
-        </Section>
+        </section>
     );
 }
 
