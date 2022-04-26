@@ -12,17 +12,6 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 
-//아이콘을 클릭하면 입력창이 드도록 설정
-const CreateAddCircleOutlinedIcon = styled(AddCircleOutlinedIcon)`
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  display: ${({ show }) => (show ? 'flex' : 'none')};
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 const CreateChevronRightRoundedIcon = styled(ChevronRightRoundedIcon)`
   &:hover {
     cursor: pointer;
@@ -44,7 +33,7 @@ const CategoryListWrapper = styled.div`
 `;
 
 //카테고리 설정 컴포넌트
-function SetCategory({ content, items, onRemove, handleSubmit, category }) {
+function SetCategory({ content, onRemove, handleSubmit, category }) {
   const [isOpen, setIsOpen] = useState(false);
 
   //입력창 열림 설정
@@ -57,6 +46,7 @@ function SetCategory({ content, items, onRemove, handleSubmit, category }) {
   //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
   const closeCategoryModalHandler = () => {
     setIsOpen(false);
+    setIsClicked(false);
   };
   //입력 박스 핸들러 조정
   const openInputBoxHandler = () => {
@@ -77,9 +67,10 @@ function SetCategory({ content, items, onRemove, handleSubmit, category }) {
           <CreateCloseIcon
             onClick={closeCategoryModalHandler}
           ></CreateCloseIcon>
-          <CreateAddCircleOutlinedIcon
+          <AddCircleOutlinedIcon
             onClick={openInputBoxHandler}
-          ></CreateAddCircleOutlinedIcon>
+            className={isClicked ? 'blind addIcon' : 'addIcon'}
+          />
           <CategoryList items={category[content]} onRemove={onRemove} />
           <CategoryListWrapper show={isClicked}>
             <InsertCategory
