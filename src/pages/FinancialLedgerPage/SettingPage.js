@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import SetCategory from '../../components/FinancialLedger/SetCategory';
-import SetExpenseRatio from '../../components/FinancialLedger/SetExpenseRatio';
 import { SettingList } from '../../components/FinancialLedger/StyledComponentInSetting';
 import SettingListTitle from '../../components/FinancialLedger/SettingListTitle';
 import BudgetContainer from '../../containers/BudgetContainer';
 import CategoryContainer from '../../containers/CategoryContainer';
+import ExpenseContainer from '../../containers/ExpenseContainer';
 
 const Section = styled.section`
   height: 1000px;
@@ -30,8 +29,7 @@ function SettingPage() {
       <SettingList>
         <SettingListTitle title="지출 비율 설정"></SettingListTitle>
         <hr width="50%"></hr>
-        <SetExpenseRatio content="고정비"></SetExpenseRatio>
-        <SetExpenseRatio content="변동비"></SetExpenseRatio>
+        <ExpenseContainer />
       </SettingList>
     </Section>
   );

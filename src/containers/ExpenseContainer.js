@@ -1,81 +1,80 @@
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {fixRatioInput, changeRatioInput, changeModal} from '../modules/expense';
-import {SetExpenseRatio} from '../components/FinancialLedger/SetExpenseRatio';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import SetExpenseRatio from '../components/FinancialLedger/SetExpenseRatio';
+import {
+  changeExpenseRatio,
+  initializeRatioInput,
+  setExpenseRatio,
+} from '../modules/expense';
 
-function ExpenseContainer({fixRatio, changeRatio, onRatioSubmit, openRatioModalHandler,closeRatioModalHandler, isOpen}){
-    const [fixRatio,setFixRatio] = useState(" ");
-    const [changeRatio,setChangeRatio] = useState(" ");
-    const [isOpen, setIsOpen] = useState(false);
+function ExpenseContainer() {
+  const { fixRatio, variableRatio, input } = useSelector(
+    ({ expense }) => expense,
+  );
+  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState({
+    isError: false,
+    errorMessage: '',
+  });
 
-    const openRatioModalHandler = () => {
-        setIsOpen(true);
-    };
+  const openRatioModalHandler = () => {
+    setIsOpen(true);
+  };
 
-    //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
-    const closeRatioModalHandler = () => {
-        setFixRatio(" ");
-        setChangeRatio(" ");
-        setIsOpen(false);
+  //취소 버튼을 부르면 입력값도 모두 사라지도록 설정
+  const closeRatioModalHandler = () => {
+    dispatch(initializeRatioInput());
+    setIsOpen(false);
+  };
+
+  const onChangeExpenseRatio = (e) => {
+    dispatch(changeExpenseRatio(e.target.name, e.target.value));
+  };
+
+  const onRatioSubmit = (event) => {
+    event.preventDefault();
+    const ratio1 = Number(input.fixRatio);
+    const ratio2 = Number(input.variableRatio);
+    const ratioSum = ratio1 + ratio2;
+    let check = /^[0-9]+$/;
+    if (
+      isNaN(ratio1) ||
+      isNaN(ratio2) ||
+      (input.fixRatio == '' && !check.test(input.fixRatio)) ||
+      (input.variableRatio == '' && !check.test(input.variableRatio))
+    ) {
+      setError({
+        isError: true,
+        errorMessage: '입력 형식이 올바르지 않습니다.',
+      });
+      dispatch(initializeRatioInput());
+    } else if (ratioSum === 100) {
+      dispatch(setExpenseRatio(ratio1, ratio2));
+      setIsOpen(false);
+      dispatch(initializeRatioInput());
+    } else if (ratioSum !== 100) {
+      setError({
+        isError: true,
+        errorMessage: '총합이 100%가 아닙니다!',
+      });
     }
+  };
 
-    const FixRatioHandler = (event) => { 
-        setFixRatio(event.currentTarget.value);
-    }
-
-    const ChangeRatioHandler = (event) => { 
-        setChangeRatio(event.currentTarget.value);
-    }
-
-    const onRatioSubmit = (event) => {
-        event.preventDefault();
-        const ratio1 = parseInt(fixRatio);
-        const ratio2 = parseInt(changeRatio);
-        const ratioSum = ratio1 +ratio2
-        let check = /^[0-9]+$/;
-        if(fixRatio == " " && !check.test(fixRatio) ||  changeRatio == " " && !check.test(changeRatio)){
-            document.getElementById('setRatio').innerHTML='<b>입력 형식이 올바르지 않습니다.<b>';
-            document.getElementById('setRatio').style.color='red';
-        }
-
-        else if(ratioSum === 100){
-            document.getElementById('showFixRatio').innerHTML=fixRatio;
-            document.getElementById('showChangeRatio').innerHTML=changeRatio;
-            setIsOpen(false)
-        }
-
-        else if(ratioSum !== 100){
-            document.getElementById('setRatio').innerHTML='<b>총합이 100%가 아닙니다! 다시 입력해주세요!<b>';
-            document.getElementById('setRatio').style.color='red';
-        }
-
-        setFixRatio(" ");
-        setChangeRatio(" ");
+  return (
+    <SetExpenseRatio
+      ratioInput={input}
+      fixRatio={fixRatio}
+      variableRatio={variableRatio}
+      onChangeExpenseRatio={onChangeExpenseRatio}
+      onRatioSubmit={onRatioSubmit}
+      show={isOpen}
+      openRatioModalHandler={openRatioModalHandler}
+      closeRatioModalHandler={closeRatioModalHandler}
+      error={error.isError}
+      errorMessage={error.errorMessage}
+    />
+  );
 }
 
-    return(
-        <SetExpenseRatio
-            value1={fixRatio}
-            onChange1={FixRatioHandler}
-            value2={changeRatio}
-            show={isOpen}
-            onChange2={ChangeRatioHandler}
-            onCheckButtonClick={onRatioSubmit}
-            onContetnsWrapperClick={openRatioModalHandler}
-            onCancelButtonClick={closeRatioModalHandler} 
-        />
-    );
-
-
-}
-
-export default connect(
-    state => ({fixRatio: state.Expense.fixRatio,
-        changeRatio: state.Expense.changeRatio,
-        isOpen: state.Expense.isOpen}),
-    dispatch => ({
-      fixRatioInput: () => dispatch(fixRatioInput()),
-      chageRatioInput: () => dispatch(changeRatioInput()),
-      changeModal: () => dispatch(changeModal()),
-    })
-)(ExpenseContainer);
+export default ExpenseContainer;
