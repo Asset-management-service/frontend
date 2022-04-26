@@ -21,8 +21,8 @@ export const initializeRatioInput = () => ({
 });
 
 const initialState = {
-  fixRatio: '',
-  variableRatio: '',
+  fixRatio: null,
+  variableRatio: null,
   input: {
     fixRatio: '',
     variableRatio: '',

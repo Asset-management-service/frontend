@@ -11,6 +11,7 @@ import { getSettingCategory } from '../../lib/api/setting';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { setBudget } from '../../modules/budget';
+import { setExpenseRatio } from '../../modules/expense';
 
 const MainWrapper = styled.main`
   display: flex;
@@ -39,6 +40,12 @@ function FinancialLedgerPage({ auth }) {
 
   useEffect(() => {
     dispatch(setBudget(Number(localStorage.getItem('BUDGET'))));
+    dispatch(
+      setExpenseRatio(
+        Number(localStorage.getItem('FIX_RATIO')),
+        Number(localStorage.getItem('VARIABLE_RATIO')),
+      ),
+    );
   }, []);
 
   if (!auth) {

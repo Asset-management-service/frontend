@@ -43,11 +43,11 @@ function SetExpenseRatio({
       <div className="SetExpenseRatio-wrapper">
         <ContentPropsWrapper onClick={openRatioModalHandler}>
           고정비
-          <p>{fixRatio === '' ? '--' : fixRatio + '%'}</p>
+          <p>{!fixRatio ? '--' : fixRatio + '%'}</p>
         </ContentPropsWrapper>
         <ContentPropsWrapper onClick={openRatioModalHandler}>
           변동비
-          <p>{variableRatio === '' ? '--' : variableRatio + '%'}</p>
+          <p>{!variableRatio ? '--' : variableRatio + '%'}</p>
         </ContentPropsWrapper>
       </div>
       <ModalWrapper show={show}>
@@ -57,7 +57,7 @@ function SetExpenseRatio({
           <InputBox
             type="text"
             name="fixRatio"
-            value={ratioInput.fixRatio}
+            value={ratioInput ? ratioInput.fixRatio : ''}
             onChange={onChangeExpenseRatio}
           ></InputBox>
           <b>%</b>
@@ -66,7 +66,7 @@ function SetExpenseRatio({
           <InputBox
             type="text"
             name="variableRatio"
-            value={ratioInput.variableRatio}
+            value={ratioInput ? ratioInput.variableRatio : ''}
             onChange={onChangeExpenseRatio}
           ></InputBox>
           <b>%</b>
