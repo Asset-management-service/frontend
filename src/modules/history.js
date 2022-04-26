@@ -12,9 +12,10 @@ export const changeInput = (name, value) => ({
   value,
 });
 
-export const setIsEdit = (isEdit) => ({
+export const setIsEdit = (isEdit, id) => ({
   type: SET_ISEDIT,
   isEdit,
+  id,
 });
 
 const initialState = {
@@ -23,8 +24,8 @@ const initialState = {
   category: '',
   price: '',
   content: '',
-  include: false,
   isEdit: false,
+  id: null,
 };
 
 const history = (state = initialState, action) => {
@@ -35,7 +36,8 @@ const history = (state = initialState, action) => {
         [action.name]: action.value,
       };
     case SET_HISTORY:
-      const { type, payment, category, price, content, include } = action.value;
+      const { type, payment, category, price, content, isEdit, id } =
+        action.value;
       return {
         ...state,
         type: type === undefined ? state.type : type,
@@ -43,12 +45,14 @@ const history = (state = initialState, action) => {
         category: category === undefined ? state.category : category,
         price: price === undefined ? state.price : price,
         content: content === undefined ? state.content : content,
-        include: include === undefined ? state.include : include,
+        isEdit,
+        id,
       };
     case SET_ISEDIT:
       return {
         ...state,
         isEdit: action.isEdit,
+        id: action.id,
       };
     default:
       return state;

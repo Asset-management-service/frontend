@@ -1,8 +1,9 @@
 import Loading from '../common/Loading';
-import HistoryMainItem from './HistoryMainItem';
+import HistoryMainList from './HistoryMainList';
 import styled from 'styled-components';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import { useEffect, useState } from 'react';
 
 const HistoryMainWrapper = styled.div`
   flex-grow: 1;
@@ -60,7 +61,15 @@ const SummaryBox = styled.div`
     color: #ff0000;
   }
 `;
-function HistoryMain({ year, month, onMoveNext, onMovePrev, status, data }) {
+function HistoryMain({
+  year,
+  month,
+  onMoveNext,
+  onMovePrev,
+  status,
+  history,
+  data,
+}) {
   return (
     <HistoryMainWrapper>
       {status === 'loading' ? (
@@ -86,7 +95,7 @@ function HistoryMain({ year, month, onMoveNext, onMovePrev, status, data }) {
                 수익 {data.totalRevenue.toLocaleString()}원
               </SummaryBox>
               <SummaryBox className="minus">
-                지출 {data.totalExpenditure}원
+                지출 {data.totalExpenditure.toLocaleString()}원
               </SummaryBox>
             </div>
           </HistoryMainHeading>
@@ -98,10 +107,14 @@ function HistoryMain({ year, month, onMoveNext, onMovePrev, status, data }) {
             </span>{' '}
           </p>
           <ul>
-            {data.revenueExpenditureResponses.content.length != 0 &&
-              data.revenueExpenditureResponses.content.map((history, index) => (
-                <HistoryMainItem key={index} history={history} />
-              ))}
+            {history &&
+              history.length !== 0 &&
+              history.map(
+                (item, index) =>
+                  item.length !== 0 && (
+                    <HistoryMainList key={index} history={item} />
+                  ),
+              )}
           </ul>
         </>
       )}

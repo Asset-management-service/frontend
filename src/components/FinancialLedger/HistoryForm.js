@@ -1,6 +1,7 @@
 import { ComboBox } from '../../components/common/ComboBox';
 import { FormInput } from '../../components/common/FormInput';
 import { Button } from '../../components/common/Button';
+import DoubleCheckModal from '../common/DoubleCheckModal';
 import CalenderContainer from '../../containers/CalenderContainer';
 import styled, { css } from 'styled-components';
 
@@ -107,97 +108,100 @@ function HistoryForm({
   onSubmit,
   categories,
   payments,
+  show,
+  onRemove,
+  closeModal,
 }) {
-  const { type, category, price, include, content, payment, isEdit } = history;
+  const { type, category, price, content, payment, isEdit } = history;
   return (
-    <StyledForm>
-      <h2>수익 지출 내역 {isEdit ? '수정' : '추가'}</h2> {/*or 수정 */}
-      <div>
-        <h3>유형</h3>
-        <div className="radioBtns HistoryForm-row">
-          <RadioButton isChecked={type === 'income' ? 'true' : ''}>
-            <input
-              type="radio"
-              name="type"
-              value="income"
-              onChange={onChange}
-            />
-            수익
-          </RadioButton>
-          <RadioButton isChecked={type === 'expenditure' ? 'true' : ''}>
-            <input
-              type="radio"
-              name="type"
-              value="expenditure"
-              onChange={onChange}
-            />
-            지출
-          </RadioButton>
-        </div>
-        <div className="HistoryForm-row">
-          <h3>날짜</h3>
-          <CalenderContainer noChevron="true" noComboBox="true" />
-        </div>
-        <div className="HistoryForm-row">
-          <h3>카테고리</h3>
-          <ComboBox
-            categories={categories}
-            initialLabel={category ? category : '선택하기'}
-            onChange={(label) =>
-              onChange({ target: { value: label, name: 'category' } })
-            }
-          />
-        </div>
-        {type === 'expenditure' && (
+    <>
+      <StyledForm>
+        <h2>수익 지출 내역 {isEdit ? '수정' : '추가'}</h2> {/*or 수정 */}
+        <div>
+          <h3>유형</h3>
+          <div className="radioBtns HistoryForm-row">
+            <RadioButton isChecked={type === 'income' ? 'true' : ''}>
+              <input
+                type="radio"
+                name="type"
+                value="income"
+                onChange={onChange}
+              />
+              수익
+            </RadioButton>
+            <RadioButton isChecked={type === 'expenditure' ? 'true' : ''}>
+              <input
+                type="radio"
+                name="type"
+                value="expenditure"
+                onChange={onChange}
+              />
+              지출
+            </RadioButton>
+          </div>
           <div className="HistoryForm-row">
-            <h3>결제수단</h3>
+            <h3>날짜</h3>
+            <CalenderContainer noChevron="true" noComboBox="true" />
+          </div>
+          <div className="HistoryForm-row">
+            <h3>카테고리</h3>
             <ComboBox
-              categories={payments}
-              initialLabel={payment ? payment : '선택하기'}
+              categories={categories}
+              initialLabel={category ? category : '선택하기'}
               onChange={(label) =>
-                onChange({ target: { value: label, name: 'payment' } })
+                onChange({ target: { value: label, name: 'category' } })
               }
             />
           </div>
-        )}
-        <div className="HistoryForm-row">
-          <h3>금액</h3>
-          <FormInput
-            value={price}
-            name="price"
-            type="text"
-            placeholder="숫자만 입력해주세요"
-            onChange={onChange}
-          />
-        </div>
-        <div className="HistoryForm-row">
-          <h3>내용</h3>
-          <FormInput
-            value={content}
-            name="content"
-            type="text"
-            placeholder="무슨 활동이었나요?"
-            onChange={onChange}
-          />
-        </div>
-        {type === 'income' && (
+          {type === 'expenditure' && (
+            <div className="HistoryForm-row">
+              <h3>결제수단</h3>
+              <ComboBox
+                categories={payments}
+                initialLabel={payment ? payment : '선택하기'}
+                onChange={(label) =>
+                  onChange({ target: { value: label, name: 'payment' } })
+                }
+              />
+            </div>
+          )}
           <div className="HistoryForm-row">
-            <label>
-              <input name="include" value={include} type="checkbox" /> 예산에
-              추가
-            </label>
+            <h3>금액</h3>
+            <FormInput
+              value={price}
+              name="price"
+              type="text"
+              placeholder="숫자만 입력해주세요"
+              onChange={onChange}
+            />
           </div>
-        )}
-      </div>
-      <ButtonBox>
-        <StyledButton type="button" onClick={onCancel} className="cancelBtn">
-          취소
-        </StyledButton>
-        <StyledButton type="submit" className="submitBtn" onClick={onSubmit}>
-          {isEdit ? '수정' : '추가'}
-        </StyledButton>
-      </ButtonBox>
-    </StyledForm>
+          <div className="HistoryForm-row">
+            <h3>내용</h3>
+            <FormInput
+              value={content}
+              name="content"
+              type="text"
+              placeholder="무슨 활동이었나요?"
+              onChange={onChange}
+            />
+          </div>
+        </div>
+        <ButtonBox>
+          <StyledButton type="button" onClick={onCancel} className="cancelBtn">
+            {isEdit ? '삭제' : '취소'}
+          </StyledButton>
+          <StyledButton type="submit" className="submitBtn" onClick={onSubmit}>
+            {isEdit ? '수정' : '추가'}
+          </StyledButton>
+        </ButtonBox>
+      </StyledForm>
+      <DoubleCheckModal
+        text="삭제하시겠습니까?"
+        show={show}
+        onCancel={closeModal}
+        onSubmit={onRemove}
+      />
+    </>
   );
 }
 

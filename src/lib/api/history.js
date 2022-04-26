@@ -13,22 +13,60 @@ export const getHistory = async (year, month) => {
   return data;
 };
 
+export const postHistory = async (
+  categoryName,
+  content,
+  cost,
+  paymentMethod,
+  year,
+  month,
+  date,
+  revenueExpenditureType,
+) => {
+  setToken();
+  const { data } = await axios.post(baseUrl, {
+    categoryName,
+    content,
+    cost,
+    paymentMethod,
+    revenueExpenditureType,
+    date: `${year}-${month.toString().padStart(2, '0')}-${date
+      .toString()
+      .padStart(2, '0')}`,
+  });
+  return data;
+};
+
 export const editHistory = async (
   categoryName,
   content,
   cost,
+  year,
+  month,
   date,
   paymentMethod,
   revenueExpenditureType,
+  revenueExpenditureId,
 ) => {
   setToken();
-  const { data } = await axios.post(`${baseUrl}`, {
+  let payment = paymentMethod;
+  if (revenueExpenditureType === 'REVENUE') payment = '';
+  const { data } = await axios.patch(`${baseUrl}`, {
     categoryName,
     content,
     cost,
-    date,
-    paymentMethod,
+    date: `${year}-${month.toString().padStart(2, '0')}-${date
+      .toString()
+      .padStart(2, '0')}`,
+    paymentMethod: payment,
     revenueExpenditureType,
+    revenueExpenditureId,
   });
+  return data;
+};
+
+export const deleteHistory = async (id) => {
+  setToken();
+  const { data } = await axios.delete(`${baseUrl}/${id}`);
   return data;
 };
