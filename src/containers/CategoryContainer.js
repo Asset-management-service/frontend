@@ -1,32 +1,17 @@
 import React from 'react';
-import { useQuery, useMutation } from 'react-query';
+import { useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeInput,
   insertCategory,
   removeCategory,
-  setCategory,
 } from '../modules/category';
 import SetCategory from '../components/FinancialLedger/SetCategory';
-import {
-  getSettingCategory,
-  postSettingCategory,
-  deleteSettingCategory,
-} from '../lib/api/setting';
+import { postSettingCategory, deleteSettingCategory } from '../lib/api/setting';
 
 function CategoryContainer({ content }) {
   const category = useSelector(({ category }) => category);
   const dispatch = useDispatch();
-  const { data, status } = useQuery(
-    ['getCategory', content],
-    () => getSettingCategory(content.toLowerCase()),
-    {
-      refetchOnWindowFocus: false,
-      onSuccess: (data) => {
-        dispatch(setCategory(content, data.categories));
-      },
-    },
-  );
   const insertMutation = useMutation(
     () => postSettingCategory(content, category.categoryInput),
     {

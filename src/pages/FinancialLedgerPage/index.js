@@ -1,8 +1,13 @@
+import { useDispatch } from 'react-redux';
+import { useQueries } from 'react-query';
 import { Outlet, useParams } from 'react-router-dom';
 import { NotLogin } from '../../components/common/NotLogin';
 import SideBar from '../../components/common/SideBar';
 import { MONEYBOOK_PAGE_NAV } from '../../constants/nav';
+import { FINANCIAL_CATEGORY } from '../../constants/category';
 import { useRedirect } from '../../hooks/useRedirect';
+import { setCategory } from '../../modules/category';
+import { getSettingCategory } from '../../lib/api/setting';
 import styled from 'styled-components';
 
 const MainWrapper = styled.main`
@@ -16,8 +21,20 @@ const MainWrapper = styled.main`
 `;
 
 function FinancialLedgerPage({ auth }) {
+  const dispatch = useDispatch();
   const { category } = useParams();
   useRedirect(category, '/financial/history');
+  const result = useQueries(
+    Object.keys(FINANCIAL_CATEGORY).map((key) => ({
+      queryKey: ['getCategory', key],
+      queryFn: () => getSettingCategory(key.toLowerCase()),
+      onSuccess: (data) => {
+        dispatch(setCategory(key, data.categories));
+      },
+      refetchOnWindowFocus: false,
+    })),
+  );
+
   if (!auth) {
     return <NotLogin />;
   }
