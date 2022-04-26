@@ -41,11 +41,7 @@ function SetMonthlyBudget({
     <SettingListContentWrapper>
       <ContentPropsWrapper onClick={openBudgetModalHandler}>
         한달 예산 금액 설정
-        <p>
-          {!budgetAmount && budgetAmount === ''
-            ? '--'
-            : '₩' + budgetAmount.toLocaleString()}
-        </p>
+        <p>{!budgetAmount ? '--' : '₩' + budgetAmount.toLocaleString()}</p>
       </ContentPropsWrapper>
       <ModalWrapper show={show}>
         <StyledModal>
