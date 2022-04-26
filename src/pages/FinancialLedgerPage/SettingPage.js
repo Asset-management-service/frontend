@@ -6,13 +6,9 @@ import BudgetContainer from '../../containers/BudgetContainer';
 import CategoryContainer from '../../containers/CategoryContainer';
 import ExpenseContainer from '../../containers/ExpenseContainer';
 
-const Section = styled.section`
-  height: 1000px;
-`;
-
 function SettingPage() {
   return (
-    <Section>
+    <section>
       <SettingList>
         <SettingListTitle title="예산 설정"></SettingListTitle>
         <hr width="50%"></hr>
@@ -31,7 +27,7 @@ function SettingPage() {
         <hr width="50%"></hr>
         <ExpenseContainer />
       </SettingList>
-    </Section>
+    </section>
   );
 }
 
