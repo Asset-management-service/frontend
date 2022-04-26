@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import HistoryMainItem from './HistoryMainItem';
 import styled from 'styled-components';
 
@@ -7,7 +6,7 @@ const HistoryItem = styled.li`
   border: 1px solid #f5f5f5;
   border-radius: 10px;
   padding: 1rem;
-  margin: 2rem 0;
+  margin-bottom: 2rem;
   .plus {
     color: #1e88e5;
   }
@@ -21,7 +20,7 @@ const ItemHeading = styled.div`
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
 function HistoryMainList({ history }) {
@@ -50,7 +49,7 @@ function HistoryMainList({ history }) {
     <HistoryItem>
       <ItemHeading>
         <p className="date">
-          {dateSplit[0]}년 {dateSplit[1]}월 {dateSplit[2]}일
+          {dateSplit[0]}년 {Number(dateSplit[1])}월 {Number(dateSplit[2])}일
         </p>
         <p>
           <span className="plus">+ ₩ {total.plus.toLocaleString()}</span>

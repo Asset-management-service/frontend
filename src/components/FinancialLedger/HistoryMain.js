@@ -11,9 +11,6 @@ const HistoryMainWrapper = styled.div`
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  .budgetPrice {
-    font-weight: bold;
-  }
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -44,7 +41,7 @@ const HistoryMainHeading = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 3rem;
   .Heading-column {
     display: flex;
     align-items: center;
@@ -64,12 +61,13 @@ const SummaryBox = styled.div`
   border-radius: 10px;
   font-weight: bold;
   margin-left: 1rem;
+  border: 2px solid black;
   &.plus {
-    border: 2px solid #42a5f5;
+    border-color: #42a5f5;
     color: #1e88e5;
   }
   &.minus {
-    border: 2px solid #fd5959;
+    border-color: #fd5959;
     color: #ff0000;
   }
 `;
@@ -103,6 +101,9 @@ function HistoryMain({
               </div>
             </div>
             <div className="Heading-column">
+              <SummaryBox>
+                예산 {data.remainingBudget.toLocaleString()}원
+              </SummaryBox>
               <SummaryBox className="plus">
                 수익 {data.totalRevenue.toLocaleString()}원
               </SummaryBox>
@@ -111,13 +112,6 @@ function HistoryMain({
               </SummaryBox>
             </div>
           </HistoryMainHeading>
-          <p>
-            💸 이번달 남은 예산 :
-            <span className="budgetPrice">
-              {' '}
-              ₩ {data.remainingBudget.toLocaleString()}
-            </span>{' '}
-          </p>
           {data.revenueExpenditureResponses.content.length == 0 ? (
             <div className="History-noContent">
               <p>수익 지출 내역이 없습니다</p>
