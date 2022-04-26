@@ -3,10 +3,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 
 const CategoryWrapper = styled.div`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid lightgray;
   justify-content: space-between;
   display: flex;
-  padding: 10px;
+  padding: 1rem 10px;
   font-size: 20px;
 `;
 
