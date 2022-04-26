@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 const StyledImageList = styled.ul`
-  margin-bottom: 2rem;
   img {
-    max-width: 1000px;
+    max-width: 900px;
     object-fit: cover;
     margin: 2rem 0;
   }
