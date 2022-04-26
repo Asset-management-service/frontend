@@ -7,6 +7,7 @@ import styled from 'styled-components';
 const Section = styled.section`
   display: flex;
   padding: 0.5rem;
+  padding-left: 270px;
   .MoneyLogPage-row {
     display: flex;
     flex-direction: column;

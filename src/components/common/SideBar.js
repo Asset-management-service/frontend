@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import Palette from '../../lib/Palette';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNav = styled.nav`
@@ -10,6 +8,7 @@ const StyledNav = styled.nav`
   top: 4.5rem;
   bottom: 0;
   left: 0;
+  z-index: 1;
   h2 {
     font-size: 30px;
     margin: 2rem 0 4rem 2rem;
