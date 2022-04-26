@@ -78,7 +78,7 @@ export function Editor({ onChange, onUploadImage, onRemoveImage, error }) {
   );
   return (
     <StyledEditor>
-      {title !== undefined && (
+      {title !== null && (
         <FormInput
           type="text"
           name="title"
