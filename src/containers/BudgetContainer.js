@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
+import { useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import SetMonthlyBudget from '../components/FinancialLedger/SetMonthlyBudget';
-import { changeBudgetInput, setBudgetInput } from '../modules/budget';
+import { putAssetBudget } from '../lib/api/setting';
+import { changeBudgetInput, setBudget } from '../modules/budget';
 
 function BudgetContainer() {
   const { budgetAmount, input } = useSelector(({ budget }) => budget);
   const dispatch = useDispatch();
-  const onBudgetHandler = (e) => {
-    dispatch(changeBudgetInput(e.target.value));
-  };
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState({
     isError: false,
     errorMessage: '',
   });
+  const mutation = useMutation(() => putAssetBudget(Number(input)), {
+    onSuccess: (data) => {
+      dispatch(setBudget(parseInt(input)));
+      console.log(data);
+    },
+  });
+  const onBudgetHandler = (e) => {
+    dispatch(changeBudgetInput(e.target.value));
+  };
 
   const openBudgetModalHandler = () => {
     setIsOpen(true);
@@ -38,7 +46,7 @@ function BudgetContainer() {
         errorMessage: '입력 값이 올바르지 않습니다',
       });
     } else if (isNaN(budget) === false && budget != 0) {
-      dispatch(setBudgetInput());
+      mutation.mutate();
       setIsOpen(false);
       setError({
         isError: false,
