@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMutation } from 'react-query';
 import SetExpenseRatio from '../components/FinancialLedger/SetExpenseRatio';
 import {
   changeExpenseRatio,
   initializeRatioInput,
   setExpenseRatio,
 } from '../modules/expense';
+import { putAssetExpenditureRatio } from '../lib/api/setting';
 
 function ExpenseContainer() {
   const { fixRatio, variableRatio, input } = useSelector(
@@ -18,6 +20,18 @@ function ExpenseContainer() {
     errorMessage: '',
   });
 
+  const putMutation = useMutation(
+    () =>
+      putAssetExpenditureRatio(
+        Number(input.fixRatio),
+        Number(input.variableRatio),
+      ),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    },
+  );
   const openRatioModalHandler = () => {
     setIsOpen(true);
   };
@@ -51,6 +65,7 @@ function ExpenseContainer() {
       dispatch(initializeRatioInput());
     } else if (ratioSum === 100) {
       dispatch(setExpenseRatio(ratio1, ratio2));
+      putMutation.mutate();
       setIsOpen(false);
       dispatch(initializeRatioInput());
     } else if (ratioSum !== 100) {
