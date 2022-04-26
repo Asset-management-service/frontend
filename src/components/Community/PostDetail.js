@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import CommentList from './CommentList';
 import PostDropMenu from './PostDropMenu';
-import ImageList from './ImageList';
+import ImageList from '../common/ImageList';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
@@ -77,7 +77,6 @@ const DetailHeading = styled.div`
 // 자신이 쓴 글이라면 수정 및 삭제 기능 추가되어야 함.
 
 function PostDetail({ post, onEdit, onDelete, like, onLike, onScrap }) {
-  const { auth } = useSelector(({ login }) => login);
   return (
     <DetailSection>
       <div className="BoardDetail-user">
@@ -105,20 +104,18 @@ function PostDetail({ post, onEdit, onDelete, like, onLike, onScrap }) {
             </li>
           </ul>
         </div>
-        {auth && (
-          <div>
-            <button onClick={onLike} className="like-btn">
-              {like ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
-            </button>
-            <PostDropMenu
-              scrap="true"
-              user={post.myPost}
-              onEdit={onEdit}
-              onScrap={onScrap}
-              onDelete={onDelete}
-            />
-          </div>
-        )}
+        <div>
+          <button onClick={onLike} className="like-btn">
+            {like ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
+          </button>
+          <PostDropMenu
+            scrap="true"
+            user={post.myPost}
+            onEdit={onEdit}
+            onScrap={onScrap}
+            onDelete={onDelete}
+          />
+        </div>
       </DetailHeading>
 
       <div className="BoardDetail-content">

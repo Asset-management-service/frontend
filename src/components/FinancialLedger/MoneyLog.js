@@ -2,14 +2,17 @@ import { DropMenu } from '../common/DropMenu';
 import { Button } from '../common/Button';
 import moneyBag from '../../images/money-bag.png';
 import styled, { css } from 'styled-components';
+import ImageList from '../common/ImageList';
 
 const MoneyLogWrapper = styled.div`
   flex-grow: 1;
   margin-left: 4rem;
-  p {
-    white-space: pre-line;
-    font-size: 19px;
+  .MoneyLog-content {
     padding-left: 2.6rem;
+    p {
+      white-space: pre-line;
+      font-size: 19px;
+    }
   }
   ${({ noWrite }) =>
     noWrite &&
@@ -44,8 +47,15 @@ const MoneyLogHeading = styled.div`
   }
 `;
 
-function MoneyLog({ moneyLog, onWrite, onEdit, onShare }) {
-  if (moneyLog.content === '' && moneyLog.images.length === 0) {
+function MoneyLog({ status, moneyLog, onWrite, onEdit, onShare }) {
+  if (status === 'loading') {
+    return (
+      <MoneyLogWrapper noWrite={'true'}>
+        <p>Loading...</p>
+      </MoneyLogWrapper>
+    );
+  }
+  if (status === 'error') {
     return (
       <MoneyLogWrapper noWrite={'true'}>
         <h3>작성된 머니로그가 없습니다</h3>
@@ -77,7 +87,10 @@ function MoneyLog({ moneyLog, onWrite, onEdit, onShare }) {
           height={65}
         />
       </MoneyLogHeading>
-      <p>{moneyLog.content}</p>
+      <div className="MoneyLog-content">
+        <ImageList images={moneyLog.imageUrl} />
+        <p>{moneyLog.content}</p>
+      </div>
     </MoneyLogWrapper>
   );
 }
