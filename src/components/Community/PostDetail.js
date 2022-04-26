@@ -30,7 +30,9 @@ const DetailSection = styled.div`
     font-size: 20px;
     padding: 3rem 0;
     margin-bottom: 2rem;
-    white-space: pre-line;
+    p {
+      white-space: pre-line;
+    }
   }
 `;
 
@@ -119,10 +121,10 @@ function PostDetail({ post, onEdit, onDelete, like, onLike, onScrap }) {
         )}
       </DetailHeading>
 
-      <p className="BoardDetail-content">
+      <div className="BoardDetail-content">
         <ImageList images={post.imageUrl} />
-        {post.content}
-      </p>
+        <p>{post.content}</p>
+      </div>
       <CommentList
         postId={post.postId}
         commentList={post.comments}
