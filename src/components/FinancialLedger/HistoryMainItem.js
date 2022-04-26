@@ -56,7 +56,7 @@ const ItemRow = styled.div`
       opacity: 0.6;
     }
     &.category {
-      margin-right: 1.5rem;
+      margin-right: 3rem;
       text-align: center;
       width: 120px;
     }
