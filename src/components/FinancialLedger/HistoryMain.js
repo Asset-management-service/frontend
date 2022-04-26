@@ -27,15 +27,14 @@ const HistoryMainWrapper = styled.div`
   &::-webkit-scrollbar-thumb:hover {
     background: #303030;
   }
-
-  ul {
+  .History-noContent {
     flex-grow: 1;
+    font-size: 20px;
+    opacity: 0.5;
     display: flex;
     justify-content: center;
     align-items: center;
-    .History-noContent {
-      font-size: 20px;
-      opacity: 0.5;
+    p {
       margin-bottom: 5rem;
     }
   }
@@ -119,19 +118,22 @@ function HistoryMain({
               ₩ {data.remainingBudget.toLocaleString()}
             </span>{' '}
           </p>
-          <ul>
-            {history &&
-              (data.revenueExpenditureResponses.content.length == 0 ? (
-                <p className="History-noContent">수익 지출 내역이 없습니다</p>
-              ) : (
-                history.map(
+          {data.revenueExpenditureResponses.content.length == 0 ? (
+            <div className="History-noContent">
+              <p>수익 지출 내역이 없습니다</p>
+            </div>
+          ) : (
+            history && (
+              <ul>
+                {history.map(
                   (item, index) =>
                     item.length !== 0 && (
                       <HistoryMainList key={index} history={item} />
                     ),
-                )
-              ))}
-          </ul>
+                )}
+              </ul>
+            )
+          )}
         </>
       )}
     </HistoryMainWrapper>
