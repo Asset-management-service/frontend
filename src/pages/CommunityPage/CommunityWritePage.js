@@ -50,8 +50,7 @@ function CommunityWritePage() {
   useEffect(() => {
     if (category === 'share') {
       dispatch(prepareShare());
-    }
-    if (state) {
+    } else if (state) {
       // 수정
       const post = {
         title: state.title,
