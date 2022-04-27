@@ -2,6 +2,7 @@ const CHANGE_FIELD = 'post/CHANGE_FIELD';
 const UPLOAD_IMAGE = 'post/UPLOAD_IMAGE';
 const REMOVE_IMAGE = 'post/REMOVE_IMAGE';
 const INITIALIZE = 'post/INITIALIZE';
+const ADD_TITLE_FILED = 'post/ADD_TITLE_FIELD';
 const SET_POST = 'post/SET_POST';
 
 export const changeField = (name, value) => ({
@@ -28,6 +29,10 @@ export const initialize = () => ({
 export const setPost = (post) => ({
   type: SET_POST,
   post,
+});
+
+export const addTitleField = () => ({
+  type: ADD_TITLE_FILED,
 });
 
 const initialState = {
@@ -65,9 +70,17 @@ const post = (state = initialState, action) => {
       };
     case INITIALIZE:
       return {
+        ...state,
         title: '',
         content: '',
-        images: [],
+        imageFiles: [],
+        saveImageUrl: [],
+        postId: null,
+      };
+    case ADD_TITLE_FILED:
+      return {
+        ...state,
+        title: '',
       };
     case SET_POST:
       return action.post;

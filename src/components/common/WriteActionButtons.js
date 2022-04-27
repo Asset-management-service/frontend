@@ -13,11 +13,11 @@ const ButtonBox = styled.div`
   }
 `;
 
-const WriteActionButtons = ({ isEdit, onCancel, onSubmit }) => {
+const WriteActionButtons = ({ isEdit, isShare, onCancel, onSubmit }) => {
   return (
     <ButtonBox>
       <Button outlined basiccolor="#40B2B7" onClick={onSubmit} type="button">
-        {isEdit ? '수정' : '완료'}
+        {isShare ? '공유' : isEdit ? '수정' : '완료'}
       </Button>
       <Button outlined basiccolor="black" onClick={onCancel} type="button">
         취소
