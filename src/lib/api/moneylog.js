@@ -3,7 +3,7 @@ import { setToken } from './auth';
 
 const baseUrl = process.env.REACT_APP_BACKEND_BASE_URL
   ? `${process.env.REACT_APP_BACKEND_BASE_URL}/api/assets/money-log`
-  : '/api/money-log';
+  : '/api/assets/money-log';
 
 export const getMoneyLog = async (year, month, date) => {
   setToken();
