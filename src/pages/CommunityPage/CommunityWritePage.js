@@ -6,7 +6,7 @@ import Loading from '../../components/common/Loading';
 import { NotLogin } from '../../components/common/NotLogin';
 import WriteActionButtons from '../../components/common/WriteActionButtons';
 import EditorContainer from '../../containers/EditorContainer';
-import { addTitleField, initialize } from '../../modules/post';
+import { prepareShare, initialize } from '../../modules/post';
 import { createPost, editPost } from '../../lib/api/post';
 import styled from 'styled-components';
 
@@ -44,7 +44,7 @@ function CommunityWritePage() {
   const [error, setError] = useState(false);
   useEffect(() => {
     if (category === 'share') {
-      dispatch(addTitleField());
+      dispatch(prepareShare());
     }
     return () => {
       dispatch(initialize());
