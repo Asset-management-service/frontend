@@ -11,11 +11,12 @@ function HistoryMainContainer() {
   const [history, setHistory] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data, status, isError, remove } = useQuery(
+  const { data, status, remove } = useQuery(
     ['getHistory', year, month],
     () => getHistory(year, month + 1),
     {
       refetchOnWindowFocus: false,
+      retry: false,
       onError: () => {
         navigate('/financial/setting', {
           state: '한달 예산 금액을 설정해주세요',
@@ -23,13 +24,6 @@ function HistoryMainContainer() {
       },
     },
   );
-  useEffect(() => {
-    if (!localStorage.getItem('BUDGET') || status === 'error') {
-      navigate('/financial/setting', {
-        state: '한달 예산 금액을 설정해주세요',
-      });
-    }
-  }, [isError]);
 
   useEffect(() => {
     return () => remove();
@@ -51,7 +45,6 @@ function HistoryMainContainer() {
 
   const showNextMonth = () => dispatch(moveNextMonth());
   const showPrevMonth = () => dispatch(movePrevMonth());
-  // GET api 호출 (날짜별 수익 및 지출 내역)
   return (
     <HistoryMain
       onMoveNext={showNextMonth}
