@@ -16,8 +16,6 @@ function BudgetContainer() {
   const mutation = useMutation(() => putAssetBudget(Number(input)), {
     onSuccess: (data) => {
       dispatch(setBudget(Number(input)));
-      localStorage.setItem('BUDGET', Number(input));
-      console.log(data);
     },
   });
   const onBudgetHandler = (e) => {

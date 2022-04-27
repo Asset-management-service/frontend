@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useQueries } from 'react-query';
+import { useQueries, useQuery } from 'react-query';
 import { Outlet, useParams } from 'react-router-dom';
 import { NotLogin } from '../../components/common/NotLogin';
 import SideBar from '../../components/common/SideBar';
@@ -7,9 +7,12 @@ import { MONEYBOOK_PAGE_NAV } from '../../constants/nav';
 import { FINANCIAL_CATEGORY } from '../../constants/category';
 import { useRedirect } from '../../hooks/useRedirect';
 import { setCategory } from '../../modules/category';
-import { getSettingCategory } from '../../lib/api/setting';
+import {
+  getAssetBudget,
+  getAssetExpenditureRatio,
+  getSettingCategory,
+} from '../../lib/api/setting';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import { setBudget } from '../../modules/budget';
 import { setExpenseRatio } from '../../modules/expense';
 
@@ -37,16 +40,23 @@ function FinancialLedgerPage({ auth }) {
       refetchOnWindowFocus: false,
     })),
   );
+  const budgetQuery = useQuery(['getBudget'], () => getAssetBudget(), {
+    refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      dispatch(setBudget(data.budgetAmount));
+    },
+  });
 
-  useEffect(() => {
-    dispatch(setBudget(Number(localStorage.getItem('BUDGET'))));
-    dispatch(
-      setExpenseRatio(
-        Number(localStorage.getItem('FIX_RATIO')),
-        Number(localStorage.getItem('VARIABLE_RATIO')),
-      ),
-    );
-  }, []);
+  const expenseRatioQuery = useQuery(
+    ['getExpenseRatio'],
+    () => getAssetExpenditureRatio(),
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        dispatch(setExpenseRatio(data.fixed, data.variable));
+      },
+    },
+  );
 
   if (!auth) {
     return <NotLogin />;

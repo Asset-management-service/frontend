@@ -20,19 +20,11 @@ function ExpenseContainer() {
     errorMessage: '',
   });
 
-  const putMutation = useMutation(
-    () =>
-      putAssetExpenditureRatio(
-        Number(input.fixRatio),
-        Number(input.variableRatio),
-      ),
-    {
-      onSuccess: (data) => {
-        console.log(data);
-        localStorage.setItem('FIX_RATIO', Number(input.fixRatio));
-        localStorage.setItem('VARIABLE_RATIO', Number(input.variableRatio));
-      },
-    },
+  const putMutation = useMutation(() =>
+    putAssetExpenditureRatio(
+      Number(input.fixRatio),
+      Number(input.variableRatio),
+    ),
   );
   const openRatioModalHandler = () => {
     setIsOpen(true);
