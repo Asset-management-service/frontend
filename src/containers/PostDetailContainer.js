@@ -61,7 +61,7 @@ function PostDetailContainer({ id, category }) {
       state: {
         title: data.title,
         content: data.content,
-        id: data.postId,
+        postId: data.postId,
         saveImageUrl: data.imageUrl,
         category,
       },

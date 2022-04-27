@@ -70,12 +70,12 @@ const post = (state = initialState, action) => {
       };
     case INITIALIZE:
       return {
-        ...state,
         title: '',
         content: '',
         imageFiles: [],
         saveImageUrl: [],
         postId: null,
+        nextId: 0,
       };
     case PREPARE_SHARE:
       return {
