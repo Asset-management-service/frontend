@@ -43,7 +43,7 @@ function HistoryMainContainer() {
       }
       data.revenueExpenditureResponses.content.forEach((item) => {
         const dateSplit = item.date.split('-');
-        newHistory[Number(dateSplit[2]) - 1].push(item);
+        newHistory[31 - Number(dateSplit[2]) - 1].push(item);
       });
       setHistory(newHistory);
     }
