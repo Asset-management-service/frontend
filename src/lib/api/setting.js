@@ -37,6 +37,12 @@ export const putAssetExpenditureRatio = async (fixed, variable) => {
   return data;
 };
 
+export const getAssetExpenditureRatio = async () => {
+  setToken();
+  const { data } = await axios.get(`${baseUrl}/expenditure`);
+  return data;
+};
+
 export const putAssetBudget = async (budgetAmount) => {
   setToken();
   const { data } = await axios.put(`${baseUrl}/budget`, {
@@ -45,11 +51,25 @@ export const putAssetBudget = async (budgetAmount) => {
   return data;
 };
 
-export const putAssetGoal = async (content, year, month, date) => {
+export const getAssetBudget = async () => {
+  setToken();
+  const { data } = await axios.get(`${baseUrl}/budget`);
+  return data;
+};
+
+export const putAssetGoal = async (content, year, month) => {
   setToken();
   const { data } = await axios.put(`${baseUrl}/asset-goal`, {
     content,
-    date: `${year}-${String(month).padStart(2, '0')}`,
+    date: `${year}-${String(month).padStart(2, '0')}-01`,
   });
+  return data;
+};
+
+export const getAssetGoal = async (year, month) => {
+  setToken();
+  const { data } = await axios.get(
+    `${baseUrl}/asset-goal?date=${year}-${String(month).padStart(2, '0')}-01`,
+  );
   return data;
 };

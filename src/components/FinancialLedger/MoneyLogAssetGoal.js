@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { FormInput } from '../common/FormInput';
-import { useForm } from '../../hooks';
-import { putAssetGoal } from '../../lib/api/setting';
+import { getAssetGoal, putAssetGoal } from '../../lib/api/setting';
 import styled, { css } from 'styled-components';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
@@ -51,14 +50,31 @@ const GoalInput = styled.div`
 
 function MoneyLogAssetGoal() {
   const { year, month } = useSelector(({ calender }) => calender);
-  const { form, onChange } = useForm({
-    goal: '',
-  });
+  const [goal, setGoal] = useState('');
   const [isEdit, setIsEdit] = useState(true);
-  const putMutation = useMutation(() => putAssetGoal(form.goal, year, month));
+  const query = useQuery(
+    ['getAssetGoal', year, month],
+    () => getAssetGoal(year, month + 1),
+    {
+      refetchOnWindowFocus: false,
+      retry: false,
+      onSuccess: (data) => {
+        setGoal(data.content);
+        setIsEdit(false);
+      },
+      onError: () => {
+        setGoal('');
+        setIsEdit(true);
+      },
+    },
+  );
+  const putMutation = useMutation(() => putAssetGoal(goal, year, month + 1));
+  const onChange = (e) => {
+    setGoal(e.target.value);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
-    if (form.goal === '') return;
+    if (goal === '') return;
     putMutation.mutate();
     if (isEdit) {
       setIsEdit(false);
@@ -69,7 +85,7 @@ function MoneyLogAssetGoal() {
       {isEdit ? (
         <>
           <FormInput
-            value={form.goal}
+            value={goal}
             onChange={onChange}
             name="goal"
             placeholder="이번달 자산관리 목표를 작성해보세요"
@@ -80,7 +96,7 @@ function MoneyLogAssetGoal() {
         </>
       ) : (
         <>
-          <p>🎯 {form.goal}</p>
+          <p>🎯 {goal}</p>
           <div className="editBtn">
             <button onClick={() => setIsEdit(true)}>수정하기</button>
           </div>
