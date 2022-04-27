@@ -2,7 +2,7 @@ const CHANGE_FIELD = 'post/CHANGE_FIELD';
 const UPLOAD_IMAGE = 'post/UPLOAD_IMAGE';
 const REMOVE_IMAGE = 'post/REMOVE_IMAGE';
 const INITIALIZE = 'post/INITIALIZE';
-const ADD_TITLE_FILED = 'post/ADD_TITLE_FIELD';
+const PREPARE_SHARE = 'post/PREPARE_SHARE';
 const SET_POST = 'post/SET_POST';
 
 export const changeField = (name, value) => ({
@@ -31,8 +31,8 @@ export const setPost = (post) => ({
   post,
 });
 
-export const addTitleField = () => ({
-  type: ADD_TITLE_FILED,
+export const prepareShare = () => ({
+  type: PREPARE_SHARE,
 });
 
 const initialState = {
@@ -77,10 +77,11 @@ const post = (state = initialState, action) => {
         saveImageUrl: [],
         postId: null,
       };
-    case ADD_TITLE_FILED:
+    case PREPARE_SHARE:
       return {
         ...state,
         title: '',
+        postId: null,
       };
     case SET_POST:
       return action.post;
