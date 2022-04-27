@@ -1,14 +1,14 @@
-import { useEffect, useState, useRef } from 'react';
-import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMutation } from 'react-query';
+import Loading from '../../components/common/Loading';
 import { NotLogin } from '../../components/common/NotLogin';
 import WriteActionButtons from '../../components/common/WriteActionButtons';
 import EditorContainer from '../../containers/EditorContainer';
-import { initialize, setPost } from '../../modules/post';
-import styled from 'styled-components';
-import { useMutation } from 'react-query';
+import { addTitleField, initialize } from '../../modules/post';
 import { createPost, editPost } from '../../lib/api/post';
-import Loading from '../../components/common/Loading';
+import styled from 'styled-components';
 
 const StyledForm = styled.form`
   width: 90vw;
@@ -41,8 +41,15 @@ function CommunityWritePage() {
   const [searchParams] = useSearchParams();
   const category = searchParams.get('category');
   const navigate = useNavigate();
-  const { state } = useLocation();
   const [error, setError] = useState(false);
+  useEffect(() => {
+    if (category === 'share') {
+      dispatch(addTitleField());
+    }
+    return () => {
+      dispatch(initialize());
+    };
+  }, []);
 
   const onCancel = () => navigate('/community');
   const onSubmit = async (e) => {
@@ -69,46 +76,7 @@ function CommunityWritePage() {
       };
       createMutation.mutate(newPost);
     }
-    // post api or patch api
-    // navigate to /community/category/id
   };
-  useEffect(() => {
-    if (state) {
-      console.log(state);
-      dispatch(
-        setPost({
-          title: state.title === undefined ? '' : state.title,
-          content: state.content,
-          saveImageUrl: state.saveImageUrl.map((url, index) => ({
-            image: url,
-            key: index,
-          })),
-          postId: state.id,
-          imageFiles: [],
-          nextId: state.saveImageUrl.length + 1,
-        }),
-      );
-    } else {
-      dispatch(
-        setPost({
-          title: '',
-          imageFiles: [],
-          saveImageUrl: [],
-          content: '',
-          nextId: 0,
-        }),
-      );
-    }
-  }, [state]);
-  useEffect(() => {
-    console.log(saveImageUrl, imageFiles);
-    console.log(postId);
-  }, [saveImageUrl, imageFiles, postId]);
-  useEffect(() => {
-    return () => {
-      dispatch(initialize());
-    };
-  }, []);
 
   if (!auth) {
     return <NotLogin />;
@@ -121,6 +89,7 @@ function CommunityWritePage() {
       <StyledForm>
         <WriteActionButtons
           isEdit={postId ? 'true' : undefined}
+          isShare={category === 'share' ? 'true' : undefined}
           onCancel={onCancel}
           onSubmit={onSubmit}
         />

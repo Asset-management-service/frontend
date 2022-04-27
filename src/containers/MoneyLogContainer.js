@@ -92,7 +92,7 @@ function MoneyLogContainer() {
   };
   // 커뮤니티 공유하기 함수
   const onShare = () => {
-    navigate('/community/write');
+    navigate('/community/write?category=share');
   };
   // 제출하기 함수 (수정 / 생성)
   const onSubmit = () => {
