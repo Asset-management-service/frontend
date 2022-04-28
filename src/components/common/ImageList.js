@@ -4,7 +4,7 @@ const StyledImageList = styled.ul`
   img {
     max-width: 900px;
     object-fit: cover;
-    margin: 2rem 0;
+    margin: 1rem 0 2rem;
   }
 `;
 function ImageList({ images }) {

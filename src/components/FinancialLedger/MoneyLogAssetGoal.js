@@ -19,7 +19,7 @@ const GoalInput = styled.div`
     }
   }
   p {
-    font-size: 15px;
+    font-size: 18px;
   }
   .editBtn {
     position: absolute;
