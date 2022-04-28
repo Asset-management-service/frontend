@@ -19,3 +19,23 @@ export const getUserCommunityInfo = async (category, page = 0) => {
   const { data } = await axios.get(`${url}?page=${page}`);
   return data;
 };
+
+//이메일 중복 확인
+export const getUserEmailCheck = async (email) => {
+  const { data } = await axios.get(`${baseUrl}/emailCheck?email=${email}`);
+  if(data === true){
+    alert('중복된 이메일입니다!')
+  }
+  else{
+    return data;
+  }
+};
+
+//이메일 인증
+export const getRegisterEmail = async (email) => {
+  setToken();
+  const { data } = await axios.get(`${baseUrl}/RegisterEmail?email=${email}`,{
+    email,
+  });
+  return data;
+};
