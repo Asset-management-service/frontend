@@ -7,11 +7,27 @@ import ImageList from '../common/ImageList';
 const MoneyLogWrapper = styled.div`
   flex-grow: 1;
   margin-left: 4rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #949494;
+    border-radius: 45px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #303030;
+  }
   .MoneyLog-content {
     padding-left: 2.6rem;
     p {
       white-space: pre-line;
       font-size: 19px;
+      margin-bottom: 2rem;
     }
   }
   ${({ noWrite }) =>

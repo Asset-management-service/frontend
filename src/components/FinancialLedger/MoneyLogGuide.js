@@ -9,6 +9,10 @@ const GuideWrapper = styled.div`
   flex-direction: column;
   flex-grow: 1;
   margin: 3rem 10px 0;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   h2 {
     font-size: 20px;
     margin-bottom: 1rem;
