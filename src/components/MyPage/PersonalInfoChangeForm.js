@@ -41,6 +41,21 @@ const CancelButton = styled.button`
         }
 `;
 
+const EmailButton = styled.button`
+        color: black;
+        margin: 1em;
+        padding: 0.25em 1em;
+        border: 2px solid lightgray;
+        border-radius: 4px;
+        display: block;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        &:hover{
+            background-color: lightgray;
+        }
+`;
+
 const InputBox = styled.input`
     border: 2px solid lightgray;
     border-radius: 3px;
@@ -68,8 +83,7 @@ const ItemWrapper = styled.div`
 
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
-//비밀번호 재설정 로직 삭제
-    const [phoneNo , setPhoneNo] = useState(" ");
+
     const [email , setEmail] = useState(" ");
 
 const onNicknameHandler = (event) => { //닉네임 재설정
@@ -162,7 +176,7 @@ class RadioButton extends React.Component {
                 <h2>개인 정보 변경</h2>
                 <FormWrapper>
                     <ItemWrapper><TitleWrapper>닉네임: </TitleWrapper><InputBox type="text" id="nickname" value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></ItemWrapper>
-                    <ItemWrapper><TitleWrapper>이메일: </TitleWrapper><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></ItemWrapper>
+                    <ItemWrapper><TitleWrapper>이메일: </TitleWrapper><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox><EmailButton>이메일 인증</EmailButton>&nbsp;<span id="checkEmail"></span></ItemWrapper>
                     <ItemWrapper><TitleWrapper>성별: </TitleWrapper><RadioButton></RadioButton></ItemWrapper>
                     <ItemWrapper>
                         <ButtonPosition>
