@@ -8,6 +8,7 @@ const Section = styled.section`
   display: flex;
   padding: 0.5rem;
   padding-left: 270px;
+  overflow: hidden;
   .MoneyLogPage-row {
     display: flex;
     flex-direction: column;
