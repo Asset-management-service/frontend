@@ -3,8 +3,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import styled from 'styled-components';
 
-const NotLoginWrapper = styled.div`
-  height: ${({ modal }) => (modal ? '190px' : '100vh')};
+const NotLoginWrapper = styled.section`
+  height: ${({ modal }) => modal && '150px'};
   display: flex;
   flex-direction: column;
   align-items: center;
