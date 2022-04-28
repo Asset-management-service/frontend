@@ -1,26 +1,24 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import Loading from '../components/common/Loading';
 import PostDetail from '../components/Community/PostDetail';
 import DoubleCheckModal from '../components/common/DoubleCheckModal';
 import { deletePost, getPost, likePost, scrapPost } from '../lib/api/post';
 
 function PostDetailContainer({ id, category }) {
-  const { data, status, remove } = useQuery(
-    ['postDetail', id],
-    () => getPost(id),
-    {
-      onSuccess: (data) => {
-        setLike(data.myLike);
-        setScrap(data.myScrap);
-      },
-      refetchOnWindowFocus: false,
+  const queryClient = useQueryClient();
+  const { data, status } = useQuery(['postDetail', id], () => getPost(id), {
+    onSuccess: (data) => {
+      setLike(data.myLike);
+      setScrap(data.myScrap);
     },
-  );
+    refetchOnWindowFocus: false,
+  });
   const deleteMutation = useMutation(() => deletePost(id), {
     onSuccess: () => {
       navigate(`/community/${category}`, { replace: true });
+      queryClient.useQueryClient(['recentPosts', category]);
     },
   });
   const scrapMutation = useMutation(() => scrapPost(id), {
@@ -43,9 +41,6 @@ function PostDetailContainer({ id, category }) {
       }
     }, 2000);
   }, [like]);
-  useEffect(() => {
-    return () => remove();
-  }, []);
 
   const onScrap = () => {
     if (scrap) {
