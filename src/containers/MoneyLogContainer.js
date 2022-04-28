@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -38,6 +38,7 @@ function MoneyLogContainer() {
               })),
               postId: data.moneyLogId,
               nextId: data.imageUrl.length + 1,
+              moneyLogImages: [],
             }),
           );
         } else {
@@ -49,6 +50,7 @@ function MoneyLogContainer() {
               saveImageUrl: [],
               postId: null,
               nextId: 0,
+              moneyLogImages: [],
             }),
           );
         }
@@ -119,6 +121,8 @@ function MoneyLogContainer() {
       ) : (
         <MoneyLog
           status={status}
+          postLoading={postMutation.isLoading}
+          editLoading={editMutation.isLoading}
           moneyLog={data}
           onWrite={onWrite}
           onEdit={onEdit}

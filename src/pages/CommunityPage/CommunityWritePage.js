@@ -25,13 +25,8 @@ const StyledForm = styled.form`
 function CommunityWritePage() {
   const { state } = useLocation();
   const { auth } = useSelector(({ login }) => login);
-  const { title, content, saveImageUrl, imageFiles, postId } = useSelector(
-    ({ post }) => post,
-  );
-  useEffect(
-    () => console.log(title, content, saveImageUrl, imageFiles, postId),
-    [title, content, saveImageUrl, imageFiles, postId],
-  );
+  const { title, content, saveImageUrl, imageFiles, postId, moneyLogImages } =
+    useSelector(({ post }) => post);
   const createMutation = useMutation((newPost) => createPost(newPost), {
     onSuccess: (data) => {
       navigate(`/community/${category}/${data.postId}`, { replace: true });
@@ -48,10 +43,9 @@ function CommunityWritePage() {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   useEffect(() => {
-    if (category === 'share') {
+    if (category === 'share' && !state) {
       dispatch(prepareShare());
     } else if (state) {
-      // 수정
       const post = {
         title: state.title,
         content: state.title,
@@ -60,8 +54,9 @@ function CommunityWritePage() {
           image: url,
           key: index,
         })),
-        nextId: saveImageUrl.length + 1,
+        nextId: state.saveImageUrl.length + 1,
         imageFiles: [],
+        moneyLogImages: [],
       };
       dispatch(setPost(post));
     } else {
@@ -94,6 +89,7 @@ function CommunityWritePage() {
         title,
         content,
         imageFiles,
+        moneyLogImages,
       };
       createMutation.mutate(newPost);
     }
@@ -110,7 +106,7 @@ function CommunityWritePage() {
       <StyledForm>
         <WriteActionButtons
           isEdit={postId ? 'true' : undefined}
-          isShare={category === 'share' ? 'true' : undefined}
+          isShare={category === 'share' && !state ? 'true' : undefined}
           onCancel={onCancel}
           onSubmit={onSubmit}
         />

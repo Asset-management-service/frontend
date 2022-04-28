@@ -44,29 +44,47 @@ const RemoveButton = styled.div`
   }
 `;
 
-function ImagePreview({ saveImageUrl, imageFiles, removeImage }) {
+function ImagePreview({
+  saveImageUrl,
+  imageFiles,
+  moneyLogImages,
+  removeImage,
+}) {
   return (
     <div>
-      {(saveImageUrl || imageFiles) &&
-        (imageFiles.length !== 0 || saveImageUrl.length !== 0) && (
+      {(saveImageUrl || imageFiles || moneyLogImages) &&
+        (saveImageUrl.length !== 0 ||
+          imageFiles.length !== 0 ||
+          moneyLogImages.length !== 0) && (
           <PreviewWrapper>
             <PreviewList>
-              {saveImageUrl.map((image) => (
-                <StyledPreview key={image.key}>
-                  <img src={image.image} />
-                  <RemoveButton onClick={() => removeImage(image.key)}>
-                    <CloseRoundedIcon />
-                  </RemoveButton>
-                </StyledPreview>
-              ))}
-              {imageFiles.map((image) => (
-                <StyledPreview key={image.key}>
-                  <img src={URL.createObjectURL(image.image)} />
-                  <RemoveButton onClick={() => removeImage(image.key)}>
-                    <CloseRoundedIcon />
-                  </RemoveButton>
-                </StyledPreview>
-              ))}
+              {saveImageUrl.length !== 0 &&
+                saveImageUrl.map((image) => (
+                  <StyledPreview key={image.key}>
+                    <img src={image.image} />
+                    <RemoveButton onClick={() => removeImage(image.key)}>
+                      <CloseRoundedIcon />
+                    </RemoveButton>
+                  </StyledPreview>
+                ))}
+              {moneyLogImages.length !== 0 &&
+                moneyLogImages.map((image) => (
+                  <StyledPreview key={image.key}>
+                    <img src={image.image} />
+                    <RemoveButton onClick={() => removeImage(image.key)}>
+                      <CloseRoundedIcon />
+                    </RemoveButton>
+                  </StyledPreview>
+                ))}
+              {imageFiles.length !== 0 &&
+                imageFiles.map((image) => (
+                  <StyledPreview key={image.key}>
+                    <img src={URL.createObjectURL(image.image)} />
+                    <RemoveButton onClick={() => removeImage(image.key)}>
+                      <CloseRoundedIcon />
+                    </RemoveButton>
+                  </StyledPreview>
+                ))}
             </PreviewList>
           </PreviewWrapper>
         )}

@@ -47,11 +47,33 @@ const MoneyLogHeading = styled.div`
   }
 `;
 
-function MoneyLog({ status, moneyLog, onWrite, onEdit, onShare }) {
+function MoneyLog({
+  status,
+  postLoading,
+  editLoading,
+  moneyLog,
+  onWrite,
+  onEdit,
+  onShare,
+}) {
   if (status === 'loading') {
     return (
       <MoneyLogWrapper noWrite={'true'}>
         <p>Loading...</p>
+      </MoneyLogWrapper>
+    );
+  }
+  if (postLoading) {
+    return (
+      <MoneyLogWrapper noWrite={'true'}>
+        <p>머니로그 등록중...</p>
+      </MoneyLogWrapper>
+    );
+  }
+  if (editLoading) {
+    return (
+      <MoneyLogWrapper noWrite={'true'}>
+        <p>머니로그 수정중...</p>
       </MoneyLogWrapper>
     );
   }
