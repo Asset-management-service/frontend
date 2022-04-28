@@ -20,6 +20,33 @@ export const getUserCommunityInfo = async (category, page = 0) => {
   return data;
 };
 
+//개인정보 조회
+export const getUsers = async (id) => {
+  const { data } = await axios.get(`${baseUrl}/users?id=${id}`,{
+    birthYear,
+    birthday,
+    createdDate,
+    email,
+    gender,
+    id,
+    nickname,
+    phoneNum,
+    updatedDate
+  });
+    return data;
+};
+
+//개인정보 수정
+export const patchUser= async (id) => {
+  const { data } = await axios.get(`${baseUrl}/users?id=${id}`,{
+    email,
+    gender,
+    nickname,
+    phoneNum
+  });
+  return data;
+};
+
 //이메일 중복 확인
 export const getUserEmailCheck = async (email) => {
   const { data } = await axios.get(`${baseUrl}/emailCheck?email=${email}`);
