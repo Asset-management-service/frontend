@@ -76,11 +76,6 @@ const onNicknameHandler = (event) => { //닉네임 재설정
     setNickname(event.currentTarget.value)
 }
 
-const onPhoneNoHandler = (event) => { //핸드폰 번호 재설정
-    setPhoneNo(event.currentTarget.value);
-    checkPhoneNo(phoneNo);
-}
-
 const onEmailHandler = (event) => { //이메일 재설정
     setEmail(event.currentTarget.value)
     checkEmail(email);
@@ -91,11 +86,6 @@ const checkEmail = (email) => {
 	var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	return regEmail.test(email);
 }
-
-const checkPhoneNo = (phoneNo) => {
-    var regPhone = /^01([0])?([0-9]{4})?([0-9]{4})$/;
-    return regPhone.test(phoneNo);
-    }
 
 //이메일 검사, 닉네임, 핸드폰 번호 검사 로직 추가
 const onSubmit = (event) => {
@@ -116,16 +106,6 @@ const onSubmit = (event) => {
         document.getElementById('checkNickname').style.color='red';
     }
 
-    if(phoneNo == " "){
-        document.getElementById('checkPhoneNo').innerHTML='<b>핸드폰 번호를 입력해주세요.<b>';
-        document.getElementById('checkPhoneNo').style.color='red';
-    }else{
-        if(!checkPhoneNo(phoneNo)){
-        document.getElementById('checkPhoneNo').innerHTML='<b>핸드폰 형식이 올바르지 않습니다.<b>';
-        document.getElementById('checkPhoneNo').style.color='red';
-        }
-}
-
 }
 
 const goCancel = (event) => {
@@ -133,9 +113,6 @@ const goCancel = (event) => {
     //닉네임 값  초기화
     var nicknameValue = document.getElementById('nickname'); 
     nicknameValue.value = null; 
-     //핸드폰 번호 초기화
-    var phoneNoValue = document.getElementById('phoneNo'); 
-    phoneNoValue.value = null; 
      //이메일  초기화
     var emailValue = document.getElementById('email'); 
     emailValue.value = null; 
@@ -185,7 +162,6 @@ class RadioButton extends React.Component {
                 <h2>개인 정보 변경</h2>
                 <FormWrapper>
                     <ItemWrapper><TitleWrapper>닉네임: </TitleWrapper><InputBox type="text" id="nickname" value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></ItemWrapper>
-                    <ItemWrapper><TitleWrapper>핸드폰 번호: </TitleWrapper><InputBox type="tel" id="phoneNo" pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" value={phoneNo} onChange={onPhoneNoHandler} required></InputBox>&nbsp; <span id="checkPhoneNo"></span></ItemWrapper>
                     <ItemWrapper><TitleWrapper>이메일: </TitleWrapper><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp; <span id="checkEmail"></span></ItemWrapper>
                     <ItemWrapper><TitleWrapper>성별: </TitleWrapper><RadioButton></RadioButton></ItemWrapper>
                     <ItemWrapper>
