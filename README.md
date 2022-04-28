@@ -6,8 +6,6 @@
 
 - [react-router-dom](https://reactrouter.com/)
 
-출처: https://eunhee-programming.tistory.com/239 [코드짜는 문과녀]
-
 **State Management**
 
 - [redux](https://ko.redux.js.org/introduction/getting-started/)
