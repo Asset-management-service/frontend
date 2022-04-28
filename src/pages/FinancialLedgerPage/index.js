@@ -58,13 +58,10 @@ function FinancialLedgerPage({ auth }) {
     },
   );
 
-  if (!auth) {
-    return <NotLogin />;
-  }
   return (
     <MainWrapper>
       <SideBar menu={'가계부'} navs={MONEYBOOK_PAGE_NAV} />
-      <Outlet />
+      {auth ? <Outlet /> : <NotLogin />}
     </MainWrapper>
   );
 }

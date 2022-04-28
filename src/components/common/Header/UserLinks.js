@@ -40,6 +40,10 @@ const StyledUserLink = styled.li`
   .UserLinks-icon {
     margin-right: 5px;
   }
+  .login-btn {
+    font-weight: bold;
+    color: #40b2b7;
+  }
 `;
 
 function UserLinks() {
@@ -70,7 +74,7 @@ function UserLinks() {
         {auth ? (
           <button onClick={onLogout}>로그아웃</button>
         ) : (
-          <button onClick={() => setShow(true)}>
+          <button onClick={() => setShow(true)} className="login-btn">
             <LoginRoundedIcon className="UserLinks-icon" />
             로그인하기
           </button>

@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { NotLoginModal } from '../common/NotLogin';
+import styled, { css } from 'styled-components';
 
 const StyledItem = styled.li`
   font-size: 17px;
@@ -12,7 +14,7 @@ const StyledItem = styled.li`
       text-align: left;
     }
   }
-  .BoardItem-title {
+  .PostItem-title {
     display: flex;
     align-items: center;
     margin-bottom: 0.5rem;
@@ -24,7 +26,7 @@ const StyledItem = styled.li`
       color: red;
     }
   }
-  p {
+  .PostItem-content {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -35,37 +37,68 @@ const StyledItem = styled.li`
   }
 `;
 
-const StyledLink = styled.div.attrs(({ auth }) => ({
-  as: auth && Link,
-}))`
+const itemStyle = css`
   padding: 1rem;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
   transition: all 0.2s ease-in-out;
   border-radius: 10px;
   align-items: flex-start;
+  cursor: pointer;
   &:hover {
     background-color: #f4f4f4;
   }
+`;
+const StyledLink = styled(Link)`
+  ${itemStyle}
+`;
+
+const StyledDiv = styled.div`
+  ${itemStyle}
 `;
 
 function PostItem({ post }) {
   const to = `${post.postId}`;
   const { auth } = useSelector(({ login }) => login);
+  const [show, setShow] = useState(false);
+  const showModal = () => {
+    setShow(true);
+  };
+  const closeModal = () => {
+    setShow(false);
+  };
   return (
     <StyledItem>
-      <StyledLink to={to} auth={auth}>
-        <div>
-          <div className="BoardItem-title">
-            <h3>{post.title}</h3>
-            <span>[{post.commentCount}]</span>
+      {auth ? (
+        <StyledLink to={to}>
+          <div>
+            <div className="PostItem-title">
+              <h3>{post.title}</h3>
+              <span>[{post.commentCount}]</span>
+            </div>
+            <p className="PostItem-content">{post.content}</p>
           </div>
-          <p>{post.content}</p>
-        </div>
-        <div>{post.username}</div>
-        <div>{post.localDateTime}</div>
-        <div>{post.viewCount} views</div>
-      </StyledLink>
+          <div>{post.username}</div>
+          <div>{post.localDateTime}</div>
+          <div>{post.viewCount} views</div>
+        </StyledLink>
+      ) : (
+        <>
+          <StyledDiv onClick={showModal}>
+            <div>
+              <div className="PostItem-title">
+                <h3>{post.title}</h3>
+                <span>[{post.commentCount}]</span>
+              </div>
+              <p className="PostItem-content">{post.content}</p>
+            </div>
+            <div>{post.username}</div>
+            <div>{post.localDateTime}</div>
+            <div>{post.viewCount} views</div>
+          </StyledDiv>
+          <NotLoginModal show={show} onClose={closeModal} />
+        </>
+      )}
     </StyledItem>
   );
 }
