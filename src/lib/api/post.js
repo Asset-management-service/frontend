@@ -19,13 +19,18 @@ export const getPost = async (id) => {
 };
 
 export const createPost = async (newPost) => {
-  const { title, content, category, imageFiles } = newPost;
+  const { title, content, category, imageFiles, moneyLogImages } = newPost;
   const formData = new FormData();
   formData.append('categoryName', category);
   formData.append('content', content);
   formData.append('title', title);
-  if (imageFiles.length != 0) {
+  if (imageFiles.length !== 0) {
     imageFiles.forEach((file) => formData.append('imageFiles', file.image));
+  }
+  if (moneyLogImages.length !== 0) {
+    moneyLogImages.forEach((image) =>
+      formData.append('moneyLogImages', image.image),
+    );
   }
   setToken();
   const { data } = await axios.post(baseUrl, formData);
@@ -38,12 +43,12 @@ export const editPost = async (post) => {
   formData.append('postId', postId);
   formData.append('title', title);
   formData.append('content', content);
-  if (saveImageUrl.length != 0) {
+  if (saveImageUrl.length !== 0) {
     saveImageUrl.forEach((image) =>
       formData.append('saveImageUrl', image.image),
     );
   }
-  if (imageFiles.length != 0) {
+  if (imageFiles.length !== 0) {
     imageFiles.forEach((file) => formData.append('imageFiles', file.image));
   }
   setToken();

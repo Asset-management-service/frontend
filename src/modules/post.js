@@ -40,6 +40,7 @@ const initialState = {
   content: '',
   imageFiles: [],
   saveImageUrl: [],
+  moneyLogImages: [],
   postId: null,
   nextId: 0,
 };
@@ -65,7 +66,10 @@ const post = (state = initialState, action) => {
         ...state,
         imageFiles: state.imageFiles.filter((image) => image.key !== action.id),
         saveImageUrl: state.saveImageUrl.filter(
-          (image) => image.key != action.id,
+          (image) => image.key !== action.id,
+        ),
+        moneyLogImages: state.moneyLogImages.filter(
+          (image) => image.key !== action.id,
         ),
       };
     case INITIALIZE:
@@ -74,6 +78,7 @@ const post = (state = initialState, action) => {
         content: '',
         imageFiles: [],
         saveImageUrl: [],
+        moneyLogImages: [],
         postId: null,
         nextId: 0,
       };
@@ -82,6 +87,10 @@ const post = (state = initialState, action) => {
         ...state,
         title: '',
         postId: null,
+        saveImageUrl: [],
+        imageFiles: [],
+        moneyLogImages: state.saveImageUrl,
+        nextId: state.saveImageUrl.length + 1,
       };
     case SET_POST:
       return action.post;

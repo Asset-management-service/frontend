@@ -73,9 +73,8 @@ const ImageButton = styled.span`
 `;
 
 export function Editor({ onChange, onUploadImage, onRemoveImage, error }) {
-  const { title, content, imageFiles, saveImageUrl } = useSelector(
-    ({ post }) => post,
-  );
+  const { title, content, imageFiles, saveImageUrl, moneyLogImages } =
+    useSelector(({ post }) => post);
   return (
     <StyledEditor>
       {title !== null && (
@@ -105,6 +104,7 @@ export function Editor({ onChange, onUploadImage, onRemoveImage, error }) {
         <ImagePreview
           saveImageUrl={saveImageUrl}
           imageFiles={imageFiles}
+          moneyLogImages={moneyLogImages}
           removeImage={onRemoveImage}
         />
       </EditorBox>
