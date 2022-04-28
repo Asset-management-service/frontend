@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import Loading from '../../components/common/Loading';
 import { NotLogin } from '../../components/common/NotLogin';
 import WriteActionButtons from '../../components/common/WriteActionButtons';
@@ -27,14 +27,17 @@ function CommunityWritePage() {
   const { auth } = useSelector(({ login }) => login);
   const { title, content, saveImageUrl, imageFiles, postId, moneyLogImages } =
     useSelector(({ post }) => post);
+  const queryClient = useQueryClient();
   const createMutation = useMutation((newPost) => createPost(newPost), {
     onSuccess: (data) => {
       navigate(`/community/${category}/${data.postId}`, { replace: true });
+      queryClient.refetchQueries(['postDetail', data.postId]);
     },
   });
   const editMutation = useMutation((post) => editPost(post), {
     onSuccess: (data) => {
       navigate(`/community/${category}/${data.postId}`, { replace: true });
+      queryClient.refetchQueries(['postDetail', data.postId]);
     },
   });
   const dispatch = useDispatch();
@@ -67,7 +70,7 @@ function CommunityWritePage() {
     };
   }, []);
 
-  const onCancel = () => navigate('/community');
+  const onCancel = () => navigate(`/community/${category}`);
   const onSubmit = async (e) => {
     e.preventDefault();
     if (title === '' || content === '') {

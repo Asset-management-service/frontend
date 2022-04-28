@@ -24,8 +24,7 @@ const StyledButton = styled(Button)`
 
 function CommunityListPage() {
   const { category } = useParams();
-  // category에 따라 게시물 가져오기 (api 요청)
-  const { data, hasNextPage, status, fetchNextPage, remove } = useInfiniteQuery(
+  const { data, hasNextPage, status, fetchNextPage } = useInfiniteQuery(
     ['recentPosts', category],
     ({ pageParam = 0 }) => getRecentPosts(category, pageParam),
     {
@@ -58,10 +57,6 @@ function CommunityListPage() {
       observer.unobserve(el);
     };
   }, [hasNextPage, loadMoreRef.current]);
-
-  useEffect(() => {
-    return () => remove();
-  }, []);
 
   if (status === 'loading') {
     return (
