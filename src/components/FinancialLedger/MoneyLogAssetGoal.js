@@ -10,7 +10,7 @@ const GoalInput = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  margin: 1.5rem 10px;
+  margin: 0 10px 1rem;
   input {
     font-size: 15px;
     padding: 0.5rem 0;
@@ -20,6 +20,12 @@ const GoalInput = styled.div`
   }
   p {
     font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    span {
+      margin: 5px 0 0 5px;
+    }
   }
   .editBtn {
     position: absolute;
@@ -96,7 +102,9 @@ function MoneyLogAssetGoal() {
         </>
       ) : (
         <>
-          <p>🎯 {goal}</p>
+          <p>
+            🎯 <span>{goal}</span>
+          </p>
           <div className="editBtn">
             <button onClick={() => setIsEdit(true)}>수정하기</button>
           </div>
