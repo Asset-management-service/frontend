@@ -14,7 +14,6 @@ import FinancialLedgerPage from './pages/FinancialLedgerPage';
 import FinancialLedgerSubPage from './pages/FinancialLedgerPage/FinancialLedgerSubPage';
 import { loginSuccess } from './modules/login';
 import './App.scss';
-import PersonalInfoChangeForm from './components/MyPage/PersonalInfoChangeForm';
 
 const queryClient = new QueryClient();
 
@@ -29,7 +28,27 @@ function App() {
   }, [token]);
   return (
     <QueryClientProvider client={queryClient}>
-      <PersonalInfoChangeForm></PersonalInfoChangeForm>
+       <Routes>
+        <Route path="/" element={<Home />} />
+        <Route element={<Header loading={loading} />}>
+          <Route path="/mypage" element={<MyPage auth={auth} />}>
+            <Route path=":category" element={<MySubPage />} />
+          </Route>
+          <Route
+            path="/financial"
+            element={<FinancialLedgerPage auth={auth} />}
+          >
+            <Route path=":category" element={<FinancialLedgerSubPage />} />
+          </Route>
+          <Route path="/community" element={<CommunityPage />}>
+            <Route path=":category" element={<CommunitySubPage />}>
+              <Route path=":id" element={<CommunitySubPage />} />
+            </Route>
+          </Route>
+          <Route path="/community/write" element={<CommunityWritePage />} />
+        </Route>
+        <Route path="/oauth/redirect" element={<OauthRedirect />} />
+      </Routes>
     </QueryClientProvider>
   );
 }
