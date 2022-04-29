@@ -8,6 +8,11 @@ const ButtonPosition = styled.div`
     justify-content: center;
 `;
 
+
+const EmailButtonPosition = styled.div`
+    display: flex;
+`;
+
 const ConfirmButton = styled.button`
     color: black;
     font-style: bold;
@@ -176,7 +181,12 @@ class RadioButton extends React.Component {
                 <h2>개인 정보 변경</h2>
                 <FormWrapper>
                     <ItemWrapper><TitleWrapper>닉네임: </TitleWrapper><InputBox type="text" id="nickname" value={nickname} onChange={onNicknameHandler}></InputBox>&nbsp; <span id="checkNickname"></span></ItemWrapper>
-                    <ItemWrapper><TitleWrapper>이메일: </TitleWrapper><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox><EmailButton>이메일 인증</EmailButton>&nbsp;<span id="checkEmail"></span></ItemWrapper>
+                    <ItemWrapper><TitleWrapper>이메일: </TitleWrapper><InputBox type="email" id="email" value={email} onChange={onEmailHandler}></InputBox>&nbsp;<span id="checkEmail"></span>
+                    <EmailButtonPosition>
+                        <EmailButton>이메일 중복 확인</EmailButton>
+                        <EmailButton>이메일 인증</EmailButton>
+                    </EmailButtonPosition>
+                    </ItemWrapper>
                     <ItemWrapper><TitleWrapper>성별: </TitleWrapper><RadioButton></RadioButton></ItemWrapper>
                     <ItemWrapper>
                         <ButtonPosition>
