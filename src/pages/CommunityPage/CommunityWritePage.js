@@ -51,7 +51,7 @@ function CommunityWritePage() {
     } else if (state) {
       const post = {
         title: state.title,
-        content: state.title,
+        content: state.content,
         postId: state.postId,
         saveImageUrl: state.saveImageUrl.map((url, index) => ({
           image: url,
