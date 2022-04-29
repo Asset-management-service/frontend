@@ -29,7 +29,7 @@ const GoalInput = styled.div`
   }
   .editBtn {
     position: absolute;
-    top: 0;
+    top: 4px;
     left: 0;
     right: 0;
     bottom: 0;
