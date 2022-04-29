@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react';
 import { DropMenu } from '../common/DropMenu';
 import { Button } from '../common/Button';
 import moneyBag from '../../images/money-bag.png';
 import styled, { css } from 'styled-components';
 import ImageList from '../common/ImageList';
+import { insertAutoLink } from '../../lib';
 
 const MoneyLogWrapper = styled.div`
   flex-grow: 1;
@@ -28,6 +30,9 @@ const MoneyLogWrapper = styled.div`
       white-space: pre-line;
       font-size: 19px;
       margin-bottom: 2rem;
+      a {
+        text-decoration: underline;
+      }
     }
   }
   ${({ noWrite }) =>
@@ -72,6 +77,14 @@ function MoneyLog({
   onEdit,
   onShare,
 }) {
+  const [newText, setNewText] = useState('');
+  useEffect(() => {
+    if (moneyLog) {
+      setNewText(moneyLog.content);
+      const newText = insertAutoLink(moneyLog.content);
+      setNewText(newText);
+    }
+  }, [moneyLog]);
   if (status === 'loading') {
     return (
       <MoneyLogWrapper noWrite={'true'}>
@@ -127,7 +140,7 @@ function MoneyLog({
       </MoneyLogHeading>
       <div className="MoneyLog-content">
         <ImageList images={moneyLog.imageUrl} />
-        <p>{moneyLog.content}</p>
+        <p dangerouslySetInnerHTML={{ __html: newText }}></p>
       </div>
     </MoneyLogWrapper>
   );

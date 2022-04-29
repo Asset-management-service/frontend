@@ -1,3 +1,4 @@
-import Palette from "./Palette";
+import Palette from './Palette';
+import { insertAutoLink } from './utils';
 
-export { Palette };
+export { Palette, insertAutoLink };
