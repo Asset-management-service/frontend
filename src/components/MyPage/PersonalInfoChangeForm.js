@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { Button } from '../common/Button';
+import { getUsers,patchUser} from '../../lib/api/user';
 
 const ButtonPosition = styled.div`
     display: flex;
@@ -65,6 +67,9 @@ const RadioItem = styled.span`
 const ItemWrapper = styled.div`
     padding: 2rem;
 `;
+
+const queryClient = useQueryClient();
+
 
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
