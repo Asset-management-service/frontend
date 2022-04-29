@@ -108,15 +108,12 @@ function HistoryForm({
   onSubmit,
   categories,
   payments,
-  show,
-  onRemove,
-  closeModal,
 }) {
   const { type, category, price, content, payment, isEdit } = history;
   return (
     <>
       <StyledForm>
-        <h2>수익 지출 내역 {isEdit ? '수정' : '추가'}</h2> {/*or 수정 */}
+        <h2>수익 지출 내역 {isEdit ? '수정' : '추가'}</h2>
         <div>
           <h3>유형</h3>
           <div className="radioBtns HistoryForm-row">
@@ -188,19 +185,13 @@ function HistoryForm({
         </div>
         <ButtonBox>
           <StyledButton type="button" onClick={onCancel} className="cancelBtn">
-            {isEdit ? '삭제' : '취소'}
+            취소
           </StyledButton>
           <StyledButton type="submit" className="submitBtn" onClick={onSubmit}>
             {isEdit ? '수정' : '추가'}
           </StyledButton>
         </ButtonBox>
       </StyledForm>
-      <DoubleCheckModal
-        text="삭제하시겠습니까?"
-        show={show}
-        onCancel={closeModal}
-        onSubmit={onRemove}
-      />
     </>
   );
 }

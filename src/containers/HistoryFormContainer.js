@@ -15,7 +15,6 @@ function HistoryFormContainer() {
   const category = useSelector(({ category }) => category);
   const [categories, setCategories] = useState([]);
   const [payments, setPayments] = useState([]);
-  const [show, setShow] = useState(false);
   const postMutation = useMutation(
     (type) =>
       postHistory(
@@ -53,21 +52,7 @@ function HistoryFormContainer() {
       },
     },
   );
-  const deleteMutation = useMutation((id) => deleteHistory(id), {
-    onSuccess: () => {
-      queryClient.refetchQueries(['getHistory', year, month]);
-      dispatch(
-        setHistory({
-          payment: '',
-          category: '',
-          price: '',
-          content: '',
-          isEdit: false,
-          id: null,
-        }),
-      );
-    },
-  });
+
   useEffect(() => {
     if (history.type === 'income') {
       setCategories(
@@ -107,27 +92,16 @@ function HistoryFormContainer() {
   };
   const onCancel = (e) => {
     e.preventDefault();
-    if (history.isEdit) {
-      setShow(true);
-    } else {
-      dispatch(
-        setHistory({
-          payment: '',
-          category: '',
-          price: '',
-          content: '',
-          isEdit: false,
-          id: null,
-        }),
-      );
-    }
-  };
-  const onRemove = () => {
-    deleteMutation.mutate(history.id);
-    setShow(false);
-  };
-  const closeModal = () => {
-    setShow(false);
+    dispatch(
+      setHistory({
+        payment: '',
+        category: '',
+        price: '',
+        content: '',
+        isEdit: false,
+        id: null,
+      }),
+    );
   };
   const onSubmit = (e) => {
     e.preventDefault();
@@ -163,12 +137,9 @@ function HistoryFormContainer() {
       history={history}
       onChange={onChange}
       onCancel={onCancel}
-      onRemove={onRemove}
       onSubmit={onSubmit}
       categories={categories}
       payments={payments}
-      show={show}
-      closeModal={closeModal}
     />
   );
 }
