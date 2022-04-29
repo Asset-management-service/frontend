@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQueryClient } from 'react-query';
+import { useQueryClient, useMutation} from 'react-query';
 import { setToken } from './auth';
 
 const baseUrl = process.env.REACT_APP_BACKEND_BASE_URL
@@ -55,3 +55,61 @@ export const getRegisterEmail = async (email) => {
   const { data } = await axios.get(`${baseUrl}/RegisterEmail?email=${email}`);
   return data;
 };
+
+
+
+const useQuery = useQueryClient();
+//개인정보 조회
+const { data } = useQuery(
+    ['getUsers', id],
+    () => getUsers(id),
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (id) => {
+        navigate('/api/users');
+      },
+    },
+  );
+
+//개인정보 수정
+const PatchMutation = useMutation(
+    (type) =>
+      patchUsers(
+       email,
+       gender,
+       nickname,
+       phoneNum
+      ),
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['patchUsers', email, gender, nickname, phoneNum]);
+      },
+    },
+  );
+
+//이메일 중복 확인
+const { data } = useQuery(
+    ['getUserEmailCheck', email],
+    () => getUserEmailCheck(email),
+    {
+      refetchOnWindowFocus: false,
+      onError: () => {
+        alert('중복된 이메일입니다.');
+      },
+      onSuccess: (email) => {
+        navigate(`api/user/emailCheck?email=${email}`);
+      },
+    },
+  );
+
+//이메일 인증
+const { data } = useQuery(
+    ['getRegisterEmail', email],
+    () => getRegisterEmail(email),
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: ( email ) => {
+        navigate(`api/user/RegisterEmail?email=${email}`);
+      },
+    },
+  );
