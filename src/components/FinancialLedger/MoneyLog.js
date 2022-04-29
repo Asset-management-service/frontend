@@ -55,7 +55,7 @@ const MoneyLogHeading = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin: 0 1rem 1rem 0;
   h2 {
     font-size: 25px;
     display: flex;
