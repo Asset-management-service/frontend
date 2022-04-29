@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
 import CommentList from './CommentList';
 import PostDropMenu from './PostDropMenu';
 import ImageList from '../common/ImageList';
+import { insertAutoLink } from '../../lib';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
@@ -14,24 +14,27 @@ const DetailSection = styled.div`
   font-size: 16px;
   padding: 0rem 3rem 3rem;
 
-  .BoardDetail-user {
+  .PostDetail-user {
     display: flex;
     svg {
       font-size: 45px;
       margin-right: 10px;
       color: rgba(0, 0, 0, 0.6);
     }
-    .BoardDetail-date {
+    .PostDetail-date {
       color: rgba(0, 0, 0, 0.5);
       margin-top: 3px;
     }
   }
-  .BoardDetail-content {
+  .PostDetail-content {
     font-size: 20px;
     padding: 3rem 0;
     margin-bottom: 2rem;
     p {
       white-space: pre-line;
+      a {
+        text-decoration: underline;
+      }
     }
   }
 `;
@@ -46,7 +49,7 @@ const DetailHeading = styled.div`
     font-size: 25px;
     margin-bottom: 1rem;
   }
-  .BoardDetail-list {
+  .PostDetail-list {
     display: flex;
     align-items: center;
     li {
@@ -74,22 +77,27 @@ const DetailHeading = styled.div`
   }
 `;
 
-// 자신이 쓴 글이라면 수정 및 삭제 기능 추가되어야 함.
-
 function PostDetail({ post, onEdit, onDelete, like, onLike, onScrap }) {
+  const [newText, setNewText] = useState('');
+  useEffect(() => {
+    setNewText(post.content);
+    const newText = insertAutoLink(post.content);
+    setNewText(newText);
+  }, [post.content]);
+
   return (
     <DetailSection>
-      <div className="BoardDetail-user">
+      <div className="PostDetail-user">
         <AccountCircleRoundedIcon className="BoardDetail-icon" />
         <div>
           <p>{post.username}</p>
-          <p className="BoardDetail-date">{post.createDate}</p>
+          <p className="PostDetail-date">{post.createDate}</p>
         </div>
       </div>
       <DetailHeading>
         <div>
           <h3>{post.title}</h3>
-          <ul className="BoardDetail-list">
+          <ul className="PostDetail-list">
             <li>
               <FavoriteBorderRoundedIcon className="like-icon" />
               {post.likeCount}
@@ -117,10 +125,9 @@ function PostDetail({ post, onEdit, onDelete, like, onLike, onScrap }) {
           />
         </div>
       </DetailHeading>
-
-      <div className="BoardDetail-content">
+      <div className="PostDetail-content">
         <ImageList images={post.imageUrl} />
-        <p>{post.content}</p>
+        <p dangerouslySetInnerHTML={{ __html: newText }}></p>
       </div>
       <CommentList
         postId={post.postId}
