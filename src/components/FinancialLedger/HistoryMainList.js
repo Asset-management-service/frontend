@@ -73,8 +73,6 @@ function HistoryMainList({ history }) {
         <HistoryMainItem
           item={item}
           key={item.revenueExpenditureId}
-          year={Number(dateSplit[0])}
-          month={Number(dateSplit[1])}
           date={Number(dateSplit[2])}
         />
       ))}

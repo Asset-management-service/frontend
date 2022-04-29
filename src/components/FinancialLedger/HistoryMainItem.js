@@ -1,8 +1,13 @@
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMutation, useQueryClient } from 'react-query';
+import DoubleCheckModal from '../common/DoubleCheckModal';
 import { setHistory, setIsEdit } from '../../modules/history';
 import { selectDate } from '../../modules/calender';
+import { deleteHistory } from '../../lib/api/history';
 import styled from 'styled-components';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 const ItemRow = styled.div`
   display: grid;
@@ -13,25 +18,10 @@ const ItemRow = styled.div`
   transition: all 0.2s ease-in-out;
   border-radius: 10px;
   position: relative;
-  .editBtn {
-    position: absolute;
-    transition: all 0.2s ease-in-out;
-    width: 0;
-    height: 0;
-    top: 50%;
-    left: 40%;
-    transform: translateY(-50%);
-    svg {
-      transition: all 0.2s ease-in-out;
-      width: 0;
-      height: 0;
-    }
-  }
   &:hover {
     background-color: #f9f9f9;
-    .editBtn {
-      width: 25px;
-      height: 25px;
+    .buttonBox {
+      transform: translateY(50%);
       svg {
         width: 25px;
         height: 25px;
@@ -63,8 +53,34 @@ const ItemRow = styled.div`
   }
 `;
 
-function HistoryMainItem({ item, year, month, date }) {
+const ButtonBox = styled.div`
+  position: absolute;
+  transition: all 0.2s ease-in-out;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 40%;
+  transform: translateY(-50%);
+  button {
+    margin: 0 0.5rem;
+  }
+  svg {
+    transition: all 0.2s ease-in-out;
+    width: 0;
+    height: 0;
+  }
+`;
+
+function HistoryMainItem({ item, date }) {
+  const { year, month } = useSelector(({ calender }) => calender);
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const deleteMutation = useMutation((id) => deleteHistory(id), {
+    onSuccess: () => {
+      queryClient.refetchQueries(['getHistory', year, month]);
+    },
+  });
   const onEdit = () => {
     dispatch(
       setHistory({
@@ -76,37 +92,57 @@ function HistoryMainItem({ item, year, month, date }) {
         category: item.categoryName,
       }),
     );
-    dispatch(selectDate(year + month + date - 1, date, year, month - 1));
+    dispatch(selectDate(year + month + date, date, year, month));
     dispatch(setIsEdit(true, item.revenueExpenditureId));
   };
+  const onRemove = () => {
+    deleteMutation.mutate(item.revenueExpenditureId);
+    setShow(false);
+  };
+  const closeModal = () => {
+    setShow(false);
+  };
   return (
-    <ItemRow>
-      <div>
+    <>
+      <ItemRow>
+        <div>
+          <p
+            className={
+              item.revenueExpenditureType === 'REVENUE'
+                ? 'plus category'
+                : 'minus category'
+            }
+          >
+            {item.categoryName}
+          </p>
+          <p className="content">{item.content}</p>
+        </div>
+        <p className="payment">{item.paymentMethod}</p>
         <p
           className={
             item.revenueExpenditureType === 'REVENUE'
-              ? 'plus category'
-              : 'minus category'
+              ? 'plus price'
+              : 'minus price'
           }
         >
-          {item.categoryName}
+          ₩ {item.cost.toLocaleString()}
         </p>
-        <p className="content">{item.content}</p>
-      </div>
-      <p className="payment">{item.paymentMethod}</p>
-      <p
-        className={
-          item.revenueExpenditureType === 'REVENUE'
-            ? 'plus price'
-            : 'minus price'
-        }
-      >
-        ₩ {item.cost.toLocaleString()}
-      </p>
-      <button className="editBtn" onClick={onEdit}>
-        <ModeEditOutlineOutlinedIcon />
-      </button>
-    </ItemRow>
+        <ButtonBox className="buttonBox">
+          <button onClick={onEdit}>
+            <ModeEditOutlineOutlinedIcon />
+          </button>
+          <button onClick={() => setShow(true)}>
+            <DeleteOutlinedIcon />
+          </button>
+        </ButtonBox>
+      </ItemRow>
+      <DoubleCheckModal
+        text="삭제하시겠습니까?"
+        show={show}
+        onCancel={closeModal}
+        onSubmit={onRemove}
+      />
+    </>
   );
 }
 
