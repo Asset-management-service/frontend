@@ -28,7 +28,7 @@ function App() {
   }, [token]);
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes>
+       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<Header loading={loading} />}>
           <Route path="/mypage" element={<MyPage auth={auth} />}>
