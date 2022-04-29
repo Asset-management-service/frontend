@@ -16,7 +16,7 @@ function HistoryMainContainer() {
     () => getHistory(year, month + 1),
     {
       refetchOnWindowFocus: false,
-      retry: false,
+      retry: 2,
       onError: () => {
         navigate('/financial/setting', {
           state: '한달 예산 금액을 설정해주세요',

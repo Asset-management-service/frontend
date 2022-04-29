@@ -24,7 +24,7 @@ function MoneyLogContainer() {
     () => getMoneyLog(year, month + 1, date),
     {
       refetchOnWindowFocus: false,
-      retry: false,
+      retry: 2,
       onSettled: (data) => {
         if (data) {
           dispatch(
