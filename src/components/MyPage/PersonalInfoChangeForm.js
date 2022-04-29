@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useQuery,useQueryClient, useMutation} from 'react-query';
 import { Button } from '../common/Button';
-import { getUsers,patchUser} from '../../lib/api/user';
+import { getUsers,patchUsers, getUserEmailCheck, getRegisterEmail} from '../../lib/api/user';
+import { useDispatch } from 'react-redux';
 
 const ButtonPosition = styled.div`
     display: flex;
@@ -68,14 +69,71 @@ const ItemWrapper = styled.div`
     padding: 2rem;
 `;
 
-const queryClient = useQueryClient();
-
 
 function PersonalInfoChangeForm(){
     const [nickname , setNickname] = useState(" ");
 //비밀번호 재설정 로직 삭제
     const [phoneNo , setPhoneNo] = useState(" ");
     const [email , setEmail] = useState(" ");
+
+    const useQuery = useQueryClient();
+
+
+const dispatch = useDispatch();
+//개인정보 조회
+const { data } = useQuery(
+    ['getUsers', id],
+    () => getUsers(id),
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        navigate('/api/users');
+      },
+    },
+  );
+
+//개인정보 수정
+const PatchMutation = useMutation(
+    (type) =>
+      patchUsers(
+       email,
+       gender,
+       nickname,
+       phoneNum
+      ),
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['patchUsers', email, gender, nickname, phoneNum]);
+      },
+    },
+  );
+
+//이메일 중복 확인
+const { data} = useQuery(
+    ['getUserEmailCheck', email],
+    () => getUserEmailCheck(email),
+    {
+      refetchOnWindowFocus: false,
+      onError: () => {
+        alert('중복된 이메일입니다.');
+      },
+      onSuccess: (data) => {
+        navigate(`api/user/emailCheck?email=${email}`);
+      },
+    },
+  );
+
+//이메일 인증
+const { data } = useQuery(
+    ['getRegisterEmail', email],
+    () => getRegisterEmail(email),
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        navigate(`api/user/RegisterEmail?email=${email}`);
+      },
+    },
+  );
 
 const onNicknameHandler = (event) => { //닉네임 재설정
     setNickname(event.currentTarget.value)

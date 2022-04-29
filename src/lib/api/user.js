@@ -42,18 +42,16 @@ export const patchUsers= async (id) => {
 //이메일 중복 확인
 export const getUserEmailCheck = async (email) => {
   const { data } = await axios.get(`${baseUrl}/emailCheck?email=${email}`);
-  onSuccess: () => {
-    if(data === false){
-      return data;
-    }
+  if(data === true){
+    alert('중복된 이메일입니다!')
   }
+  else{
+    return data;
 };
 
 //이메일 인증
 export const getRegisterEmail = async (email) => {
   setToken();
-  const { data } = await axios.get(`${baseUrl}/RegisterEmail?email=${email}`,{
-    email,
-  });
+  const { data } = await axios.get(`${baseUrl}/RegisterEmail?email=${email}`);
   return data;
 };
