@@ -42,7 +42,7 @@ const GuideRow = styled.li`
   align-items: center;
   justify-content: space-between;
   background-color: #f5f5f7;
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1rem;
   border-radius: 15px;
   margin-bottom: 1rem;
   .explanation {
@@ -51,7 +51,7 @@ const GuideRow = styled.li`
     span:first-child {
       font-size: 13px;
       color: #9fabaf;
-      margin-bottom: 5px;
+      margin-bottom: 7px;
     }
   }
   .price {
@@ -102,7 +102,7 @@ function MoneyLogGuide() {
                   }
                 >
                   {item.revenueExpenditureType === 'REVENUE' ? '+' : '-'}
-                  {item.cost}
+                  {item.cost.toLocaleString()}
                 </div>
               </GuideRow>
             ))}
@@ -110,11 +110,15 @@ function MoneyLogGuide() {
           <div>
             <GuideRow className="summary">
               <p>총 수익</p>
-              <p className="price plus">+{data.totalRevenue}</p>
+              <p className="price plus">
+                +{data.totalRevenue.toLocaleString()}
+              </p>
             </GuideRow>
             <GuideRow className="summary">
               <p>총 지출</p>
-              <p className="price minus">-{data.totalExpenditure}</p>
+              <p className="price minus">
+                -{data.totalExpenditure.toLocaleString()}
+              </p>
             </GuideRow>
           </div>
           <GuideRow className="summary totalPrice">
@@ -128,7 +132,7 @@ function MoneyLogGuide() {
                   : 'minus price'
               }
             >
-              {data.totalRevenueExpenditure}
+              {data.totalRevenueExpenditure.toLocaleString()}
             </p>
           </GuideRow>
         </>
