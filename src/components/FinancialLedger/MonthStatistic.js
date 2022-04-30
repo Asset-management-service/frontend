@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import ComparisonModal from './ComparisonModal';
 import BarGraph from '../common/BarGraph';
@@ -7,9 +7,10 @@ import { makeExpData, makeRevData } from '../../lib/utils';
 import { BAR_COLORS } from '../../constants';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import ShareIcon from '@mui/icons-material/Share';
 import { StatisticWrapper, StyledButton } from './StatisticStyled';
 
-function MonthStatistic() {
+function MonthStatistic({ onShare }) {
   const [show, setShow] = useState(false);
   const [calender, setCalender] = useState(() => {
     const today = new Date();
@@ -93,6 +94,9 @@ function MonthStatistic() {
     }));
     setNewData(newData.reverse());
   };
+  useEffect(() => {
+    return () => setShow(false);
+  }, []);
   return (
     <div>
       <StatisticWrapper status={status}>
@@ -112,6 +116,7 @@ function MonthStatistic() {
               borderRadius={10}
               colors={['#FFC1C0', '#C6DCF5']}
               groupMode="grouped"
+              id="monthBarGraph1"
             />
             <button onClick={moveNext} className="nextBtn">
               <ChevronRightRoundedIcon />
@@ -131,6 +136,12 @@ function MonthStatistic() {
               <StyledButton basiccolor="black" outlined="true" onClick={onOpen}>
                 지난 달과 비교하기
               </StyledButton>
+              <button
+                className="shareBtn"
+                onClick={() => onShare('monthBarGraph2')}
+              >
+                <ShareIcon />
+              </button>
             </div>
             {data.mostExpCategory && (
               <p>
@@ -150,37 +161,39 @@ function MonthStatistic() {
             {data.variableExceed && (
               <p>⚠️ 변동비 비율이 설정한 비율을 초과하였습니다. </p>
             )}
-            <BarGraph
-              data={expData}
-              keys={['지출금액', '고정비', '변동비', '총 지출']}
-              index={['index']}
-              layout="horizontal"
-              valueFormat={(value) =>
-                `${Number(value).toLocaleString()}(${Math.floor(
-                  (value / data.totalExp) * 100,
-                )}%)`
-              }
-              colors={(bar) => BAR_COLORS[bar.id]}
-              height={
-                (data.fixedCostResponses.length +
-                  data.variableCostResponses.length) *
-                  50 +
-                300
-              }
-            />
-            <BarGraph
-              data={revData}
-              keys={['수익금액', '총 수익']}
-              index={['index']}
-              layout="horizontal"
-              valueFormat={(value) =>
-                `${Number(value).toLocaleString()}(${Math.floor(
-                  (value / data.totalRevenue) * 100,
-                )}%)`
-              }
-              colors={(bar) => BAR_COLORS[bar.id]}
-              height={data.revenueResponses.length * 50 + 200}
-            />
+            <div id="monthBarGraph2">
+              <BarGraph
+                data={expData}
+                keys={['지출금액', '고정비', '변동비', '총 지출']}
+                index={['index']}
+                layout="horizontal"
+                valueFormat={(value) =>
+                  `${Number(value).toLocaleString()}(${Math.round(
+                    (value / data.totalExp) * 100,
+                  )}%)`
+                }
+                colors={(bar) => BAR_COLORS[bar.id]}
+                height={
+                  (data.fixedCostResponses.length +
+                    data.variableCostResponses.length) *
+                    50 +
+                  300
+                }
+              />
+              <BarGraph
+                data={revData}
+                keys={['수익금액', '총 수익']}
+                index={['index']}
+                layout="horizontal"
+                valueFormat={(value) =>
+                  `${Number(value).toLocaleString()}(${Math.floor(
+                    (value / data.totalRevenue) * 100,
+                  )}%)`
+                }
+                colors={(bar) => BAR_COLORS[bar.id]}
+                height={data.revenueResponses.length * 50 + 200}
+              />
+            </div>
           </>
         )}
         {show && (
@@ -188,6 +201,7 @@ function MonthStatistic() {
             onClose={onClose}
             type="month"
             dateQuery={dateQuery}
+            onShare={onShare}
           />
         )}
       </StatisticWrapper>

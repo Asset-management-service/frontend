@@ -1,14 +1,10 @@
-import { useState } from 'react';
-import { ComboBox } from '../../components/common/ComboBox';
-import WeekStatistic from '../../components/FinancialLedger/WeekStatistic';
 import styled from 'styled-components';
-import MonthStatistic from '../../components/FinancialLedger/MonthStatistic';
-import YearStatistic from '../../components/FinancialLedger/YearStatistic';
+import StatisticContainer from '../../containers/StatisticContainer';
 
 const Section = styled.section`
   display: flex;
   flex-direction: column;
-  padding-top: 0 !important;
+  padding-top: 2rem !important;
   padding-right: 2rem !important;
   overflow-x: hidden;
   margin-right: 0 !important;
@@ -25,31 +21,23 @@ const Section = styled.section`
   &::-webkit-scrollbar-thumb:hover {
     background: #303030;
   }
-  .ComboBox {
+  .btns {
     align-self: flex-end;
+    display: flex;
+    align-items: center;
+  }
+  .shareBtn {
+    margin: 5px 0 0 10px;
+  }
+  .ComboBox {
     width: 100px;
   }
 `;
 
 function StatisticPage() {
-  const [standard, setStandard] = useState('일주일');
-  const onChange = (value) => {
-    setStandard(value);
-  };
   return (
     <Section>
-      <ComboBox
-        categories={['일주일', '한달', '일년']}
-        onChange={onChange}
-        initialLabel="일주일"
-      />
-      {standard === '일주일' ? (
-        <WeekStatistic />
-      ) : standard === '한달' ? (
-        <MonthStatistic />
-      ) : (
-        <YearStatistic />
-      )}
+      <StatisticContainer />
     </Section>
   );
 }

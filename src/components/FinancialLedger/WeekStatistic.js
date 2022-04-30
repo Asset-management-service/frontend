@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import BarGraph from '../common/BarGraph';
 import { getWeekStatistic } from '../../lib/api/statistic';
+import { WEEK_WORDS } from '../../constants';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import ShareIcon from '@mui/icons-material/Share';
 import { StatisticWrapper, GraphWrapper } from './StatisticStyled';
 
-function WeekStatistic() {
+function WeekStatistic({ onShare }) {
   const [calender, setCalender] = useState(() => {
     const today = new Date();
     const year = today.getFullYear();
@@ -86,7 +88,9 @@ function WeekStatistic() {
     if (data.length == 0) return [];
     const newData = data.map((item) => ({
       지출금액: item.cost,
-      index: `${item.month}월 ${item.dayOfWeek}째주 (${item.year})`,
+      index: `${item.month}월 ${WEEK_WORDS[item.dayOfWeek - 1]}째주 (${
+        item.year
+      })`,
       dateQuery: item.weekStart,
       dayOfWeek: item.dayOfWeek,
     }));
@@ -134,6 +138,7 @@ function WeekStatistic() {
               borderRadius={10}
               colors={['#FFC1C0']}
               minWidth="true"
+              id="weekBarGraph1"
             />
           </GraphWrapper>
         )}
@@ -150,9 +155,15 @@ function WeekStatistic() {
             <div className="heading">
               <h1>
                 {dateQuery.split('-')[0]}년 {Number(dateQuery.split('-')[1])}월{' '}
-                {dayOfWeek}
+                {WEEK_WORDS[dayOfWeek - 1]}
                 째주
               </h1>
+              <button
+                className="shareBtn"
+                onClick={() => onShare('weekBarGraph2')}
+              >
+                <ShareIcon />
+              </button>
             </div>
             {data.mostExpCategory && (
               <p>
@@ -173,12 +184,13 @@ function WeekStatistic() {
               index={['index']}
               layout="horizontal"
               valueFormat={(value) =>
-                `${Number(value).toLocaleString()}(${Math.floor(
+                `${Number(value).toLocaleString()}(${Math.round(
                   (value / data.totalExp) * 100,
                 )}%)`
               }
               colors={['#FFA5A3']}
               height={data.costResponses.length * 50 + 200}
+              id="weekBarGraph2"
             />
           </>
         )}

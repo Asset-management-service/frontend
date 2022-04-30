@@ -21,3 +21,5 @@ export const BAR_COLORS = {
   수익금액: '#C6DCF5',
   '총 수익': '#97B7DC',
 };
+
+export const WEEK_WORDS = ['첫', '둘', '셋', '넷', '다섯'];
