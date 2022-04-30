@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ComboBox } from '../common/ComboBox';
-import { YEAR } from '../../constants/calender';
+import { YEAR } from '../../constants';
 import styled from 'styled-components';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
