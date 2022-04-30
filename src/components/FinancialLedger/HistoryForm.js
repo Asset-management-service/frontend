@@ -1,9 +1,33 @@
 import { ComboBox } from '../../components/common/ComboBox';
 import { FormInput } from '../../components/common/FormInput';
 import { Button } from '../../components/common/Button';
-import DoubleCheckModal from '../common/DoubleCheckModal';
 import CalenderContainer from '../../containers/CalenderContainer';
 import styled, { css } from 'styled-components';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+
+const Modal = styled.div`
+  .closeBtn {
+    display: none;
+  }
+  @media screen and (max-width: 1400px) {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    .closeBtn {
+      display: block;
+      position: absolute;
+      top: 1rem;
+      right: 5px;
+      cursor: pointer;
+    }
+  }
+`;
 
 const StyledForm = styled.form`
   position: sticky;
@@ -13,6 +37,7 @@ const StyledForm = styled.form`
   font-size: 15px;
   border-left: 1px solid lightgray;
   overflow-y: scroll;
+  background-color: white;
   input {
     font-size: 15px;
     &::placeholder {
@@ -35,6 +60,9 @@ const StyledForm = styled.form`
   }
   .Calender {
     width: 260px;
+    .changeBtns {
+      justify-content: center;
+    }
     td {
       width: 34px;
       height: 34px;
@@ -56,6 +84,12 @@ const StyledForm = styled.form`
   }
   &::-webkit-scrollbar-thumb:hover {
     background: #303030;
+  }
+  @media screen and (max-width: 1400px) {
+    position: relative;
+    height: 90vh;
+    border-radius: 10px;
+    padding: 2rem;
   }
 `;
 
@@ -108,11 +142,13 @@ function HistoryForm({
   onSubmit,
   categories,
   payments,
+  onClose,
 }) {
   const { type, category, price, content, payment, isEdit } = history;
   return (
-    <>
+    <Modal className="HistoryForm">
       <StyledForm>
+        <CloseRoundedIcon className="closeBtn" onClick={onClose} />
         <h2>수익 지출 내역 {isEdit ? '수정' : '추가'}</h2>
         <div>
           <h3>유형</h3>
@@ -192,7 +228,7 @@ function HistoryForm({
           </StyledButton>
         </ButtonBox>
       </StyledForm>
-    </>
+    </Modal>
   );
 }
 

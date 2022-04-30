@@ -13,6 +13,14 @@ const Section = styled.section`
     display: flex;
     flex-direction: column;
   }
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    .MoneyLogPage-row {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 4rem;
+    }
+  }
 `;
 function MoneyLogPage() {
   return (

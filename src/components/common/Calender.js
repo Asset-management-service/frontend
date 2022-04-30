@@ -12,6 +12,9 @@ const CalenderWrapper = styled.div`
     justify-content: space-between;
     margin: 0 5px 1rem;
   }
+  @media screen and (max-width: 1200px) {
+    width: 270px;
+  }
 `;
 const StyledComboBoxes = styled.div`
   display: flex;
@@ -23,6 +26,17 @@ const StyledComboBoxes = styled.div`
     }
     &:last-child {
       width: 100px;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .ComboBox {
+      &:first-child {
+        width: 100px;
+        margin-right: 1rem;
+      }
+      &:last-child {
+        width: 80px;
+      }
     }
   }
 `;
@@ -52,6 +66,12 @@ const StyledCalender = styled.table`
   }
   th {
     padding-bottom: 1rem;
+  }
+  @media screen and (max-width: 1200px) {
+    td {
+      width: 40px;
+      height: 40px;
+    }
   }
 `;
 

@@ -15,6 +15,10 @@ const MainWrapper = styled.main`
       opacity: 0;
     }
   }
+  @media screen and (max-width: 1200px) {
+    padding-left: 0;
+    padding-top: 9rem;
+  }
 `;
 
 function CommunityPage() {

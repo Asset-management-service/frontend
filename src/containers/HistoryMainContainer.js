@@ -11,7 +11,7 @@ function HistoryMainContainer() {
   const [history, setHistory] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data, status, remove } = useQuery(
+  const { data, status } = useQuery(
     ['getHistory', year, month],
     () => getHistory(year, month + 1),
     {
@@ -24,10 +24,6 @@ function HistoryMainContainer() {
       },
     },
   );
-
-  useEffect(() => {
-    return () => remove();
-  }, []);
 
   useEffect(() => {
     if (data) {

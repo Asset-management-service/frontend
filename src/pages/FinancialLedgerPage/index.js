@@ -23,6 +23,13 @@ const MainWrapper = styled.main`
     position: relative;
     flex-grow: 1;
     margin: 2rem;
+    padding-left: 270px;
+  }
+  @media screen and (max-width: 1200px) {
+    section {
+      padding-left: 0;
+      padding-top: 5rem;
+    }
   }
 `;
 

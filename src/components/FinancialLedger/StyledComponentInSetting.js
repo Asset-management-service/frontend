@@ -5,9 +5,9 @@ export const SettingList = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   margin-top: 3em;
   margin-bottom: 8em;
+  width: 100%;
 `;
 
 //설정 항목 제목 컴포넌트 스타일링
@@ -16,7 +16,6 @@ export const SettingListTitleWrapper = styled.div`
   font-weight: bold;
   display: flex;
   justify-content: space-between;
-  width: 49%;
 `;
 
 //설정 항목 내용 컴포넌트 스타일링
@@ -26,7 +25,6 @@ export const SettingListContentWrapper = styled.div`
   margin: 1em;
   display: flex;
   justify-content: space-between;
-  width: 49%;
   .SetExpenseRatio-wrapper {
     width: 100%;
   }

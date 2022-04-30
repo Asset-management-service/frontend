@@ -5,9 +5,9 @@ import Notification from './Notification';
 import ChatIcon from './ChatIcon';
 import LoginModal from '../../Login/LoginModal';
 import { logout } from '../../../modules/login';
+import { logoutAuth } from '../../../lib/api/auth';
 import styled from 'styled-components';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-import { logoutAuth } from '../../../lib/api/auth';
 
 const StyledUserLinks = styled.ul`
   display: flex;
@@ -80,6 +80,7 @@ function UserLinks() {
           </button>
         )}
       </StyledUserLink>
+      {/*
       {auth && (
         <>
           <StyledUserLink>
@@ -111,6 +112,7 @@ function UserLinks() {
           </StyledUserLink>
         </>
       )}
+            */}
       <LoginModal show={show} onClose={() => setShow(false)} />
     </StyledUserLinks>
   );
