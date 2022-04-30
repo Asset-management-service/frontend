@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import HistoryFormContainer from '../../containers/HistoryFormContainer';
 import HistoryMainContainer from '../../containers/HistoryMainContainer';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 const Section = styled.section`
   position: relative;
@@ -13,10 +11,6 @@ const Section = styled.section`
     display: none;
   }
   @media screen and (max-width: 1400px) {
-    .HistoryForm {
-      display: none;
-      display: ${({ show }) => (show ? 'flex' : 'none')};
-    }
     .plusBtn {
       display: block;
       position: fixed;
@@ -30,18 +24,10 @@ const Section = styled.section`
   }
 `;
 function HistoryPage() {
-  const [show, setShow] = useState(false);
-  const onClick = () => {
-    setShow(true);
-  };
-  const onClose = () => {
-    setShow(false);
-  };
   return (
-    <Section show={show}>
+    <Section>
       <HistoryMainContainer />
-      <AddBoxOutlinedIcon className="plusBtn" onClick={onClick} />
-      <HistoryFormContainer onClose={onClose} show={show} />
+      <HistoryFormContainer />
     </Section>
   );
 }

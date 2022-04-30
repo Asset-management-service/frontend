@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMutation, useQueryClient } from 'react-query';
 import DoubleCheckModal from '../common/DoubleCheckModal';
-import { setHistory, setIsEdit } from '../../modules/history';
+import { setHistory, setIsEdit, setShow } from '../../modules/history';
 import { selectDate } from '../../modules/calender';
 import { deleteHistory } from '../../lib/api/history';
 import styled from 'styled-components';
@@ -77,7 +77,7 @@ const ButtonBox = styled.div`
 
 function HistoryMainItem({ item, date }) {
   const { year, month } = useSelector(({ calender }) => calender);
-  const [show, setShow] = useState(false);
+  const [check, setCheck] = useState(false);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const deleteMutation = useMutation((id) => deleteHistory(id), {
@@ -85,6 +85,9 @@ function HistoryMainItem({ item, date }) {
       queryClient.refetchQueries(['getHistory', year, month]);
     },
   });
+  const onDelete = () => {
+    setCheck(true);
+  };
   const onEdit = () => {
     dispatch(
       setHistory({
@@ -98,13 +101,14 @@ function HistoryMainItem({ item, date }) {
     );
     dispatch(selectDate(year + month + date, date, year, month));
     dispatch(setIsEdit(true, item.revenueExpenditureId));
+    dispatch(setShow(true));
   };
   const onRemove = () => {
     deleteMutation.mutate(item.revenueExpenditureId);
-    setShow(false);
+    setCheck(false);
   };
   const closeModal = () => {
-    setShow(false);
+    setCheck(false);
   };
   return (
     <>
@@ -135,17 +139,18 @@ function HistoryMainItem({ item, date }) {
           <button onClick={onEdit}>
             <ModeEditOutlineOutlinedIcon />
           </button>
-          <button onClick={() => setShow(true)}>
+          <button onClick={onDelete}>
             <DeleteOutlinedIcon />
           </button>
         </ButtonBox>
       </ItemRow>
-      <DoubleCheckModal
-        text="삭제하시겠습니까?"
-        show={show}
-        onCancel={closeModal}
-        onSubmit={onRemove}
-      />
+      {check && (
+        <DoubleCheckModal
+          text="삭제하시겠습니까?"
+          onCancel={closeModal}
+          onSubmit={onRemove}
+        />
+      )}
     </>
   );
 }

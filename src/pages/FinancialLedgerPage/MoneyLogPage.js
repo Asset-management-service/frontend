@@ -13,12 +13,12 @@ const Section = styled.section`
     display: flex;
     flex-direction: column;
   }
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1000px) {
     flex-direction: column;
     .MoneyLogPage-row {
       display: flex;
       flex-direction: row;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
     }
   }
 `;

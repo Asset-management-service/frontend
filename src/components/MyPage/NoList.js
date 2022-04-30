@@ -1,11 +1,12 @@
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import styled from 'styled-components';
 
-const NoListText = styled.p`
-  font-size: 25px;
+const NoListText = styled.div`
+  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 25px;
   opacity: 0.6;
   .NoList-icon {
     transform: scale(2);
