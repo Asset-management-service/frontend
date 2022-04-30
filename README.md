@@ -36,6 +36,7 @@
 
 - [와이어프레임](https://www.figma.com/file/mR3rO5fsSPaECuU6k7dotb/모아모아?node-id=0%3A1)
 - 반응형 웹 디자인 : `desktop`, `tablet`
+- `Chrome`, `Safari`, `Firefox`, `Edge IE` 등 최신 브라우저에 최적화
 
 <br/>
 
