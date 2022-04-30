@@ -35,7 +35,7 @@
 ## 🎨 DESIGN
 
 - [와이어프레임](https://www.figma.com/file/mR3rO5fsSPaECuU6k7dotb/모아모아?node-id=0%3A1)
-- 반응형 웹 디자인 : 데스크탑, 
+- 반응형 웹 디자인 : `desktop`, `tablet`
 
 <br/>
 
