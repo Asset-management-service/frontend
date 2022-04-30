@@ -1,8 +1,15 @@
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import styled from 'styled-components';
 
+const NoListWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const NoListText = styled.div`
-  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,14 +22,16 @@ const NoListText = styled.div`
 `;
 function NoList({ category }) {
   return (
-    <NoListText className="NoList">
-      <BorderColorOutlinedIcon className="NoList-icon" />
-      {category === 'scrap'
-        ? '스크랩한 글이 없습니다'
-        : category === 'comment'
-        ? '작성한 댓글이 없습니다'
-        : '작성한 글이 없습니다'}
-    </NoListText>
+    <NoListWrapper>
+      <NoListText>
+        <BorderColorOutlinedIcon className="NoList-icon" />
+        {category === 'scrap'
+          ? '스크랩한 글이 없습니다'
+          : category === 'comment'
+          ? '작성한 댓글이 없습니다'
+          : '작성한 글이 없습니다'}
+      </NoListText>
+    </NoListWrapper>
   );
 }
 
