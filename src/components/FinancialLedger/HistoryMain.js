@@ -54,6 +54,10 @@ const HistoryMainHeading = styled.div`
     font-size: 30px;
     margin-top: 0.4rem;
   }
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const SummaryBox = styled.div`
@@ -69,6 +73,9 @@ const SummaryBox = styled.div`
   &.minus {
     border-color: #fd5959;
     color: #ff0000;
+  }
+  @media screen and (max-width: 1400px) {
+    margin: 1rem 1rem 0 0;
   }
 `;
 function HistoryMain({

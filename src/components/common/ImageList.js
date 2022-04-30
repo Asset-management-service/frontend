@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledImageList = styled.ul`
   img {
-    max-width: 900px;
+    max-width: 45vw;
     object-fit: cover;
     margin: 1rem 0 2rem;
   }

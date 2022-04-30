@@ -14,16 +14,17 @@ const StyledItem = styled.li`
       text-align: left;
     }
   }
-  .PostItem-title {
-    display: flex;
-    align-items: center;
+  h3 {
+    font-size: 20px;
     margin-bottom: 0.5rem;
-    h3 {
-      margin-right: 0.5rem;
-      font-size: 20px;
-    }
     span {
+      font-weight: normal;
       color: red;
+      display: inline-block;
+      position: relative;
+      top: -3px;
+      margin-left: 0.5rem;
+      font-size: 17px;
     }
   }
   .PostItem-content {
@@ -72,10 +73,10 @@ function PostItem({ post }) {
       {auth ? (
         <StyledLink to={to}>
           <div>
-            <div className="PostItem-title">
-              <h3>{post.title}</h3>
+            <h3 className="PostItem-title">
+              {post.title}
               <span>[{post.commentCount}]</span>
-            </div>
+            </h3>
             <p className="PostItem-content">{post.content}</p>
           </div>
           <div>{post.username}</div>

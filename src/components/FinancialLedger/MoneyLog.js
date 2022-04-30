@@ -49,6 +49,9 @@ const MoneyLogWrapper = styled.div`
         margin-top: 1rem;
       }
     `}
+  @media screen and (max-width: 900px) {
+    margin-left: 0;
+  }
 `;
 
 const MoneyLogHeading = styled.div`

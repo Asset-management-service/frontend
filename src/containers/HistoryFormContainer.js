@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import HistoryForm from '../components/FinancialLedger/HistoryForm';
-import { deleteHistory, editHistory, postHistory } from '../lib/api/history';
-import { changeInput, setHistory, setIsEdit } from '../modules/history';
+import { editHistory, postHistory } from '../lib/api/history';
+import { changeInput, setHistory } from '../modules/history';
 
-function HistoryFormContainer() {
+function HistoryFormContainer({ onClose }) {
   const { year, month, date } = useSelector(
     ({ calender }) => calender.selected,
   );
@@ -102,6 +102,7 @@ function HistoryFormContainer() {
         id: null,
       }),
     );
+    onClose();
   };
   const onSubmit = (e) => {
     e.preventDefault();
@@ -130,6 +131,7 @@ function HistoryFormContainer() {
         id: null,
       }),
     );
+    onClose();
   };
 
   return (
@@ -140,6 +142,7 @@ function HistoryFormContainer() {
       onSubmit={onSubmit}
       categories={categories}
       payments={payments}
+      onClose={onClose}
     />
   );
 }

@@ -51,6 +51,10 @@ const ItemRow = styled.div`
       width: 120px;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `;
 
 const ButtonBox = styled.div`

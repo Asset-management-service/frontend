@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import HistoryPage from './HistoryPage';
 import MoneyLogPage from './MoneyLogPage';
+import StatisticPage from './StatisticPage';
 import SettingPage from './SettingPage';
 
 function FinancialLedgerSubPage() {
@@ -10,6 +11,9 @@ function FinancialLedgerSubPage() {
   }
   if (category === 'history') {
     return <HistoryPage />;
+  }
+  if (category === 'statistic') {
+    return <StatisticPage />;
   }
   if (category === 'setting') {
     return <SettingPage />;

@@ -5,6 +5,11 @@ import SettingListTitle from '../../components/FinancialLedger/SettingListTitle'
 import BudgetContainer from '../../containers/BudgetContainer';
 import CategoryContainer from '../../containers/CategoryContainer';
 import ExpenseContainer from '../../containers/ExpenseContainer';
+import styled from 'styled-components';
+
+const Section = styled.section`
+  margin: 2rem 6rem !important;
+`;
 
 function SettingPage() {
   const { state } = useLocation();
@@ -12,15 +17,15 @@ function SettingPage() {
     if (state) alert(state);
   }, []);
   return (
-    <section>
+    <Section>
       <SettingList>
         <SettingListTitle title="예산 설정"></SettingListTitle>
-        <hr width="50%"></hr>
+        <hr width="100%"></hr>
         <BudgetContainer />
       </SettingList>
       <SettingList>
         <SettingListTitle title="카테고리 설정"></SettingListTitle>
-        <hr width="50%"></hr>
+        <hr width="100%"></hr>
         <CategoryContainer content="FIXED" />
         <CategoryContainer content="VARIABLE" />
         <CategoryContainer content="REVENUE" />
@@ -28,10 +33,10 @@ function SettingPage() {
       </SettingList>
       <SettingList>
         <SettingListTitle title="지출 비율 설정"></SettingListTitle>
-        <hr width="50%"></hr>
+        <hr width="100%"></hr>
         <ExpenseContainer />
       </SettingList>
-    </section>
+    </Section>
   );
 }
 

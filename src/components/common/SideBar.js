@@ -13,10 +13,48 @@ const StyledNav = styled.nav`
     font-size: 30px;
     margin: 2rem 0 4rem 2rem;
   }
+  @media screen and (max-width: 1200px) {
+    top: 4rem;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    z-index: 6;
+    h2 {
+      display: none;
+    }
+  }
 `;
 
 const NavList = styled.ul`
   margin: 1rem;
+
+  @media screen and (max-width: 1200px) {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    overflow-x: scroll;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 0.5rem 0;
+    box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.1);
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #949494;
+      border-radius: 45px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #303030;
+    }
+  }
 `;
 
 const NavItem = styled.li`
@@ -34,6 +72,13 @@ const NavItem = styled.li`
       font-weight: bold;
       box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
     }
+  }
+  @media screen and (max-width: 1200px) {
+    margin-bottom: 0;
+    width: auto;
+    flex-shrink: 0;
+    font-size: 16px;
+    margin: 0 1rem;
   }
 `;
 
