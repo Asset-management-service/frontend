@@ -11,7 +11,8 @@ const HeaderWrapper = styled.div`
   left: 0;
   right: 0;
   z-index: 5;
-  border-bottom: 1px solid lightgray;
+  padding: 0.3rem;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 `;
 

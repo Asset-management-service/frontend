@@ -1,0 +1,48 @@
+name: Deploy 
+
+on:
+  push:
+    branches:
+      - develop 
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy: 
+      matrix: 
+        node-version: [16.14.x] 
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with: 
+          node-version: ${{ matrix.node-version }} 
+
+      - name: Install modules 
+        run: npm install
+
+      - name: Build project
+        run: CI=false npm run build
+
+      - name: zip create 
+        run: zip -qq -r ./build.zip . -x '*.git*' './node_modules/*' './public/*' './src/*' 
+        shell: bash
+
+      - name: Upload to S3 # Upload build file to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 cp --region ap-northeast-2 ./build.zip s3://moamoa1-bucket/build.zip
+
+      - name: Deploy 
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws deploy create-deployment
+          --application-name Github-Actions-Deploy-FE
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name Github-Actions-Group-FE
+          --s3-location bucket=moamoa1-bucket,key=build.zip,bundleType=zip
+          --region ap-northeast-2

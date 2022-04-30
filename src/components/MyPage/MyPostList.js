@@ -1,36 +1,50 @@
-import styled, { css } from 'styled-components';
+import { Fragment, useEffect, useRef } from 'react';
+import { useInfiniteQuery, useMutation } from 'react-query';
+import Loading from '../common/Loading';
 import MyPostItem from './MyPostItem';
 import MyCommentItem from './MyCommetItem';
 import NoList from './NoList';
+import { getUserCommunityInfo } from '../../lib/api/user';
+import styled from 'styled-components';
 
-const PostList = styled.div`
-  height: 88%;
+const StyledPostList = styled.ul`
   margin-top: 2rem;
-  overflow-y: scroll;
   padding-right: 1rem;
-  ${({ empty }) =>
-    empty === 0 &&
-    css`
-      margin-top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    `};
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #949494;
-    border-radius: 45px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #303030;
+  .NoList {
+    margin-right: 15rem;
+    margin-top: 15rem;
   }
 `;
-function MyPostList({ posts, category }) {
+
+function MyPostList({ category }) {
+  const { data, status, fetchNextPage, hasNextPage } = useInfiniteQuery(
+    ['userPosts', category],
+    ({ pageParam = 0 }) => getUserCommunityInfo(category, pageParam),
+    {
+      getNextPageParam: (lastPage) => {
+        const { number, totalPages } = lastPage;
+        return number + 1 < totalPages ? number + 1 : undefined;
+      },
+      refetchOnWindowFocus: false,
+    },
+  );
+  const loadMoreRef = useRef(null);
+  useEffect(() => {
+    if (!hasNextPage) return;
+    const observer = new IntersectionObserver((entries) =>
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          fetchNextPage();
+        }
+      }),
+    );
+    const el = loadMoreRef && loadMoreRef.current;
+    if (!el) return;
+    observer.observe(el);
+    return () => {
+      observer.unobserve(el);
+    };
+  }, [hasNextPage, loadMoreRef.current]);
   return (
     <section>
       <h2>
@@ -40,21 +54,35 @@ function MyPostList({ posts, category }) {
           ? '내가 쓴 댓글'
           : '내가 쓴 글'}
       </h2>
-      <PostList empty={posts.length}>
-        {posts.length === 0 ? (
-          <NoList category={category} />
+      <StyledPostList>
+        {status === 'loading' ? (
+          <Loading mainColor="black" />
         ) : (
-          <ul>
-            {category == 'comment'
-              ? posts.map((post, index) => (
-                  <MyCommentItem key={index} comment={post} />
-                ))
-              : posts.map((post, index) => (
-                  <MyPostItem key={index} post={post} />
-                ))}
-          </ul>
+          data.pages.length !== 0 &&
+          data.pages.map((page, index) => (
+            <Fragment key={index}>
+              {page.content.length == 0 ? (
+                <NoList category={category} className="NoList" />
+              ) : (
+                page.content.map((post) =>
+                  category === 'comment' ? (
+                    <MyCommentItem comment={post} key={post.commentId} />
+                  ) : (
+                    <MyPostItem
+                      post={post}
+                      key={post.postId}
+                      category={category}
+                    />
+                  ),
+                )
+              )}
+            </Fragment>
+          ))
         )}
-      </PostList>
+      </StyledPostList>
+      <p ref={loadMoreRef} className="loadMore">
+        Load More
+      </p>
     </section>
   );
 }

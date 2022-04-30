@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 const StyledLogo = styled.h1`
   text-align: center;
   transition: all 0.2s ease-in-out;
-  font-size: 60px;
+  font-size: 45px;
   font-weight: normal;
   a {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);

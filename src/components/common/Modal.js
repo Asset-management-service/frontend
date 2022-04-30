@@ -20,15 +20,14 @@ export const StyledModal = styled.div`
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
+  max-height: 90vh;
+  overflow-y: scroll;
   h1 {
     font-size: 30px;
     border-bottom: 1px solid lightgray;
     padding: 0.5rem 4rem 1rem;
     font-weight: normal;
     margin-bottom: 3rem;
-  }
-  p {
-    font-size: 20px;
   }
   .Modal-close-btn {
     position: absolute;
@@ -37,6 +36,21 @@ export const StyledModal = styled.div`
     svg {
       font-size: 30px;
     }
+  }
+  &::-webkit-scrollbar {
+    display: none;
+    width: 3px;
+    padding-right: 1rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #949494;
+    border-radius: 50%;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #303030;
   }
 `;
 

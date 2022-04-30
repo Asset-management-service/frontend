@@ -5,6 +5,7 @@ import Notification from './Notification';
 import ChatIcon from './ChatIcon';
 import LoginModal from '../../Login/LoginModal';
 import { logout } from '../../../modules/login';
+import { logoutAuth } from '../../../lib/api/auth';
 import styled from 'styled-components';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
@@ -39,6 +40,10 @@ const StyledUserLink = styled.li`
   .UserLinks-icon {
     margin-right: 5px;
   }
+  .login-btn {
+    font-weight: bold;
+    color: #40b2b7;
+  }
 `;
 
 function UserLinks() {
@@ -47,9 +52,14 @@ function UserLinks() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onLogout = () => {
-    localStorage.removeItem('TOKEN');
-    dispatch(logout());
-    navigate('/', { replace: true });
+    logoutAuth().then((data) => {
+      if (data) {
+        localStorage.removeItem('TOKEN');
+        localStorage.removeItem('EXPIRED_AT');
+        dispatch(logout());
+        navigate('/', { replace: true });
+      }
+    });
   };
 
   return (
@@ -64,12 +74,13 @@ function UserLinks() {
         {auth ? (
           <button onClick={onLogout}>로그아웃</button>
         ) : (
-          <button onClick={() => setShow(true)}>
+          <button onClick={() => setShow(true)} className="login-btn">
             <LoginRoundedIcon className="UserLinks-icon" />
             로그인하기
           </button>
         )}
       </StyledUserLink>
+      {/*
       {auth && (
         <>
           <StyledUserLink>
@@ -101,6 +112,7 @@ function UserLinks() {
           </StyledUserLink>
         </>
       )}
+            */}
       <LoginModal show={show} onClose={() => setShow(false)} />
     </StyledUserLinks>
   );

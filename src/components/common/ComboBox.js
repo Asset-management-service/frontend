@@ -1,23 +1,27 @@
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useToggle } from '../../hooks';
 import styled from 'styled-components';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
 const StyledComboBox = styled.div`
   position: relative;
-  width: 200px;
-  height: 35px;
-  border-radius: 15px;
-  border: 2px solid #000;
-  cursor: pointer;
+  border-radius: 0.5rem;
+  background-color: #f5f5f5;
+  cursor: ${({ noSelect }) => !noSelect && 'pointer'};
+  font-size: 15px;
 `;
 
 const Label = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({ noSelect }) => (noSelect ? 'center' : 'space-between')};
   height: 100%;
-  padding: 0 15px;
+  padding: ${({ noSelect }) =>
+    noSelect ? '0.3rem' : '0.3rem 0.3rem 0.3rem 1rem'};
+  font-weight: bold;
+  svg {
+    color: gray;
+  }
 `;
 
 const OptionsList = styled.ul`
@@ -25,13 +29,13 @@ const OptionsList = styled.ul`
   top: 40px;
   left: 0;
   width: 100%;
-  overflow-y: scroll;
   transition: all 0.2s ease-in;
   border-radius: 15px;
   max-height: 0;
   box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
   background-color: #fff;
+  overflow-y: scroll;
   &.active {
     max-height: 300px;
   }
@@ -52,7 +56,6 @@ const OptionsList = styled.ul`
 
 const OptionItem = styled.li`
   padding: 10px 15px;
-  transition: all 0.2s ease-in-out;
   width: 100%;
   &:hover,
   &.selected {
@@ -63,28 +66,64 @@ const OptionItem = styled.li`
   }
 `;
 
-export function ComboBox({ categories, initialLabel, mainColor }) {
+export function ComboBox({
+  categories,
+  initialLabel,
+  mainColor,
+  onChange,
+  unit,
+  noSelect,
+}) {
   const [label, setLabel] = useState(initialLabel);
-  const [active, setActive] = useToggle(false);
-  const onSelect = (category) => {
-    setLabel(category);
+  const [active, onActive, setActive] = useToggle(false);
+  const optionList = useRef(null);
+  const comboBox = useRef(null);
+  const onSelect = (label) => {
+    setLabel(label);
+    onChange(label);
   };
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (comboBox.current && !comboBox.current.contains(e.target)) {
+        setActive(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    setLabel(initialLabel);
+  }, [initialLabel]);
   return (
-    <StyledComboBox onClick={setActive} className={active ? 'active' : ''}>
-      <Label>
+    <StyledComboBox
+      onClick={noSelect ? undefined : onActive}
+      className={active ? 'active ComboBox' : 'ComboBox'}
+      ref={comboBox}
+      noSelect={noSelect}
+    >
+      <Label noSelect={noSelect}>
         {label}
-        <KeyboardArrowDownRoundedIcon />
+        {unit}
+        {!noSelect && <KeyboardArrowDownRoundedIcon />}
       </Label>
-      <OptionsList mainColor={mainColor} className={active ? 'active' : ''}>
-        {categories.map((category, index) => (
-          <OptionItem
-            key={index}
-            onClick={() => onSelect(category)}
-            className={category === label ? 'selected' : ''}
-          >
-            {category}
-          </OptionItem>
-        ))}
+      <OptionsList
+        mainColor={mainColor}
+        className={active ? 'active' : ''}
+        ref={optionList}
+      >
+        {categories &&
+          categories.map((category, index) => (
+            <OptionItem
+              key={index}
+              onClick={() => onSelect(category)}
+              className={category === label ? 'selected' : ''}
+            >
+              {category}
+              {unit}
+            </OptionItem>
+          ))}
       </OptionsList>
     </StyledComboBox>
   );

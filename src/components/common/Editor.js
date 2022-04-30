@@ -1,40 +1,113 @@
-import React, { useEffect, useRef } from 'react';
-import Quill from 'quill';
-import ImageResize from '@looop/quill-image-resize-module-react';
-import 'quill/dist/quill.snow.css';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { FormInput } from '../../components/common/FormInput';
+import ImagePreview from './ImagePreview';
+import Palette from '../../lib/Palette';
+import styled from 'styled-components';
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 
-Quill.register('modules/imageResize', ImageResize);
+const StyledEditor = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  input[type='file'] {
+    display: none;
+  }
+`;
 
-function Editor({ onChange }) {
-  const quillElement = useRef(null);
-  const quillInstance = useRef(null);
+const EditorBox = styled.div`
+  position: relative;
+  border-radius: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 5px 8px 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+`;
 
-  useEffect(() => {
-    quillInstance.current = new Quill(quillElement.current, {
-      theme: 'snow',
-      placeholder: '내용을 작성하세요..',
-      modules: {
-        toolbar: [
-          [{ header: '1' }, { header: '2' }],
+const EditorTextArea = styled.textarea`
+  width: 100%;
+  resize: none;
+  padding: 1rem;
+  font-size: 18px;
+  flex-grow: 1;
 
-          ['bold', 'italic', 'underline', 'strike', 'link'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          ['blockquote', 'link', 'image'],
-        ],
-        imageResize: { modules: ['Resize'] },
-      },
-    });
-    // text-change event handler
-    const quill = quillInstance.current;
-    quill.on('text-change', (delta, oldDelta, source) => {
-      if (source === 'user') {
-        onChange({ target: { value: quill.root.innerHTML } });
-      }
-    });
-    quill.setText('');
-  }, []);
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    font-size: 14px;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #949494;
+    border-radius: 45px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #303030;
+  }
+`;
 
-  return <div ref={quillElement} />;
+const ButtonWrapper = styled.label`
+  position: absolute;
+  bottom: 10px;
+  right: 10px; ;
+`;
+const ImageButton = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: ${Palette.cyan[7]};
+  margin-left: 10px;
+  cursor: pointer;
+  svg {
+    color: #fff;
+  }
+`;
+
+export function Editor({ onChange, onUploadImage, onRemoveImage, error }) {
+  const { title, content, imageFiles, saveImageUrl, moneyLogImages } =
+    useSelector(({ post }) => post);
+  return (
+    <StyledEditor>
+      {title !== null && (
+        <FormInput
+          type="text"
+          name="title"
+          value={title}
+          onChange={onChange}
+          placeholder="제목을 입력하세요"
+          error={error}
+        />
+      )}
+      <EditorBox>
+        <EditorTextArea
+          name="content"
+          value={content}
+          placeholder="내용을 작성해주세요"
+          onChange={onChange}
+        />
+
+        <ButtonWrapper>
+          <ImageButton>
+            <AddPhotoAlternateOutlinedIcon color="#fff" />
+          </ImageButton>
+          <input accept="image/*" type="file" onChange={onUploadImage} />
+        </ButtonWrapper>
+        <ImagePreview
+          saveImageUrl={saveImageUrl}
+          imageFiles={imageFiles}
+          moneyLogImages={moneyLogImages}
+          removeImage={onRemoveImage}
+        />
+      </EditorBox>
+    </StyledEditor>
+  );
 }
-
-export default Editor;
