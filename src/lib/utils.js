@@ -1,3 +1,5 @@
+import html2canvas from 'html2canvas';
+
 export const insertAutoLink = (text) => {
   const regURL = new RegExp(
     '(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)',
@@ -58,4 +60,35 @@ export const makeRevData = (revData, total) => {
       index: '총 수익',
     });
   return data;
+};
+
+export const onCapture = (id, setImageFile) => {
+  console.log('onCapture');
+  const elem = document.getElementById(id);
+  html2canvas(elem).then((canvas) => {
+    const context = canvas.getContext('2d');
+    context.mozImageSmoothingEnabled = false;
+    context.webkitImageSmoothingEnabled = false;
+    context.msImageSmoothingEnabled = false;
+    context.imageSmoothingEnabled = false;
+    const imageFile = dataURLtoFile(
+      canvas.toDataURL('image/png'),
+      'statistics.png',
+    );
+    setImageFile(imageFile);
+  });
+};
+
+const dataURLtoFile = (dataurl, fileName) => {
+  const arr = dataurl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  return new File([u8arr], fileName, { type: mime });
 };

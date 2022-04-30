@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import ComparisonModal from './ComparisonModal';
 import BarGraph from '../common/BarGraph';
@@ -7,9 +7,10 @@ import { makeExpData, makeRevData } from '../../lib/utils';
 import { BAR_COLORS } from '../../constants';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import ShareIcon from '@mui/icons-material/Share';
 import { StatisticWrapper, StyledButton } from './StatisticStyled';
 
-function YearStatistic() {
+function YearStatistic({ onShare }) {
   const [show, setShow] = useState(false);
   const [calender, setCalender] = useState({
     year: new Date().getFullYear(),
@@ -83,6 +84,9 @@ function YearStatistic() {
     }));
     setNewData(newData.reverse());
   };
+  useEffect(() => {
+    return () => setShow(false);
+  }, []);
   return (
     <div>
       <StatisticWrapper status={status}>
@@ -93,18 +97,17 @@ function YearStatistic() {
             <button onClick={movePrev} className="prevBtn">
               <ChevronLeftRoundedIcon />
             </button>
-            <div className="graph">
-              <BarGraph
-                data={newData}
-                keys={['지출금액', '수익금액']}
-                index={['index']}
-                onClick={onClick}
-                layout="vertical"
-                borderRadius={15}
-                colors={['#FFC1C0', '#C6DCF5']}
-                groupMode="grouped"
-              />
-            </div>
+            <BarGraph
+              data={newData}
+              keys={['지출금액', '수익금액']}
+              index={['index']}
+              onClick={onClick}
+              layout="vertical"
+              borderRadius={10}
+              colors={['#FFC1C0', '#C6DCF5']}
+              groupMode="grouped"
+              id="yearBarGraph1"
+            />
             <button onClick={moveNext} className="nextBtn">
               <ChevronRightRoundedIcon />
             </button>
@@ -121,6 +124,12 @@ function YearStatistic() {
               <StyledButton basiccolor="black" outlined="true" onClick={onOpen}>
                 작년과 비교하기
               </StyledButton>
+              <button
+                className="shareBtn"
+                onClick={() => onShare('yearBarGraph2')}
+              >
+                <ShareIcon />
+              </button>
             </div>
             {data.mostExpCategory && (
               <p>
@@ -134,37 +143,39 @@ function YearStatistic() {
                 돈을 지출하셨습니다
               </p>
             )}
-            <BarGraph
-              data={expData}
-              keys={['지출금액', '고정비', '변동비', '총 지출']}
-              index={['index']}
-              layout="horizontal"
-              valueFormat={(value) =>
-                `${Number(value).toLocaleString()}(${Math.floor(
-                  (value / data.totalExp) * 100,
-                )}%)`
-              }
-              colors={(bar) => BAR_COLORS[bar.id]}
-              height={
-                (data.fixedCostResponses.length +
-                  data.variableCostResponses.length) *
-                  50 +
-                300
-              }
-            />
-            <BarGraph
-              data={revData}
-              keys={['수익금액', '총 수익']}
-              index={['index']}
-              layout="horizontal"
-              valueFormat={(value) =>
-                `${Number(value).toLocaleString()}(${Math.floor(
-                  (value / data.totalRevenue) * 100,
-                )}%)`
-              }
-              colors={(bar) => BAR_COLORS[bar.id]}
-              height={data.revenueResponses.length * 50 + 200}
-            />
+            <div id="yearBarGraph2">
+              <BarGraph
+                data={expData}
+                keys={['지출금액', '고정비', '변동비', '총 지출']}
+                index={['index']}
+                layout="horizontal"
+                valueFormat={(value) =>
+                  `${Number(value).toLocaleString()}(${Math.round(
+                    (value / data.totalExp) * 100,
+                  )}%)`
+                }
+                colors={(bar) => BAR_COLORS[bar.id]}
+                height={
+                  (data.fixedCostResponses.length +
+                    data.variableCostResponses.length) *
+                    50 +
+                  300
+                }
+              />
+              <BarGraph
+                data={revData}
+                keys={['수익금액', '총 수익']}
+                index={['index']}
+                layout="horizontal"
+                valueFormat={(value) =>
+                  `${Number(value).toLocaleString()}(${Math.floor(
+                    (value / data.totalRevenue) * 100,
+                  )}%)`
+                }
+                colors={(bar) => BAR_COLORS[bar.id]}
+                height={data.revenueResponses.length * 50 + 200}
+              />
+            </div>
           </>
         )}
         {show && (

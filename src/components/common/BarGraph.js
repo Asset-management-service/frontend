@@ -26,14 +26,15 @@ function BarGraph({
   groupMode,
   height,
   minWidth,
+  id,
 }) {
   return (
-    <GraphWrapper height={height} minWidth={minWidth}>
+    <GraphWrapper height={height} minWidth={minWidth} id={id}>
       <ResponsiveBar
         data={data}
         keys={keys}
         indexBy={index}
-        margin={{ top: 50, right: 50, bottom: 50, left: 90 }}
+        margin={{ top: 20, right: 50, bottom: 50, left: 90 }}
         valueFormat={
           valueFormat
             ? valueFormat

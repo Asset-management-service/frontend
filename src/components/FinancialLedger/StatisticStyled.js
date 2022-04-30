@@ -13,7 +13,7 @@ export const StatisticWrapper = styled.div`
   .heading {
     display: flex;
     align-items: center;
-    margin: 2rem 0 1rem;
+    margin: 4rem 0 2rem;
   }
   .prevBtn {
     position: absolute;
