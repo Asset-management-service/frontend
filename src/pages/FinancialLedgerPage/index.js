@@ -4,17 +4,17 @@ import { Outlet, useParams } from 'react-router-dom';
 import { NotLogin } from '../../components/common/NotLogin';
 import SideBar from '../../components/common/SideBar';
 import { MONEYBOOK_PAGE_NAV } from '../../constants/nav';
-import { FINANCIAL_CATEGORY } from '../../constants/category';
+import { FINANCIAL_CATEGORY } from '../../constants';
 import { useRedirect } from '../../hooks/useRedirect';
 import { setCategory } from '../../modules/category';
+import { setBudget } from '../../modules/budget';
+import { setExpenseRatio } from '../../modules/expense';
 import {
   getAssetBudget,
   getAssetExpenditureRatio,
   getSettingCategory,
 } from '../../lib/api/setting';
 import styled from 'styled-components';
-import { setBudget } from '../../modules/budget';
-import { setExpenseRatio } from '../../modules/expense';
 
 const MainWrapper = styled.main`
   display: flex;

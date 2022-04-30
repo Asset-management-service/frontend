@@ -12,3 +12,50 @@ export const insertAutoLink = (text) => {
     .replace(regEmail, "<a href='mailto:$1'>$1</a>");
   return newText;
 };
+
+export const makeExpData = (
+  variable,
+  fixed,
+  totalExp,
+  totalFixed,
+  totalVariable,
+) => {
+  const variableData = variable
+    .map((item) => ({
+      지출금액: item.cost,
+      index: item.categoryName,
+    }))
+    .reverse()
+    .concat({
+      변동비: totalVariable,
+      index: '변동비',
+    });
+  const fixedData = fixed
+    .map((item) => ({
+      지출금액: item.cost,
+      index: item.categoryName,
+    }))
+    .reverse()
+    .concat({
+      고정비: totalFixed,
+      index: '고정비',
+    });
+  const data = variableData.concat(fixedData).concat({
+    '총 지출': totalExp,
+    index: '총 지출',
+  });
+  return data;
+};
+export const makeRevData = (revData, total) => {
+  const data = revData
+    .map((item) => ({
+      수익금액: item.cost,
+      index: item.categoryName,
+    }))
+    .reverse()
+    .concat({
+      '총 수익': total,
+      index: '총 수익',
+    });
+  return data;
+};
