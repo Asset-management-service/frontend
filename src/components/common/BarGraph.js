@@ -1,11 +1,12 @@
 import { ResponsiveBar } from '@nivo/bar';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const GraphWrapper = styled.div`
   height: ${({ height }) => (height ? `${height}px` : '40vh')};
   width: 75vw;
   margin: 0 auto;
-  min-width: ${({ minWidth }) => minWidth && '1000px'} text {
+  min-width: ${({ minWidth }) => minWidth && '1000px'};
+  text {
     font-size: 20px;
   }
   @media screen and (max-width: 1200px) {
