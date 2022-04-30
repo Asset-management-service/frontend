@@ -33,10 +33,10 @@ const StyledUserLink = styled.li`
   &:nth-child(3) {
     margin-left: 25px;
   }
-  &:last-child {
-    margin-left: 15px;
-    margin-top: 3px;
-  }
+  //&:last-child {
+  //  margin-left: 15px;
+  // margin-top: 3px;
+  //}
   .UserLinks-icon {
     margin-right: 5px;
   }
@@ -113,7 +113,7 @@ function UserLinks() {
         </>
       )}
             */}
-      <LoginModal show={show} onClose={() => setShow(false)} />
+      {show && <LoginModal onClose={() => setShow(false)} />}
     </StyledUserLinks>
   );
 }

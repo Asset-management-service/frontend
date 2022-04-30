@@ -2,9 +2,9 @@ import { ModalWrapper, StyledModal } from '../common/Modal';
 import SocialLogin from './SocialLogin';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
-function LoginModal({ show, onClose }) {
+function LoginModal({ onClose }) {
   return (
-    <ModalWrapper show={show}>
+    <ModalWrapper>
       <StyledModal>
         <SocialLogin />
         <button type="button" className="Modal-close-btn" onClick={onClose}>
