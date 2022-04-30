@@ -14,13 +14,15 @@ const StyledNav = styled.nav`
     margin: 2rem 0 4rem 2rem;
   }
   @media screen and (max-width: 1200px) {
-    top: 6rem;
+    top: 4rem;
     bottom: auto;
     left: 0;
     right: 0;
-    padding: 2rem 1.3rem 0;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    z-index: 6;
     h2 {
       display: none;
     }
@@ -35,10 +37,10 @@ const NavList = styled.ul`
     justify-content: center;
     margin: 0;
     overflow-x: scroll;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0.5rem 0;
+    box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.1);
     &::-webkit-scrollbar {
       height: 3px;
     }
@@ -75,7 +77,7 @@ const NavItem = styled.li`
     margin-bottom: 0;
     width: auto;
     flex-shrink: 0;
-    font-size: 18px;
+    font-size: 16px;
     margin: 0 1rem;
   }
 `;
