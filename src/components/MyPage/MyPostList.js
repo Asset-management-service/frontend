@@ -9,10 +9,10 @@ import styled from 'styled-components';
 
 const StyledPostList = styled.ul`
   margin-top: 2rem;
-  padding-right: 1rem;
+  display: flex;
+  justify-content: center;
   .NoList {
-    margin-right: 15rem;
-    margin-top: 15rem;
+    transform: translateY(140%);
   }
 `;
 

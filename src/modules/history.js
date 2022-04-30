@@ -1,7 +1,12 @@
+const SET_SHOW = 'history/SET_SHOW';
 const SET_HISTORY = 'history/SET_HISTORY';
 const CHANGE_INPUT = 'history/CHANGE_INPUT';
 const SET_ISEDIT = 'history/SET_ISEDIT';
 
+export const setShow = (value) => ({
+  type: SET_SHOW,
+  value,
+});
 export const setHistory = (value) => ({
   type: SET_HISTORY,
   value,
@@ -19,6 +24,7 @@ export const setIsEdit = (isEdit, id) => ({
 });
 
 const initialState = {
+  show: false,
   type: 'income',
   payment: '',
   category: '',
@@ -30,6 +36,11 @@ const initialState = {
 
 const history = (state = initialState, action) => {
   switch (action.type) {
+    case SET_SHOW:
+      return {
+        ...state,
+        show: action.value,
+      };
     case CHANGE_INPUT:
       return {
         ...state,

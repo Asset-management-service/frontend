@@ -83,12 +83,13 @@ function PostDetailContainer({ id, category }) {
         onLike={() => setLike(!like)}
         onScrap={onScrap}
       />
-      <DoubleCheckModal
-        text="게시물을 삭제하시겠습니까?"
-        show={show}
-        onCancel={() => setShow(false)}
-        onSubmit={onDelete}
-      />
+      {show && (
+        <DoubleCheckModal
+          text="게시물을 삭제하시겠습니까?"
+          onCancel={() => setShow(false)}
+          onSubmit={onDelete}
+        />
+      )}
     </>
   );
 }

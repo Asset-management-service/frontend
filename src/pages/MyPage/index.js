@@ -13,12 +13,18 @@ const MyPageWrapper = styled.main`
   section {
     flex-grow: 1;
     margin: 2rem;
+    display: flex;
+    flex-direction: column;
     h2 {
       font-size: 25px;
     }
     .loadMore {
       opacity: 0;
     }
+  }
+  @media screen and (max-width: 1200px) {
+    padding-left: 0;
+    padding-top: 8rem;
   }
 `;
 
