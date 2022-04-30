@@ -18,7 +18,7 @@ function PostDetailContainer({ id, category }) {
   const deleteMutation = useMutation(() => deletePost(id), {
     onSuccess: () => {
       navigate(`/community/${category}`, { replace: true });
-      queryClient.useQueryClient(['recentPosts', category]);
+      queryClient.refetchQueries(['recentPosts', category]);
     },
   });
   const scrapMutation = useMutation(() => scrapPost(id), {
