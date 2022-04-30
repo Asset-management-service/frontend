@@ -45,6 +45,7 @@ export const GraphWrapper = styled.div`
   width: 80vw;
   overflow-x: scroll;
   overflow-y: hidden;
+  margin: 0 auto;
   &::-webkit-scrollbar {
     height: 4px;
   }
