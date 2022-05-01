@@ -14,7 +14,7 @@ const StyledNav = styled.nav`
     margin: 2rem 0 4rem 2rem;
   }
   @media screen and (max-width: 1200px) {
-    top: 4.3rem;
+    top: 4.5rem;
     bottom: auto;
     left: 0;
     right: 0;
@@ -22,7 +22,7 @@ const StyledNav = styled.nav`
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    z-index: 6;
+    z-index: 4;
     h2 {
       display: none;
     }
