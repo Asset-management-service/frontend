@@ -43,7 +43,6 @@ function WeekStatistic({ onShare }) {
       refetchOnWindowFocus: false,
       retry: 1,
       onSuccess: (data) => {
-        console.log(data);
         makeData(data);
       },
     },
