@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Calender } from '../components/common/Calender';
 import {
@@ -9,6 +8,7 @@ import {
   changeYear,
   changeMonth,
 } from '../modules/calender';
+
 function CalenderContainer({ noChevron, noComboBox, extraComponent }) {
   const dispatch = useDispatch();
   const calender = useSelector(({ calender }) => calender);
@@ -29,7 +29,6 @@ function CalenderContainer({ noChevron, noComboBox, extraComponent }) {
     dispatch(changeMonth(month));
     dispatch(initialize());
   };
-  useEffect(() => console.log(calender), [calender]);
   return (
     <Calender
       onSelect={onSelect}

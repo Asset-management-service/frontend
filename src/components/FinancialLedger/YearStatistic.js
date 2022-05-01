@@ -37,7 +37,6 @@ function YearStatistic({ onShare }) {
     {
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        console.log(data);
         setExpData(
           makeExpData(
             data.variableCostResponses,
@@ -142,6 +141,12 @@ function YearStatistic({ onShare }) {
                 <span className="red">{data.leastExpCategory}</span>에 가장 적은
                 돈을 지출하셨습니다
               </p>
+            )}
+            {data.fixedExceed && (
+              <p>⚠️ 고정비 비율이 설정 비율을 초과하였습니다. </p>
+            )}
+            {data.variableExceed && (
+              <p>⚠️ 변동비 비율이 설정 비율을 초과하였습니다. </p>
             )}
             <div id="yearBarGraph2">
               <BarGraph

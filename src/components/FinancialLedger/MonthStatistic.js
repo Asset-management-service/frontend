@@ -156,10 +156,10 @@ function MonthStatistic({ onShare }) {
               </p>
             )}
             {data.fixedExceed && (
-              <p>⚠️ 고정비 비율이 설정한 비율을 초과하였습니다. </p>
+              <p>⚠️ 고정비 비율이 설정 비율을 초과하였습니다. </p>
             )}
             {data.variableExceed && (
-              <p>⚠️ 변동비 비율이 설정한 비율을 초과하였습니다. </p>
+              <p>⚠️ 변동비 비율이 설정 비율을 초과하였습니다. </p>
             )}
             <div id="monthBarGraph2">
               <BarGraph
