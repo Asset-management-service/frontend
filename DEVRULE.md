@@ -36,8 +36,6 @@
 
 ## 전반적인 개발 프로세스 😎
 
-아래 과정을 1주 단위로 진행
-
 **issue 생성**
 
 - 제목: 개발할 component 이름 or page 이름 등등
@@ -45,7 +43,6 @@
 - Assignees: 자신으로 지정
 - Labels: 그때그때마다 다르게 지정 (Epic, Task, development 추가)
 - Projects: 생성한 프로젝트 지정 (모아모아)
-- MileStone: sprint 지정
   ex) Header UI Component #8 (이슈 번호가 자동으로 매겨짐)
 
 **branch 분기 및 작업**
@@ -60,7 +57,7 @@
 - 내용은 어떻게 작업했는지 팀원이 알아야 할 내용들로 작성
 - Reviewrs 지정: 다른 팀원
 - Assignees 지정: 자기 자신
-- Labels, Projects, MileStone: issue에서 했던 것과 동일하게 지정
+- Labels, Projects: issue에서 했던 것과 동일하게 지정
 - 여기서 review 진행
 
 **Merge**
