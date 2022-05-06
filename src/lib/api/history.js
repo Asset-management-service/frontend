@@ -15,6 +15,7 @@ export const getHistory = async (year, month) => {
 
 export const postHistory = async (
   categoryName,
+  assetCategoryType,
   content,
   cost,
   paymentMethod,
@@ -26,6 +27,7 @@ export const postHistory = async (
   setToken();
   const { data } = await axios.post(baseUrl, {
     categoryName,
+    assetCategoryType,
     content,
     cost,
     paymentMethod,
@@ -39,6 +41,7 @@ export const postHistory = async (
 
 export const editHistory = async (
   categoryName,
+  assetCategoryType,
   content,
   cost,
   year,
@@ -52,6 +55,7 @@ export const editHistory = async (
   let payment = paymentMethod;
   if (revenueExpenditureType === 'REVENUE') payment = '';
   const { data } = await axios.patch(`${baseUrl}`, {
+    assetCategoryType,
     categoryName,
     content,
     cost,
