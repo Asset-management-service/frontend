@@ -6,8 +6,23 @@ import styled, { css } from 'styled-components';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 const Modal = styled.div`
-  position: relative;
-
+  position: sticky;
+  top: 0;
+  right: 0;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #949494;
+    border-radius: 45px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #303030;
+  }
   @media screen and (max-width: 1400px) {
     display: ${({ show }) => (show ? 'flex' : 'none')};
     background-color: rgba(0, 0, 0, 0.5);
@@ -23,13 +38,9 @@ const Modal = styled.div`
 `;
 
 const StyledForm = styled.form`
-  position: sticky;
-  top: 0;
-  right: 0;
   padding: 1rem;
   font-size: 15px;
   border-left: 1px solid lightgray;
-  overflow-y: scroll;
   background-color: white;
   input {
     font-size: 15px;
@@ -65,24 +76,25 @@ const StyledForm = styled.form`
       font-size: 13px;
     }
   }
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #949494;
-    border-radius: 45px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #303030;
-  }
+
   @media screen and (max-width: 1400px) {
-    position: relative;
+    overflow-y: scroll;
     max-height: 90vh;
     border-radius: 10px;
     padding: 2rem;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #949494;
+      border-radius: 45px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #303030;
+    }
   }
 `;
 
@@ -138,7 +150,15 @@ function HistoryForm({
   show,
   onOpen,
 }) {
-  const { type, category, price, content, payment, isEdit } = history;
+  const {
+    revenueExpenditureType,
+    category,
+    price,
+    content,
+    payment,
+    isEdit,
+    categoryType,
+  } = history;
   return (
     <>
       <Modal show={show}>
@@ -147,20 +167,26 @@ function HistoryForm({
           <div>
             <h3>유형</h3>
             <div className="radioBtns HistoryForm-row">
-              <RadioButton isChecked={type === 'income' ? 'true' : ''}>
+              <RadioButton
+                isChecked={revenueExpenditureType === 'REVENUE' ? 'true' : ''}
+              >
                 <input
                   type="radio"
-                  name="type"
-                  value="income"
+                  name="revenueExpenditureType"
+                  value="REVENUE"
                   onChange={onChange}
                 />
                 수익
               </RadioButton>
-              <RadioButton isChecked={type === 'expenditure' ? 'true' : ''}>
+              <RadioButton
+                isChecked={
+                  revenueExpenditureType === 'EXPENDITURE' ? 'true' : ''
+                }
+              >
                 <input
                   type="radio"
-                  name="type"
-                  value="expenditure"
+                  name="revenueExpenditureType"
+                  value="EXPENDITURE"
                   onChange={onChange}
                 />
                 지출
@@ -170,8 +196,35 @@ function HistoryForm({
               <h3>날짜</h3>
               <CalenderContainer noChevron="true" noComboBox="true" />
             </div>
+
             <div className="HistoryForm-row">
               <h3>카테고리</h3>
+              {revenueExpenditureType === 'EXPENDITURE' && (
+                <div className="radioBtns HistoryForm-row">
+                  <RadioButton
+                    isChecked={categoryType === 'FIXED' ? 'true' : ''}
+                  >
+                    <input
+                      type="radio"
+                      name="categoryType"
+                      value="FIXED"
+                      onChange={onChange}
+                    />
+                    고정비
+                  </RadioButton>
+                  <RadioButton
+                    isChecked={categoryType === 'VARIABLE' ? 'true' : ''}
+                  >
+                    <input
+                      type="radio"
+                      name="categoryType"
+                      value="VARIABLE"
+                      onChange={onChange}
+                    />
+                    변동비
+                  </RadioButton>
+                </div>
+              )}
               <ComboBox
                 categories={categories}
                 initialLabel={category ? category : '선택하기'}
@@ -180,7 +233,7 @@ function HistoryForm({
                 }
               />
             </div>
-            {type === 'expenditure' && (
+            {revenueExpenditureType === 'EXPENDITURE' && (
               <div className="HistoryForm-row">
                 <h3>결제수단</h3>
                 <ComboBox

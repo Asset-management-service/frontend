@@ -2,6 +2,7 @@ const SET_SHOW = 'history/SET_SHOW';
 const SET_HISTORY = 'history/SET_HISTORY';
 const CHANGE_INPUT = 'history/CHANGE_INPUT';
 const SET_ISEDIT = 'history/SET_ISEDIT';
+const SET_CATEGORY_TYPE = 'history/SET_CATEGORY_TYPE';
 
 export const setShow = (value) => ({
   type: SET_SHOW,
@@ -23,11 +24,17 @@ export const setIsEdit = (isEdit, id) => ({
   id,
 });
 
+export const setCategoryType = (categoryType) => ({
+  type: SET_CATEGORY_TYPE,
+  categoryType,
+});
+
 const initialState = {
   show: false,
-  type: 'income',
+  revenueExpenditureType: 'REVENUE',
   payment: '',
   category: '',
+  categoryType: 'REVENUE',
   price: '',
   content: '',
   isEdit: false,
@@ -47,15 +54,27 @@ const history = (state = initialState, action) => {
         [action.name]: action.value,
       };
     case SET_HISTORY:
-      const { type, payment, category, price, content, isEdit, id } =
-        action.value;
+      const {
+        revenueExpenditureType,
+        payment,
+        category,
+        price,
+        content,
+        isEdit,
+        id,
+        categoryType,
+      } = action.value;
       return {
         ...state,
-        type: type === undefined ? state.type : type,
+        revenueExpenditureType:
+          revenueExpenditureType === undefined
+            ? state.revenueExpenditureType
+            : revenueExpenditureType,
         payment: payment === undefined ? state.payment : payment,
         category: category === undefined ? state.category : category,
         price: price === undefined ? state.price : price,
         content: content === undefined ? state.content : content,
+        categoryType: content === undefined ? state.categoryType : categoryType,
         isEdit,
         id,
       };
@@ -64,6 +83,11 @@ const history = (state = initialState, action) => {
         ...state,
         isEdit: action.isEdit,
         id: action.id,
+      };
+    case SET_CATEGORY_TYPE:
+      return {
+        ...state,
+        categoryType: action.categoryType,
       };
     default:
       return state;

@@ -91,12 +91,12 @@ function HistoryMainItem({ item, date }) {
   const onEdit = () => {
     dispatch(
       setHistory({
-        type:
-          item.revenueExpenditureType === 'REVENUE' ? 'income' : 'expenditure',
+        revenueExpenditureType: item.revenueExpenditureType,
         price: String(item.cost),
         payment: item.paymentMethod,
         content: item.content,
         category: item.categoryName,
+        categoryType: item.assetCategoryType,
       }),
     );
     dispatch(selectDate(year + month + date, date, year, month));
