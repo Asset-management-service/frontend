@@ -11,6 +11,7 @@ const Section = styled.section`
   min-height: 70vh;
   width: 90vw;
   margin: 0 auto;
+  max-width: 1200px;
   .MoneyLogPage-row {
     display: flex;
     flex-direction: column;

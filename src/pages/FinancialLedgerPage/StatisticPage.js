@@ -7,6 +7,7 @@ const Section = styled.section`
   overflow-x: hidden;
   width: 90vw;
   margin: 0 auto;
+  max-width: 1500px;
   ::-webkit-scrollbar {
     display: none;
   }
