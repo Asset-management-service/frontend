@@ -61,7 +61,7 @@ function Header({ loading }) {
     setOpenSubMenu(false);
   };
   const handleMouseLeave = () => {
-    timeout.current = setTimeout(() => setOpenSubMenu(false), 1000);
+    timeout.current = setTimeout(() => setOpenSubMenu(false), 2000);
   };
   const keepOpenSubMenu = () => {
     clearTimeout(timeout.current);
