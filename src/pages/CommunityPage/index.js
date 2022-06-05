@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const MainWrapper = styled.main`
   padding-top: 9rem;
   height: 100vh;
+  width: 85vw;
   max-width: 1200px;
   margin: 0 auto;
   h1 {
