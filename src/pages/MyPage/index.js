@@ -1,18 +1,16 @@
 import { Outlet, useParams } from 'react-router-dom';
 import { NotLogin } from '../../components/common/NotLogin';
-import SideBar from '../../components/common/SideBar';
-import { MY_PAGE_NAV } from '../../constants/nav';
 import styled from 'styled-components';
 import { useRedirect } from '../../hooks/useRedirect';
 
 const MyPageWrapper = styled.main`
-  padding-top: 4.5rem;
+  padding-top: 10rem;
   display: flex;
   height: 100vh;
-  padding-left: 266px;
+  width: 80vw;
+  margin: 0 auto;
   section {
     flex-grow: 1;
-    margin: 2rem;
     display: flex;
     flex-direction: column;
     h2 {
@@ -37,7 +35,6 @@ function MyPage({ auth }) {
   }
   return (
     <MyPageWrapper>
-      <SideBar navs={MY_PAGE_NAV} menu="마이페이지" />
       <Outlet />
     </MyPageWrapper>
   );

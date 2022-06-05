@@ -6,10 +6,18 @@ import styled, { css } from 'styled-components';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 const Modal = styled.div`
-  position: sticky;
+  display: ${({ show }) => (show ? 'flex' : 'none')};
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
   top: 0;
+  left: 0;
   right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
   overflow-y: scroll;
+
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -23,25 +31,30 @@ const Modal = styled.div`
   &::-webkit-scrollbar-thumb:hover {
     background: #303030;
   }
-  @media screen and (max-width: 1400px) {
-    display: ${({ show }) => (show ? 'flex' : 'none')};
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-  }
 `;
 
 const StyledForm = styled.form`
-  padding: 1rem;
+  overflow-y: scroll;
+  max-height: 90vh;
+  border-radius: 10px;
+  padding: 2rem;
   font-size: 15px;
-  border-left: 1px solid lightgray;
   background-color: white;
+  border-radius: 10px;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #949494;
+    border-radius: 45px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #303030;
+  }
+
   input {
     font-size: 15px;
     &::placeholder {
@@ -74,26 +87,6 @@ const StyledForm = styled.form`
     th,
     td {
       font-size: 13px;
-    }
-  }
-
-  @media screen and (max-width: 1400px) {
-    overflow-y: scroll;
-    max-height: 90vh;
-    border-radius: 10px;
-    padding: 2rem;
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #949494;
-      border-radius: 45px;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-      background: #303030;
     }
   }
 `;

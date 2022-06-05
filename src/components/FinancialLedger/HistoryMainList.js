@@ -3,7 +3,7 @@ import HistoryMainItem from './HistoryMainItem';
 import styled from 'styled-components';
 
 const HistoryItem = styled.li`
-  border: 1px solid #f5f5f5;
+  border: 1px solid lightgray;
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 2rem;

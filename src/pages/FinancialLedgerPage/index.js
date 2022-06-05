@@ -2,8 +2,6 @@ import { useDispatch } from 'react-redux';
 import { useQueries, useQuery } from 'react-query';
 import { Outlet, useParams } from 'react-router-dom';
 import { NotLogin } from '../../components/common/NotLogin';
-import SideBar from '../../components/common/SideBar';
-import { MONEYBOOK_PAGE_NAV } from '../../constants/nav';
 import { FINANCIAL_CATEGORY } from '../../constants';
 import { useRedirect } from '../../hooks/useRedirect';
 import { setCategory } from '../../modules/category';
@@ -17,19 +15,10 @@ import {
 import styled from 'styled-components';
 
 const MainWrapper = styled.main`
-  display: flex;
+  padding-top: 8rem;
   height: 100vh;
   section {
     position: relative;
-    flex-grow: 1;
-    margin: 2rem;
-    padding-left: 270px;
-  }
-  @media screen and (max-width: 1200px) {
-    section {
-      padding-left: 0;
-      padding-top: 3.5rem;
-    }
   }
 `;
 
@@ -65,12 +54,7 @@ function FinancialLedgerPage({ auth }) {
     },
   );
 
-  return (
-    <MainWrapper>
-      <SideBar menu={'가계부'} navs={MONEYBOOK_PAGE_NAV} />
-      {auth ? <Outlet /> : <NotLogin />}
-    </MainWrapper>
-  );
+  return <MainWrapper>{auth ? <Outlet /> : <NotLogin />}</MainWrapper>;
 }
 
 export default FinancialLedgerPage;

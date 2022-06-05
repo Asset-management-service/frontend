@@ -12,8 +12,7 @@ import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 const StyledUserLinks = styled.ul`
   display: flex;
   align-items: center;
-  position: absolute;
-  right: 0;
+  z-index: 5;
 `;
 
 const StyledUserLink = styled.li`
@@ -46,7 +45,7 @@ const StyledUserLink = styled.li`
   }
 `;
 
-function UserLinks() {
+function UserLinks({ displaySubMenu, handleMouseLeave }) {
   const [show, setShow] = useState(false);
   const { auth } = useSelector(({ login }) => login);
   const dispatch = useDispatch();
@@ -65,9 +64,14 @@ function UserLinks() {
   return (
     <StyledUserLinks>
       {auth && (
-        <StyledUserLink>
-          <NavLink to="/mypage">마이페이지</NavLink>
-        </StyledUserLink>
+        <>
+          <StyledUserLink
+            onMouseOver={displaySubMenu}
+            onMouseLeave={handleMouseLeave}
+          >
+            <NavLink to="/mypage">마이페이지</NavLink>
+          </StyledUserLink>
+        </>
       )}
 
       <StyledUserLink>

@@ -1,21 +1,15 @@
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import logoImg from '../../../images/moamoa-logo-2.png';
+import styled from 'styled-components';
 
-const StyledLogo = styled.h1`
-  text-align: center;
-  transition: all 0.2s ease-in-out;
-  font-size: 45px;
-  font-weight: normal;
-  a {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-      sans-serif;
-  }
+const StyledLogo = styled(Link)`
+  z-index: 5;
 `;
-function Logo({ scroll }) {
+
+function Logo() {
   return (
-    <StyledLogo scroll={scroll}>
-      <Link to="/">Moa Moa</Link>
+    <StyledLogo to="/">
+      <img src={logoImg} alt="moamoa logo" />
     </StyledLogo>
   );
 }
