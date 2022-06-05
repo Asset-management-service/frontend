@@ -74,7 +74,6 @@ const history = (state = initialState, action) => {
         category: category === undefined ? state.category : category,
         price: price === undefined ? state.price : price,
         content: content === undefined ? state.content : content,
-        categoryType: content === undefined ? state.categoryType : categoryType,
         isEdit,
         id,
       };

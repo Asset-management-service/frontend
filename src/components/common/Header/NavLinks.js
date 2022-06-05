@@ -18,16 +18,24 @@ const StyledNavLink = styled.li`
   }
 `;
 
-function NavLinks() {
+function NavLinks({ displaySubMenu, handleMouseLeave }) {
   return (
-    <StyledNavLinks>
-      <StyledNavLink>
-        <NavLink to="/financial">가계부</NavLink>
-      </StyledNavLink>
-      <StyledNavLink>
-        <NavLink to="/community">커뮤니티</NavLink>
-      </StyledNavLink>
-    </StyledNavLinks>
+    <>
+      <StyledNavLinks>
+        <StyledNavLink
+          onMouseOver={displaySubMenu}
+          onMouseLeave={handleMouseLeave}
+        >
+          <NavLink to="/financial">가계부</NavLink>
+        </StyledNavLink>
+        <StyledNavLink
+          onMouseOver={displaySubMenu}
+          onMouseLeave={handleMouseLeave}
+        >
+          <NavLink to="/community">커뮤니티</NavLink>
+        </StyledNavLink>
+      </StyledNavLinks>
+    </>
   );
 }
 

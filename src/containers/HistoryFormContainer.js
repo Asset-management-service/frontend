@@ -64,7 +64,7 @@ function HistoryFormContainer() {
   useEffect(() => {
     if (history.revenueExpenditureType === 'REVENUE') {
       dispatch(setCategoryType('REVENUE'));
-    } else if (history.revenueExpenditureType === 'EXPENDITURE') {
+    } else {
       dispatch(setCategoryType('FIXED'));
     }
   }, [history.revenueExpenditureType]);
@@ -91,7 +91,6 @@ function HistoryFormContainer() {
     return () => {
       dispatch(
         setHistory({
-          categoryType: '',
           payment: '',
           category: '',
           price: '',

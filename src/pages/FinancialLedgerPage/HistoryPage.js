@@ -5,22 +5,16 @@ import HistoryMainContainer from '../../containers/HistoryMainContainer';
 const Section = styled.section`
   position: relative;
   display: flex;
-  margin: 0 !important;
-  overflow: hidden;
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 1000px;
   .plusBtn {
-    display: none;
-  }
-  @media screen and (max-width: 1400px) {
-    .plusBtn {
-      display: block;
-      position: fixed;
-      bottom: 3rem;
-      z-index: 2;
-      right: 1rem;
-      font-size: 40px;
-      cursor: pointer;
-      color: #40b2b7;
-    }
+    position: fixed;
+    bottom: 3rem;
+    z-index: 2;
+    right: 4rem;
+    font-size: 50px;
+    cursor: pointer;
   }
 `;
 function HistoryPage() {
