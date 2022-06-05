@@ -22,7 +22,7 @@ const LoginWrapper = styled.main`
   }
   .Home-logo {
     object-fit: cover;
-    height: 400px;
+    height: 350px;
     margin-bottom: 1rem;
   }
 `;

@@ -28,7 +28,7 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   margin: 0 auto;
   padding: 1rem;
-  width: 90vw;
+  width: 95vw;
   max-width: 1300px;
   height: 100%;
 `;
@@ -61,7 +61,7 @@ function Header({ loading }) {
     setOpenSubMenu(false);
   };
   const handleMouseLeave = () => {
-    timeout.current = setTimeout(() => setOpenSubMenu(false), 1000);
+    timeout.current = setTimeout(() => setOpenSubMenu(false), 2000);
   };
   const keepOpenSubMenu = () => {
     clearTimeout(timeout.current);
