@@ -4,22 +4,11 @@ import StatisticContainer from '../../containers/StatisticContainer';
 const Section = styled.section`
   display: flex;
   flex-direction: column;
-  padding-top: 2rem !important;
-  padding-right: 2rem !important;
   overflow-x: hidden;
-  margin-right: 0 !important;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #949494;
-    border-radius: 5px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #303030;
+  width: 90vw;
+  margin: 0 auto;
+  ::-webkit-scrollbar {
+    display: none;
   }
   .btns {
     align-self: flex-end;
