@@ -4,7 +4,7 @@ import { useRedirect } from '../../hooks/useRedirect';
 import styled from 'styled-components';
 
 const MainWrapper = styled.main`
-  padding-top: 9rem;
+  padding-top: 8rem;
   height: 100vh;
   width: 85vw;
   max-width: 1200px;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useRedirect } from '../../hooks/useRedirect';
 
 const MyPageWrapper = styled.main`
-  padding-top: 10rem;
+  padding-top: 8rem;
   display: flex;
   height: 100vh;
   width: 80vw;

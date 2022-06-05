@@ -15,7 +15,7 @@ import {
 import styled from 'styled-components';
 
 const MainWrapper = styled.main`
-  padding-top: 8rem;
+  padding-top: 7rem;
   height: 100vh;
   section {
     position: relative;
