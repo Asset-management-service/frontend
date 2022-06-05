@@ -15,7 +15,7 @@ function WeekStatistic({ onShare }) {
     const month = today.getMonth();
     let date;
     if (today.getDay() === 0) {
-      date = date - 6;
+      date = today.getDate() - 6;
     } else {
       date = today.getDate() - today.getDay() + 1;
     }
