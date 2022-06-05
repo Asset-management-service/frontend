@@ -9,6 +9,7 @@ const MyPageWrapper = styled.main`
   height: 100vh;
   width: 80vw;
   margin: 0 auto;
+  max-width: 1000px;
   section {
     flex-grow: 1;
     display: flex;
@@ -19,10 +20,6 @@ const MyPageWrapper = styled.main`
     .loadMore {
       opacity: 0;
     }
-  }
-  @media screen and (max-width: 1200px) {
-    padding-left: 0;
-    padding-top: 8rem;
   }
 `;
 
