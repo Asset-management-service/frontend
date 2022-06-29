@@ -50,35 +50,37 @@ function SetExpenseRatio({
           <p>{!variableRatio ? '--' : variableRatio + '%'}</p>
         </ContentPropsWrapper>
       </div>
-      <ModalWrapper show={show}>
-        <StyledModal>
-          <h1>지출 비율 설정</h1>
-          <b>고정비</b>
-          <InputBox
-            type="text"
-            name="fixRatio"
-            value={ratioInput ? ratioInput.fixRatio : ''}
-            onChange={onChangeExpenseRatio}
-          ></InputBox>
-          <b>%</b>
-          <br></br>
-          <b>변동비</b>
-          <InputBox
-            type="text"
-            name="variableRatio"
-            value={ratioInput ? ratioInput.variableRatio : ''}
-            onChange={onChangeExpenseRatio}
-          ></InputBox>
-          <b>%</b>
-          <ErrorMessageBox>
-            <span>{error ? errorMessage : ''}</span>
-          </ErrorMessageBox>
-          <ButtonBox>
-            <CancelButton onClick={closeRatioModalHandler}>취소</CancelButton>
-            <CheckButton onClick={onRatioSubmit}>확인</CheckButton>
-          </ButtonBox>
-        </StyledModal>
-      </ModalWrapper>
+      {show && (
+        <ModalWrapper>
+          <StyledModal>
+            <h1>지출 비율 설정</h1>
+            <b>고정비</b>
+            <InputBox
+              type="text"
+              name="fixRatio"
+              value={ratioInput ? ratioInput.fixRatio : ''}
+              onChange={onChangeExpenseRatio}
+            ></InputBox>
+            <b>%</b>
+            <br></br>
+            <b>변동비</b>
+            <InputBox
+              type="text"
+              name="variableRatio"
+              value={ratioInput ? ratioInput.variableRatio : ''}
+              onChange={onChangeExpenseRatio}
+            ></InputBox>
+            <b>%</b>
+            <ErrorMessageBox>
+              <span>{error ? errorMessage : ''}</span>
+            </ErrorMessageBox>
+            <ButtonBox>
+              <CancelButton onClick={closeRatioModalHandler}>취소</CancelButton>
+              <CheckButton onClick={onRatioSubmit}>확인</CheckButton>
+            </ButtonBox>
+          </StyledModal>
+        </ModalWrapper>
+      )}
     </SettingListContentWrapper>
   );
 }

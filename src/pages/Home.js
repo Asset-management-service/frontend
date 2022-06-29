@@ -1,5 +1,6 @@
 import { Button } from '../components/common/Button';
 import SocialLogin from '../components/Login/SocialLogin';
+import logoImg from '../images/moamoa-logo-1.png';
 import styled from 'styled-components';
 
 const LoginWrapper = styled.main`
@@ -9,28 +10,27 @@ const LoginWrapper = styled.main`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  height: 100vh;
+  height: 90vh;
   justify-content: center;
-  h1 {
-    font-size: 5rem;
-    margin-bottom: 2rem;
-    font-weight: normal;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-      sans-serif;
-  }
+  padding: 0;
   p {
     font-size: 20px;
   }
   a {
-    margin: 5rem 0;
+    margin: 3rem 0;
     font-size: 13px;
+  }
+  .Home-logo {
+    object-fit: cover;
+    height: 350px;
+    margin-bottom: 1rem;
   }
 `;
 
 function Home() {
   return (
     <LoginWrapper>
-      <h1>Moa Moa</h1>
+      <img src={logoImg} alt="moamoa logo" className="Home-logo" />
       <p>모아모아와 함께하는 새로운 자산관리✨</p>
       <Button to="/community" outlined={true} basiccolor="black">
         커뮤니티 보러가기

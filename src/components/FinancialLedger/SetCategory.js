@@ -6,7 +6,7 @@ import {
   SettingListContentWrapper,
   CategoryStyledModal,
 } from './StyledComponentInSetting';
-import { FINANCIAL_CATEGORY } from '../../constants/category';
+import { FINANCIAL_CATEGORY } from '../../constants';
 import styled from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
@@ -61,25 +61,27 @@ function SetCategory({ content, onRemove, handleSubmit, category }) {
     <SettingListContentWrapper>
       <p>{FINANCIAL_CATEGORY[content]}</p>
       <CreateChevronRightRoundedIcon onClick={openCategoryModalHandler} />
-      <ModalWrapper show={isOpen}>
-        <CategoryStyledModal>
-          <h1>{FINANCIAL_CATEGORY[content]}</h1>
-          <CreateCloseIcon
-            onClick={closeCategoryModalHandler}
-          ></CreateCloseIcon>
-          <AddCircleOutlinedIcon
-            onClick={openInputBoxHandler}
-            className={isClicked ? 'blind addIcon' : 'addIcon'}
-          />
-          <CategoryList items={category[content]} onRemove={onRemove} />
-          <CategoryListWrapper show={isClicked}>
-            <InsertCategory
-              onSubmit={handleSubmit}
-              onClose={closeInputBoxHandler}
-            ></InsertCategory>
-          </CategoryListWrapper>
-        </CategoryStyledModal>
-      </ModalWrapper>
+      {isOpen && (
+        <ModalWrapper>
+          <CategoryStyledModal>
+            <h1>{FINANCIAL_CATEGORY[content]}</h1>
+            <CreateCloseIcon
+              onClick={closeCategoryModalHandler}
+            ></CreateCloseIcon>
+            <AddCircleOutlinedIcon
+              onClick={openInputBoxHandler}
+              className={isClicked ? 'blind addIcon' : 'addIcon'}
+            />
+            <CategoryList items={category[content]} onRemove={onRemove} />
+            <CategoryListWrapper show={isClicked}>
+              <InsertCategory
+                onSubmit={handleSubmit}
+                onClose={closeInputBoxHandler}
+              ></InsertCategory>
+            </CategoryListWrapper>
+          </CategoryStyledModal>
+        </ModalWrapper>
+      )}
     </SettingListContentWrapper>
   );
 }

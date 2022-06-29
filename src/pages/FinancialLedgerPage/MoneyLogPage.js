@@ -7,18 +7,21 @@ import styled from 'styled-components';
 const Section = styled.section`
   display: flex;
   padding: 0.5rem;
-  padding-left: 270px;
   overflow: hidden;
+  min-height: 70vh;
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 1200px;
   .MoneyLogPage-row {
     display: flex;
     flex-direction: column;
   }
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1000px) {
     flex-direction: column;
     .MoneyLogPage-row {
       display: flex;
       flex-direction: row;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
     }
   }
 `;

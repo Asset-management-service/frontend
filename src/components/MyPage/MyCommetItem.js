@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import DoubleCheckModal from '../common/DoubleCheckModal';
-import { COMMUNITY_CATEGORY } from '../../constants/community';
+import { COMMUNITY_CATEGORY } from '../../constants';
 import { deleteComment } from '../../lib/api/comment';
 import styled from 'styled-components';
 
 const CommentItem = styled.li`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 1.5rem 1rem;
@@ -95,13 +96,14 @@ function MyCommentItem({ comment }) {
           </button>
         </CommentItemColumn>
       </CommentItem>
-      <DoubleCheckModal
-        show={show}
-        text={disabled ? '댓글 삭제하는 중...' : '댓글을 삭제하시겠습니까?'}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        disabled={disabled}
-      />
+      {show && (
+        <DoubleCheckModal
+          text={disabled ? '댓글 삭제하는 중...' : '댓글을 삭제하시겠습니까?'}
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+          disabled={disabled}
+        />
+      )}
     </>
   );
 }

@@ -43,24 +43,28 @@ function SetMonthlyBudget({
         한달 예산 금액
         <p>{!budgetAmount ? '--' : '₩ ' + budgetAmount.toLocaleString()}</p>
       </ContentPropsWrapper>
-      <ModalWrapper show={show}>
-        <StyledModal>
-          <h1>한달 예산 금액</h1>
-          <InputBox
-            type="text"
-            className="budget"
-            value={budgetInput}
-            onChange={onBudgetChange}
-          ></InputBox>
-          <ErrorMessageBox>
-            <span>{error ? errorMessage : ''}</span>
-          </ErrorMessageBox>
-          <ButtonBox>
-            <CancelButton onClick={closeBudgetModalHandler}>취소</CancelButton>
-            <CheckButton onClick={onBudgetSubmit}>확인</CheckButton>
-          </ButtonBox>
-        </StyledModal>
-      </ModalWrapper>
+      {show && (
+        <ModalWrapper>
+          <StyledModal>
+            <h1>한달 예산 금액</h1>
+            <InputBox
+              type="text"
+              className="budget"
+              value={budgetInput}
+              onChange={onBudgetChange}
+            ></InputBox>
+            <ErrorMessageBox>
+              <span>{error ? errorMessage : ''}</span>
+            </ErrorMessageBox>
+            <ButtonBox>
+              <CancelButton onClick={closeBudgetModalHandler}>
+                취소
+              </CancelButton>
+              <CheckButton onClick={onBudgetSubmit}>확인</CheckButton>
+            </ButtonBox>
+          </StyledModal>
+        </ModalWrapper>
+      )}
     </SettingListContentWrapper>
   );
 }

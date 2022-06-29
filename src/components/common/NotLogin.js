@@ -27,16 +27,24 @@ export function NotLogin() {
 
 export function NotLoginModal({ show, onClose }) {
   return (
-    <ModalWrapper show={show}>
-      <StyledModal>
-        <NotLoginWrapper modal="modal">
-          <CheckCircleIcon className="NotLogin-icon" />
-          <p>로그인이 필요한 서비스입니다</p>
-          <button type="button" className="Modal-close-btn" onClick={onClose}>
-            <CloseRoundedIcon />
-          </button>
-        </NotLoginWrapper>
-      </StyledModal>
-    </ModalWrapper>
+    <>
+      {show && (
+        <ModalWrapper>
+          <StyledModal>
+            <NotLoginWrapper modal="modal">
+              <CheckCircleIcon className="NotLogin-icon" />
+              <p>로그인이 필요한 서비스입니다</p>
+              <button
+                type="button"
+                className="Modal-close-btn"
+                onClick={onClose}
+              >
+                <CloseRoundedIcon />
+              </button>
+            </NotLoginWrapper>
+          </StyledModal>
+        </ModalWrapper>
+      )}
+    </>
   );
 }

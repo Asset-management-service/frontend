@@ -6,9 +6,9 @@ export const ModalWrapper = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 5;
+  z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
-  display: ${({ show }) => (show ? 'flex' : 'none')};
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
@@ -33,6 +33,7 @@ export const StyledModal = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
+    cursor: pointer;
     svg {
       font-size: 30px;
     }
@@ -60,7 +61,7 @@ export const ButtonBox = styled.div`
   margin-top: 3rem;
   button {
     margin: 0 1rem;
-    font-size: 20px;
+    font-size: 15px;
     width: 100px;
     color: black;
   }

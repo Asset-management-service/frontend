@@ -1,7 +1,6 @@
 import EditorContainer from '../../containers/EditorContainer';
 import WriteActionButtons from '../../components/common/WriteActionButtons';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 
 const StyledForm = styled.form`
   display: flex;
@@ -13,6 +12,9 @@ const StyledForm = styled.form`
   }
   button {
     margin: 0.5rem;
+  }
+  @media screen and (max-width: 1000px) {
+    margin-left: 0;
   }
 `;
 function MoneyLogForm({ onCancel, isEdit, onSubmit }) {

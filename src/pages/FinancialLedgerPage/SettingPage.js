@@ -8,7 +8,8 @@ import ExpenseContainer from '../../containers/ExpenseContainer';
 import styled from 'styled-components';
 
 const Section = styled.section`
-  margin: 2rem 6rem !important;
+  margin: 0 auto;
+  width: 50vw;
 `;
 
 function SettingPage() {

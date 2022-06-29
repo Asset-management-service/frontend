@@ -88,8 +88,10 @@ function PostItem({ post }) {
           <StyledDiv onClick={showModal}>
             <div>
               <div className="PostItem-title">
-                <h3>{post.title}</h3>
-                <span>[{post.commentCount}]</span>
+                <h3 className="PostItem-title">
+                  {post.title}
+                  <span>[{post.commentCount}]</span>
+                </h3>
               </div>
               <p className="PostItem-content">{post.content}</p>
             </div>

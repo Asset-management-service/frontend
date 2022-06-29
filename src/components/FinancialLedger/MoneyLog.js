@@ -49,7 +49,7 @@ const MoneyLogWrapper = styled.div`
         margin-top: 1rem;
       }
     `}
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1000px) {
     margin-left: 0;
   }
 `;

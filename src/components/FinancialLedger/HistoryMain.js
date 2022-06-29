@@ -5,12 +5,9 @@ import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
 const HistoryMainWrapper = styled.div`
-  flex-grow: 1;
-  overflow-y: scroll;
+  width: 100%;
   font-size: 17px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  min-height: 80vh;
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -39,24 +36,22 @@ const HistoryMainWrapper = styled.div`
 
 const HistoryMainHeading = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 3rem;
-  .Heading-column {
+  .Heading-row {
     display: flex;
     align-items: center;
+    margin-bottom: 2rem;
   }
   h2 {
     font-size: 25px;
-    margin-right: 1rem;
+    margin: 0 1rem;
   }
   svg {
     font-size: 30px;
     margin-top: 0.4rem;
-  }
-  @media screen and (max-width: 1400px) {
-    flex-direction: column;
-    align-items: flex-start;
   }
 `;
 
@@ -64,7 +59,7 @@ const SummaryBox = styled.div`
   padding: 0.5rem 1.5rem;
   border-radius: 10px;
   font-weight: bold;
-  margin-left: 1rem;
+  margin: 0 1rem;
   border: 2px solid black;
   &.plus {
     border-color: #42a5f5;
@@ -73,9 +68,6 @@ const SummaryBox = styled.div`
   &.minus {
     border-color: #fd5959;
     color: #ff0000;
-  }
-  @media screen and (max-width: 1400px) {
-    margin: 1rem 1rem 0 0;
   }
 `;
 function HistoryMain({
@@ -94,28 +86,26 @@ function HistoryMain({
       ) : (
         <>
           <HistoryMainHeading>
-            <div className="Heading-column">
+            <div className="Heading-row">
+              <button onClick={onMovePrev}>
+                <ChevronLeftRoundedIcon />
+              </button>
               <h2>
                 {year}년 {month + 1}월
               </h2>
-              <div>
-                <button onClick={onMovePrev}>
-                  <ChevronLeftRoundedIcon />
-                </button>
-                <button onClick={onMoveNext}>
-                  <ChevronRightRoundedIcon />
-                </button>
-              </div>
+              <button onClick={onMoveNext}>
+                <ChevronRightRoundedIcon />
+              </button>
             </div>
-            <div className="Heading-column">
+            <div className="Heading-row">
               <SummaryBox>
-                예산 {data.remainingBudget.toLocaleString()}원
+                💸 예산 {data.remainingBudget.toLocaleString()}원
               </SummaryBox>
               <SummaryBox className="plus">
-                수익 {data.totalRevenue.toLocaleString()}원
+                😊 수익 {data.totalRevenue.toLocaleString()}원
               </SummaryBox>
               <SummaryBox className="minus">
-                지출 {data.totalExpenditure.toLocaleString()}원
+                🤑 지출 {data.totalExpenditure.toLocaleString()}원
               </SummaryBox>
             </div>
           </HistoryMainHeading>

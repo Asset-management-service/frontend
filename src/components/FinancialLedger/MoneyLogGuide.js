@@ -35,7 +35,7 @@ const GuideWrapper = styled.div`
     justify-content: center;
     opacity: 0.5;
   }
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1000px) {
     margin: 0 0 0 2rem;
   }
 `;

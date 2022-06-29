@@ -16,7 +16,7 @@ function CategoryContainer({ content }) {
     () => postSettingCategory(content, category.categoryInput),
     {
       onSuccess: (data) => {
-        dispatch(insertCategory(content, data.categoryName));
+        dispatch(insertCategory(content, data.categoryId));
         dispatch(changeInput(''));
       },
     },

@@ -1,5 +1,4 @@
-import { useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Editor } from '../components/common/Editor';
 import { changeField, uploadImage, removeImage } from '../modules/post';
 
