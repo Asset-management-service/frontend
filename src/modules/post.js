@@ -11,10 +11,9 @@ export const changeField = (name, value) => ({
   value,
 });
 
-export const uploadImage = (file, key) => ({
+export const uploadImage = (file) => ({
   type: UPLOAD_IMAGE,
   file,
-  key,
 });
 
 export const removeImage = (id) => ({
@@ -88,7 +87,6 @@ const post = (state = initialState, action) => {
         title: '',
         postId: null,
         saveImageUrl: [],
-        imageFiles: [],
         moneyLogImages: state.saveImageUrl,
         nextId: state.saveImageUrl.length + 1,
       };

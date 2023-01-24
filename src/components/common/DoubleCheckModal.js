@@ -13,9 +13,9 @@ const Modal = styled(StyledModal)`
     width: 70px;
   }
 `;
-function DoubleCheckModal({ text, show, onCancel, onSubmit, disabled }) {
+function DoubleCheckModal({ text, onCancel, onSubmit, disabled }) {
   return (
-    <ModalWrapper show={show}>
+    <ModalWrapper>
       <Modal>
         <p>{text}</p>
         <ButtonBox>

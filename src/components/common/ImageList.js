@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
 const StyledImageList = styled.ul`
-  img {
-    max-width: 45vw;
-    object-fit: cover;
+  display: flex;
+  flex-direction: column;
+  li {
+    max-width: 900px;
     margin: 1rem 0 2rem;
+  }
+  img {
+    width: 100%;
+    object-fit: cover;
   }
 `;
 function ImageList({ images }) {

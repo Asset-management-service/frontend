@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef } from 'react';
-import { useInfiniteQuery, useMutation } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import Loading from '../common/Loading';
 import MyPostItem from './MyPostItem';
 import MyCommentItem from './MyCommetItem';
@@ -9,11 +9,7 @@ import styled from 'styled-components';
 
 const StyledPostList = styled.ul`
   margin-top: 2rem;
-  padding-right: 1rem;
-  .NoList {
-    margin-right: 15rem;
-    margin-top: 15rem;
-  }
+  flex-grow: 1;
 `;
 
 function MyPostList({ category }) {

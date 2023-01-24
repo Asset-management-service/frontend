@@ -3,7 +3,7 @@ import HistoryMainItem from './HistoryMainItem';
 import styled from 'styled-components';
 
 const HistoryItem = styled.li`
-  border: 1px solid #f5f5f5;
+  border: 1px solid lightgray;
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 2rem;
@@ -23,7 +23,7 @@ const ItemHeading = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-function HistoryMainList({ history }) {
+function HistoryMainList({ history, onClick }) {
   const [total, setTotal] = useState({
     plus: 0,
     minus: 0,
@@ -74,6 +74,7 @@ function HistoryMainList({ history }) {
           item={item}
           key={item.revenueExpenditureId}
           date={Number(dateSplit[2])}
+          onClick={onClick}
         />
       ))}
     </HistoryItem>

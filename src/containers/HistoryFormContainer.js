@@ -3,9 +3,15 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import HistoryForm from '../components/FinancialLedger/HistoryForm';
 import { editHistory, postHistory } from '../lib/api/history';
-import { changeInput, setHistory } from '../modules/history';
+import { initialize } from '../modules/calender';
+import {
+  changeInput,
+  setCategoryType,
+  setHistory,
+  setShow,
+} from '../modules/history';
 
-function HistoryFormContainer({ onClose }) {
+function HistoryFormContainer() {
   const { year, month, date } = useSelector(
     ({ calender }) => calender.selected,
   );
@@ -16,16 +22,17 @@ function HistoryFormContainer({ onClose }) {
   const [categories, setCategories] = useState([]);
   const [payments, setPayments] = useState([]);
   const postMutation = useMutation(
-    (type) =>
+    () =>
       postHistory(
         history.category,
+        history.categoryType,
         history.content,
         Number(history.price),
         history.payment,
         year,
         month + 1,
         date,
-        type,
+        history.revenueExpenditureType,
       ),
     {
       onSuccess: () => {
@@ -34,16 +41,17 @@ function HistoryFormContainer({ onClose }) {
     },
   );
   const editMutation = useMutation(
-    (type) =>
+    () =>
       editHistory(
         history.category,
+        history.categoryType,
         history.content,
         Number(history.price),
         year,
         month + 1,
         date,
         history.payment,
-        type,
+        history.revenueExpenditureType,
         history.id,
       ),
     {
@@ -54,20 +62,26 @@ function HistoryFormContainer({ onClose }) {
   );
 
   useEffect(() => {
-    if (history.type === 'income') {
+    if (history.revenueExpenditureType === 'REVENUE') {
+      dispatch(setCategoryType('REVENUE'));
+    } else {
+      dispatch(setCategoryType('FIXED'));
+    }
+  }, [history.revenueExpenditureType]);
+
+  useEffect(() => {
+    if (history.categoryType === 'REVENUE') {
       setCategories(
         category['REVENUE'].map((category) => category.categoryName),
       );
-    } else if (history.type === 'expenditure') {
+    } else if (history.categoryType === 'FIXED') {
+      setCategories(category['FIXED'].map((category) => category.categoryName));
+    } else if (history.categoryType === 'VARIABLE') {
       setCategories(
-        category['FIXED']
-          .map((category) => category.categoryName)
-          .concat(
-            category['VARIABLE'].map((category) => category.categoryName),
-          ),
+        category['VARIABLE'].map((category) => category.categoryName),
       );
     }
-  }, [history.type, category]);
+  }, [history.categoryType, category]);
 
   useEffect(() => {
     setPayments(category['PAYMENT'].map((category) => category.categoryName));
@@ -85,8 +99,17 @@ function HistoryFormContainer({ onClose }) {
           id: null,
         }),
       );
+      dispatch(initialize());
     };
   }, []);
+
+  useEffect(() => {
+    console.log(history);
+  }, [history]);
+
+  const onOpen = () => {
+    dispatch(setShow(true));
+  };
   const onChange = (e) => {
     dispatch(changeInput(e.target.name, e.target.value));
   };
@@ -94,6 +117,7 @@ function HistoryFormContainer({ onClose }) {
     e.preventDefault();
     dispatch(
       setHistory({
+        categoryType: '',
         payment: '',
         category: '',
         price: '',
@@ -102,24 +126,22 @@ function HistoryFormContainer({ onClose }) {
         id: null,
       }),
     );
-    onClose();
+    dispatch(initialize());
+    dispatch(setShow(false));
   };
   const onSubmit = (e) => {
     e.preventDefault();
     if (isNaN(Number(history.price))) return;
-    if (history.category === '' || history.content === '') return;
+    if (
+      history.category === '' ||
+      history.content === '' ||
+      history.categoryType === ''
+    )
+      return;
     if (history.isEdit) {
-      if (history.type == 'income') {
-        editMutation.mutate('REVENUE');
-      } else {
-        editMutation.mutate('EXPENDITURE');
-      }
+      editMutation.mutate();
     } else {
-      if (history.type == 'income') {
-        postMutation.mutate('REVENUE');
-      } else {
-        postMutation.mutate('EXPENDITURE');
-      }
+      postMutation.mutate();
     }
     dispatch(
       setHistory({
@@ -131,7 +153,7 @@ function HistoryFormContainer({ onClose }) {
         id: null,
       }),
     );
-    onClose();
+    dispatch(setShow(false));
   };
 
   return (
@@ -142,7 +164,8 @@ function HistoryFormContainer({ onClose }) {
       onSubmit={onSubmit}
       categories={categories}
       payments={payments}
-      onClose={onClose}
+      show={history.show}
+      onOpen={onOpen}
     />
   );
 }

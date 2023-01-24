@@ -18,7 +18,7 @@ function PostDetailContainer({ id, category }) {
   const deleteMutation = useMutation(() => deletePost(id), {
     onSuccess: () => {
       navigate(`/community/${category}`, { replace: true });
-      queryClient.useQueryClient(['recentPosts', category]);
+      queryClient.refetchQueries(['recentPosts', category]);
     },
   });
   const scrapMutation = useMutation(() => scrapPost(id), {
@@ -83,12 +83,13 @@ function PostDetailContainer({ id, category }) {
         onLike={() => setLike(!like)}
         onScrap={onScrap}
       />
-      <DoubleCheckModal
-        text="게시물을 삭제하시겠습니까?"
-        show={show}
-        onCancel={() => setShow(false)}
-        onSubmit={onDelete}
-      />
+      {show && (
+        <DoubleCheckModal
+          text="게시물을 삭제하시겠습니까?"
+          onCancel={() => setShow(false)}
+          onSubmit={onDelete}
+        />
+      )}
     </>
   );
 }

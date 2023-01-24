@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CommentList from './CommentList';
 import PostDropMenu from './PostDropMenu';
 import ImageList from '../common/ImageList';

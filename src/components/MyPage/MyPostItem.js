@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
-import { COMMUNITY_CATEGORY } from '../../constants/community';
+import { COMMUNITY_CATEGORY } from '../../constants';
 import { deletePost, scrapPost } from '../../lib/api/post';
 import styled from 'styled-components';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -9,18 +9,22 @@ const PostItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 2rem;
   font-size: 17px;
   border-bottom: 1px solid lightgray;
+  width: 100%;
   .post-column {
     display: flex;
     align-items: center;
     &:last-child {
       display: grid;
-      grid-template-columns: 3fr 1fr 1fr;
+      grid-template-columns: 4fr 2fr 2fr;
       gap: 0rem 1rem;
       text-align: right;
     }
+  }
+  h3 {
+    display: inline-block;
   }
   .post-category {
     opacity: 0.5;
@@ -32,7 +36,6 @@ const PostItem = styled.li`
   }
   .post-commentNum {
     color: red;
-    margin-left: 7px;
   }
   .post-views,
   .post-date {
@@ -47,6 +50,23 @@ const PostItem = styled.li`
   }
   .removeBtn {
     text-decoration: underline;
+  }
+
+  @media screen and (max-width: 1400px) {
+    .post-column {
+      &:first-child {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    .post-category {
+      font-size: 15px;
+      margin-bottom: 5px;
+      width: auto;
+    }
+    .post-date {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -77,15 +97,13 @@ function MyPostItem({ post, category }) {
         <span className="post-category">
           {COMMUNITY_CATEGORY[post.categoryName]}
         </span>
-        <div className="post-heading">
-          <Link to={to}>
-            <h3>{post.title}</h3>
-          </Link>
+        <Link to={to}>
+          <h3>{post.title}</h3>{' '}
           <span className="post-commentNum">[{post.commentNum}]</span>
-        </div>
+        </Link>
       </div>
       <div className="post-column">
-        <span className="post-date">{post.localDateTime}</span>
+        <span className="post-date">{post.localDateTime.split(' ')[0]}</span>
         <span className="post-views">
           <VisibilityOutlinedIcon className="view-icon" />
           {post.viewCount}
